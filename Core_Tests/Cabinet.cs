@@ -56,13 +56,11 @@ namespace Core_Tests
             Back = back;
         }
 
-        public void AddHorizontalBarrier(int number,int barrier = 0)
+        public void AddHorizontalBarrier(int number,int barrier = 0, int back=0)
         {
             int tempHeight;
-
-           
-
-            var tempDepth = Depth;
+            
+            int tempDepth = Depth - back;
 
             int tempEy;
 
@@ -103,20 +101,6 @@ namespace Core_Tests
             tempEy = (Height - CabinetElements.First(x => x.EName == "bottom").EHeight - CabinetElements.First(x => x.EName == "top").EHeight
                       - number*Size) / (number+1);
 
-
-
-
-            //if (HorizontalBarrier.Count > 0)
-            //{
-            //    tempEy = HorizontalBarrier.Last().Ey + Size;
-            //}
-            //else
-            //{
-            //    tempEy = ((Height - CabinetElements.First(x => x.EName == "bottom").EHeight -
-            //                  CabinetElements.First(x => x.EName == "top").EHeight) / 2 - (Size / 2));
-            //}
-
-
             for (var i = 0; i < number; i++)
             {
                 var element = new Element
@@ -132,10 +116,33 @@ namespace Core_Tests
 
                 
             }
-
             
+        }
 
-           
+        public void AddVerticalBarrier(int number, int barrier = 0, int back = 0)
+        {
+            int tempHeight= Height - CabinetElements.First(x => x.EName == "bottom").EHeight - CabinetElements.First(x => x.EName == "top").EHeight;
+
+            int tempWidth = Size;
+
+            int tempDepth = Depth - back;
+
+            int tempEy= CabinetElements.First(x => x.EName == "bottom").EHeight;
+
+            int tempEx = (Width - CabinetElements.First(x => x.EName == "leftside").EWidth -
+                         CabinetElements.First(x => x.EName == "rightside").EWidth-number * Size)/(number+1);
+            for (int i = 0; i < number; i++)
+            {
+                var element = new Element
+                {
+                    EHeight = tempHeight,
+                    EWidth = tempWidth,
+                    EDepth = tempDepth,
+                    Ex = CabinetElements.First(x => x.EName == "leftside").EWidth+tempEx*(i+1)+Size*i,
+                    Ey = tempEy
+                };
+                VerticalBarrier.Add(element);
+            }
         }
     }
 

@@ -62,7 +62,9 @@
     <Compile Include="CabinetTests.cs" />
     <Compile Include="DrawerTests.cs" />
     <Compile Include="FrontTests.cs" />
+    <Compile Include="HorizontalBarrierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerticalBarrierTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
