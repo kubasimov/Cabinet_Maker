@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Collections.Generic;
+using Core;
 using Xunit;
 
 namespace Core_Tests
@@ -138,7 +139,16 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            cabinet.AddHorizontalBarrier(2, back: 10);
+            cabinet.AddHorizontalBarrier(1,height:new List<int>{250});
+
+
+            Assert.Single(cabinet.HorizontalBarrier);
+
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
+            Assert.Equal(268, cabinet.HorizontalBarrier[0].Ey);
         }
 
         /// <summary>
@@ -186,7 +196,7 @@ namespace Core_Tests
         }
 
         /// <summary>
-        /// dodanie najpierw dwoch pionowych barier a potem poziomej do pierwszej kolumny
+        /// Dodanie najpierw dwoch pionowych barier a potem poziomej do pierwszej kolumny
         /// </summary>
         [Fact]
         public void Add_two_vertical_barrier_first_and_a_horizontal_to_the_first()
@@ -208,7 +218,7 @@ namespace Core_Tests
         }
 
         /// <summary>
-        /// dodanie najpierw dwoch pionowych barier a potem poziomej do trzeciej - ostatniej - kolumny
+        /// Dodanie najpierw dwoch pionowych barier a potem poziomej do trzeciej - ostatniej - kolumny
         /// </summary>
         [Fact]
         public void Add_two_vertical_barrier_first_and_a_horizontal_to_the_third()
@@ -230,7 +240,7 @@ namespace Core_Tests
         }
 
         /// <summary>
-        /// dodanie najpierw dwoch pionowych barier a potem poziomej do drugiej - srodkowej - kolumny
+        /// Dodanie najpierw dwoch pionowych barier a potem poziomej do drugiej - srodkowej - kolumny
         /// </summary>
         [Fact]
         public void Add_two_vertical_barrier_first_and_a_horizontal_to_the_second()
@@ -248,6 +258,94 @@ namespace Core_Tests
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(212, cabinet.HorizontalBarrier[0].Ex);
+            Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
+        }
+
+        /// <summary>
+        /// Dodanie najpierw trzech pionowych barier a potem poziomej do pierwszej kolumny
+        /// </summary>
+        [Fact]
+        public void Add_three_vertical_barrier_first_and_a_horizontal_to_the_first()
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.AddVerticalBarrier(3);
+
+            Assert.Equal(3, cabinet.VerticalBarrier.Count);
+
+            cabinet.AddHorizontalBarrier(1);
+
+            Assert.Single(cabinet.HorizontalBarrier);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
+            Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
+        }
+
+        /// <summary>
+        /// Dodanie najpierw trzech pionowych barier a potem poziomej do czwartej - ostatniej - kolumny
+        /// </summary>
+        [Fact]
+        public void Add_three_vertical_barrier_first_and_a_horizontal_to_the_four()
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.AddVerticalBarrier(3);
+
+            Assert.Equal(3, cabinet.VerticalBarrier.Count);
+
+            cabinet.AddHorizontalBarrier(1,3);
+
+            Assert.Single(cabinet.HorizontalBarrier);
+            Assert.Equal(129, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(453, cabinet.HorizontalBarrier[0].Ex);
+            Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
+        }
+
+        /// <summary>
+        /// Dodanie najpierw trzech pionowych barier a potem poziomej do drugiej - srodkowej - kolumny
+        /// </summary>
+        [Fact]
+        public void Add_three_vertical_barrier_first_and_a_horizontal_to_the_second()
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.AddVerticalBarrier(3);
+
+            Assert.Equal(3, cabinet.VerticalBarrier.Count);
+
+            cabinet.AddHorizontalBarrier(1,1);
+
+            Assert.Single(cabinet.HorizontalBarrier);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(163, cabinet.HorizontalBarrier[0].Ex);
+            Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
+        }
+
+        /// <summary>
+        /// Dodanie najpierw trzech pionowych barier a potem poziomej do trzeciej - srodkowej - kolumny
+        /// </summary>
+        [Fact]
+        public void Add_three_vertical_barrier_first_and_a_horizontal_to_the_third()
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.AddVerticalBarrier(3);
+
+            Assert.Equal(3, cabinet.VerticalBarrier.Count);
+
+            cabinet.AddHorizontalBarrier(1, 2);
+
+            Assert.Single(cabinet.HorizontalBarrier);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(308, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
     }

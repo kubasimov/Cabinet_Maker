@@ -96,7 +96,7 @@ namespace Core
         /// <param name="number">Ilosc dodawanych przegrod</param>
         /// <param name="barrier">numer rzedu do wstawienia przegrody - domyslnie 0</param>
         /// <param name="back">wielkosc odsuniecia od przodu wstawianej przegrody</param>
-        public void AddHorizontalBarrier(int number,int barrier = 0, int back=0)
+        public void AddHorizontalBarrier(int number, int barrier = 0, int back=0, List<int> height = default(List<int>))
         {
             int tempHeight;
             
@@ -141,25 +141,33 @@ namespace Core
 
             //polozenie elementu na osi y
 
-            tempEy = (Height - CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
+            if (height==null)
+            {
+                tempEy = (Height - CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
                       - number*SizeElement) / (number+1);
 
-            for (var i = 0; i < number; i++)
-            {
-                var element = new Element
+                for (var i = 0; i < number; i++)
                 {
-                    EHeight = tempHeight,
-                    EWidth = tempWidth,
-                    EDepth = tempDepth,
-                    Ex = tempEx,
-                    Ey = CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight + tempEy * (i+1)  + SizeElement*i,
-                    EName=EnumCabinetElement.HorizontalBarrier
-                };
+                    var element = new Element
+                    {
+                        EHeight = tempHeight,
+                        EWidth = tempWidth,
+                        EDepth = tempDepth,
+                        Ex = tempEx,
+                        Ey = CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight + tempEy * (i+1)  + SizeElement*i,
+                        EName=EnumCabinetElement.HorizontalBarrier
+                    };
 
-                HorizontalBarrier.Add(element);
+                    HorizontalBarrier.Add(element);
 
+                    
+                }
+            }
+            else
+            {
                 
             }
+            
             
         }
 
@@ -189,6 +197,8 @@ namespace Core
                 VerticalBarrier.Add(element);
             }
         }
+
+        
     }
 }
      
