@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Core;
+using Xunit;
 
 namespace Core_Tests
 {
@@ -52,6 +53,15 @@ namespace Core_Tests
         [Fact]
         public void Add_shallwo_vertical_barrier_to_default_cabinet()
         {
+            var cabinet = new Cabinet();
+
+            cabinet.AddVerticalBarrier(1,back:5);
+            Assert.Single(cabinet.VerticalBarrier);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
+            Assert.Equal(505, cabinet.VerticalBarrier[0].EDepth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].EHeight);
+            Assert.Equal(291, cabinet.VerticalBarrier[0].Ex);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Ey);
 
         }
 
@@ -61,7 +71,22 @@ namespace Core_Tests
         [Fact]
         public void Add_2_shallow_barrier_to_default_cabinet()
         {
+            var cabinet = new Cabinet();
 
+            cabinet.AddVerticalBarrier(2,back:5);
+
+            Assert.Equal(2, cabinet.VerticalBarrier.Count);
+
+            Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
+            Assert.Equal(505, cabinet.VerticalBarrier[0].EDepth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].EHeight);
+            Assert.Equal(194, cabinet.VerticalBarrier[0].Ex);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Ey);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].EWidth);
+            Assert.Equal(505, cabinet.VerticalBarrier[1].EDepth);
+            Assert.Equal(684, cabinet.VerticalBarrier[1].EHeight);
+            Assert.Equal(388, cabinet.VerticalBarrier[1].Ex);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].Ey);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Core;
+using Xunit;
 
 namespace Core_Tests
 {
@@ -16,7 +17,7 @@ namespace Core_Tests
             Assert.Equal(720, cabinet.Height);
             Assert.Equal(600,cabinet.Width);
             Assert.Equal(510,cabinet.Depth);
-            Assert.Equal(18,cabinet.Size);
+            Assert.Equal(18,cabinet.SizeElement);
             Assert.Equal(3,cabinet.BackSize);
         }
 
@@ -24,7 +25,7 @@ namespace Core_Tests
         /// Utworzenie szafki o wymiarach (w x s x g) 300 x 600 x 250   
         /// </summary>
         [Fact]
-        public void Create_cabinet()
+        public void Create_cabinet_for_the_dimensions()
         {
             var cabinet = new Cabinet(300,600,250);
 
@@ -38,7 +39,7 @@ namespace Core_Tests
         /// utworzenie wzorcowej szafki i zmiana parametrow
         /// </summary>
         [Fact]
-        public void Create_default_cabinet_and_change_height()
+        public void Create_default_cabinet_and_change_dimensions()
         {
             var cabinet=new Cabinet();
             Assert.Equal(720,cabinet.Height);
@@ -63,7 +64,7 @@ namespace Core_Tests
 
             cabinet.AddBack();
 
-            Assert.Equal(Back.Imposed,cabinet.Back);
+            Assert.Equal(EnumBack.Nakladane,cabinet.Back);
         }
 
         /// <summary>
@@ -74,9 +75,9 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            cabinet.AddBack(Back.Mortice);
+            cabinet.AddBack(EnumBack.Wpuszczane);
 
-            Assert.Equal(Back.Mortice, cabinet.Back);
+            Assert.Equal(EnumBack.Wpuszczane, cabinet.Back);
         }
     }
 }
