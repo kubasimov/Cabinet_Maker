@@ -11,24 +11,10 @@ using NLog;
 
 namespace WPF.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        Cabinet cabinet = new Cabinet();
+        Cabinet cabinet = new Cabinet(back:EnumBack.Nakladane);
+        
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -39,10 +25,8 @@ namespace WPF.ViewModel
 
                 //_model3D = CreateContent2();
                 _model3D = CreateCabinet();
-
                 RaisePropertyChanged(MyModel3DPropertyName);
-
-                _myLight = CreateContent1();
+                _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
             }
@@ -51,48 +35,12 @@ namespace WPF.ViewModel
                 //_model3D = CreateContent2();
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
-                _myLight = CreateContent1();
+                _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
             }
         }
 
-
-        private Model3D CreateContent1()
-
-        {
-
-            DirectionalLight myDirectionalLight = new DirectionalLight();
-
-            myDirectionalLight.Color = Colors.White;
-
-            myDirectionalLight.Direction = new Vector3D(-5, -5, -5);
-
-            return myDirectionalLight;
-
-        }
-
-        private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y, double z)
-        {
-            Point3DCollection myPositionCollection = new Point3DCollection();
-            myPositionCollection.Add(new Point3D(x, y, z));
-
-            myPositionCollection.Add(new Point3D(x + szer, y, z));
-
-            myPositionCollection.Add(new Point3D(x, y + wys, z));
-
-            myPositionCollection.Add(new Point3D(x + szer, y + wys, z));
-
-            myPositionCollection.Add(new Point3D(x, y, z+gl));
-
-            myPositionCollection.Add(new Point3D(x + szer, y, z + gl));
-
-            myPositionCollection.Add(new Point3D(x, y + wys, z + gl));
-
-            myPositionCollection.Add(new Point3D(x + szer, y + wys, z + gl));
-
-            return myPositionCollection;
-        }
 
         private Model3D CreateCabinet()
         {
@@ -122,9 +70,49 @@ namespace WPF.ViewModel
 
             }
 
+            cabinet.AddHorizontalBarrier(2);
 
+            for (int i = 0; i < cabinet.HorizontalBarrier.Count; i++)
+            {
+                var element = cabinet.HorizontalBarrier[i];
 
+                Element3D element1 = new Element3D
+                {
+                    EWidth = (double)element.EWidth / 100,
+                    EHeight = (double)element.EHeight / 100,
+                    EDepth = (double)element.EDepth / 100,
+                    EName = element.EName,
+                    Ex = (double)element.Ex / 100,
+                    Ey = (double)element.Ey / 100,
+                    Ez = (double)element.Ez / 100,
+                    Description = element.Description
+                };
 
+                AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
+
+            }
+
+            cabinet.AddVerticalBarrier(2);
+
+            for (int i = 0; i < cabinet.VerticalBarrier.Count; i++)
+            {
+                var element = cabinet.VerticalBarrier[i];
+
+                Element3D element1 = new Element3D
+                {
+                    EWidth = (double)element.EWidth / 100,
+                    EHeight = (double)element.EHeight / 100,
+                    EDepth = (double)element.EDepth / 100,
+                    EName = element.EName,
+                    Ex = (double)element.Ex / 100,
+                    Ey = (double)element.Ey / 100,
+                    Ez = (double)element.Ez / 100,
+                    Description = element.Description
+                };
+
+                AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
+
+            }
 
             //TODO add horizontal and vertical barrier
             //TODO add front
@@ -135,26 +123,50 @@ namespace WPF.ViewModel
 
             myGeometryModel.Geometry = myMeshGeometry3D;
 
-            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.LightGray);
+            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Blue);
 
             // Define material that will use the gradient.
             DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
             //myMaterial.Color = Colors.Blue;
             myGeometryModel.Material = myMaterial;
 
-            foreach (Point3D point3D in myMeshGeometry3D.Positions)
-            {
-                Logger.Log(LogLevel.Trace,"Point3D x="+point3D.X+", y="+point3D.Y+", z="+point3D.Z);
-            }
+            //foreach (Point3D point3D in myMeshGeometry3D.Positions)
+            //{
+            //    Logger.Log(LogLevel.Trace, "Point3D x=" + point3D.X + ", y=" + point3D.Y + ", z=" + point3D.Z);
+            //}
 
-            foreach (int index in myMeshGeometry3D.TriangleIndices)
-            {
-                Logger.Log(LogLevel.Debug,"Triangle   "+index);
-            }
+            //foreach (int index in myMeshGeometry3D.TriangleIndices)
+            //{
+            //    Logger.Log(LogLevel.Debug, "Triangle   " + index);
+            //}
 
 
 
             return myGeometryModel;
+        }
+
+
+
+        private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y, double z)
+        {
+            Point3DCollection myPositionCollection = new Point3DCollection();
+            myPositionCollection.Add(new Point3D(x, y, z));
+
+            myPositionCollection.Add(new Point3D(x + szer, y, z));
+
+            myPositionCollection.Add(new Point3D(x, y + wys, z));
+
+            myPositionCollection.Add(new Point3D(x + szer, y + wys, z));
+
+            myPositionCollection.Add(new Point3D(x, y, z+gl));
+
+            myPositionCollection.Add(new Point3D(x + szer, y, z + gl));
+
+            myPositionCollection.Add(new Point3D(x, y + wys, z + gl));
+
+            myPositionCollection.Add(new Point3D(x + szer, y + wys, z + gl));
+
+            return myPositionCollection;
         }
 
         private void AddElementToModel3D(Element3D element, ref MeshGeometry3D myMeshGeometry3D, ref Int32Collection myTriangleIndicesCollection)
@@ -165,9 +177,9 @@ namespace WPF.ViewModel
             foreach (Point3D point3D in items)
             {
                 myMeshGeometry3D.Positions.Add(point3D);
-                Debug.WriteLine(point3D);
+                //Debug.WriteLine(point3D);
             }
-            Debug.WriteLine("");
+            //Debug.WriteLine("");
             var y = myMeshGeometry3D.Positions.Count-8;
 
             myTriangleIndicesCollection.Add(y);
@@ -218,6 +230,17 @@ namespace WPF.ViewModel
             myTriangleIndicesCollection.Add(y + 5);
             myTriangleIndicesCollection.Add(y + 4);
         }
+
+
+
+
+
+
+
+
+
+
+
 
         private Model3D CreateContent2()
 
@@ -332,46 +355,22 @@ namespace WPF.ViewModel
 
         }
 
-        private RelayCommand _myMouseWhell;
 
-        /// <summary>
-        /// Gets the MyMouseWhell.
-        /// </summary>
-        public RelayCommand MyMouseWhell
+
+        private Model3D CreateLight()
         {
-            get
-            {
-                return _myMouseWhell
-                    ?? (_myMouseWhell = new RelayCommand(
-                    () =>
-                    {
-                        
-                    }));
-            }
+            DirectionalLight myDirectionalLight = new DirectionalLight();
+
+            myDirectionalLight.Color = Colors.White;
+
+            myDirectionalLight.Direction = new Vector3D(-5, -5, -5);
+
+            return myDirectionalLight;
         }
 
-
-        private RelayCommand _myMouseMove;
-
-        /// <summary>
-        /// Gets the MyMouseMove.
-        /// </summary>
-        public RelayCommand MyMouseMove
-        {
-            get
-            {
-                return _myMouseMove
-                    ?? (_myMouseMove = new RelayCommand(ExecuteMyMouseMove));
-            }
-        }
-
-        private void ExecuteMyMouseMove()
-        {
-
-        }
+    #region BindingProperty
 
 
-        
         public const string MyModel3DPropertyName = "MyModel3D";
 
         private Model3D _model3D;
@@ -419,53 +418,6 @@ namespace WPF.ViewModel
                 RaisePropertyChanged(MyLightPropertyName);
             }
         }
-
-
-        public const string CameraPositionPropertyName = "CameraPosition";
-
-        private Point3D _cameraPosition ;
-
-        public Point3D CameraPosition
-        {
-            get
-            {
-                return _cameraPosition;
-            }
-
-            set
-            {
-                if (_cameraPosition == value)
-                {
-                    return;
-                }
-
-                _cameraPosition = value;
-                RaisePropertyChanged(CameraPositionPropertyName);
-            }
-        }
-
-
-        public const string CameraLookPositionPropertyName = "CameraLookPosition";
-
-        private Point3D _cameraLookPosition ;
-
-        public Point3D CameraLookPosition
-        {
-            get
-            {
-                return _cameraLookPosition;
-            }
-
-            set
-            {
-                if (_cameraLookPosition == value)
-                {
-                    return;
-                }
-
-                _cameraLookPosition = value;
-                RaisePropertyChanged(CameraLookPositionPropertyName);
-            }
-        }
+    #endregion
     }
 }

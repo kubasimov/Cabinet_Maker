@@ -26,25 +26,5 @@ namespace WPF
             InitializeComponent();
         }
 
-        private void Viewport3D_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
-        {
-           
-        }
-
-        private void Viewport3D_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            
-        }
-
-        private void Grid_MouseMove(object sender, MouseEventArgs e)
-        {
-            if(e.RightButton == MouseButtonState.Pressed)
-            ListBox1.Items.Add(e.GetPosition(this));
-        }
     }
 }

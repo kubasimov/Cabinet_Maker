@@ -43,7 +43,6 @@ namespace Core
             Back = back;
 
             GlobalCabinetElement();
-
         }
 
         private void GlobalCabinetElement()
@@ -52,42 +51,65 @@ namespace Core
             Element rightSide;
             Element bottom;
             Element top;
-            Element back;
-
+            
             switch (CabinetType)
             {
                 default:
 
-                    leftSide = new Element { EName = EnumCabinetElement.Leftside, Description="Bok Lewy", EHeight = Height, EWidth = SizeElement, EDepth = Depth, Ex = 0, Ey = 0, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
+                    leftSide = new Element
+                        { EName = EnumCabinetElement.Leftside, Description="Bok Lewy", EHeight = Height, EWidth = SizeElement, EDepth = Depth, Ex = 0, Ey = 0, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
 
-                    rightSide = new Element { EName = EnumCabinetElement.Rightside, Description = "Bok Prawy", EHeight = Height, EWidth = SizeElement, EDepth = Depth, Ex = Width - SizeElement, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
+                    rightSide = new Element
+                        { EName = EnumCabinetElement.Rightside, Description = "Bok Prawy", EHeight = Height, EWidth = SizeElement, EDepth = Depth, Ex = Width - SizeElement, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
 
-                    bottom = new Element { EName = EnumCabinetElement.Bottom, Description = "Spód", EHeight = SizeElement, EWidth = Width - 2 * SizeElement, EDepth = Depth, Ex = SizeElement, Ey = 0, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
+                    bottom = new Element
+                        { EName = EnumCabinetElement.Bottom, Description = "Spód", EHeight = SizeElement, EWidth = Width - 2 * SizeElement, EDepth = Depth, Ex = SizeElement, Ey = 0, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
+
                     top = new Element
-                    { EName = EnumCabinetElement.Top, Description = "Góra", EHeight = SizeElement, EWidth = Width - 2 * SizeElement, EDepth = Depth, Ex = SizeElement, Ey = Height - SizeElement, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
-
-                    if (Back==EnumBack.Nakladane)
-                    {
-                        back = new Element{EName=EnumCabinetElement.Back, Description="Plecy", EHeight=Height, EWidth=Width, EDepth = BackSize, Ex=0,Ey=0,Ez=0};
-                    }else
-
-                    back = new Element();
-
+                        { EName = EnumCabinetElement.Top, Description = "Góra", EHeight = SizeElement, EWidth = Width - 2 * SizeElement, EDepth = Depth, Ex = SizeElement, Ey = Height - SizeElement, Ez = _switchBack.ValueAxisZbyBackTypeAndSize(this) };
+                    
                     break;
-
+                
             }
-            
-            CabinetElements.Add(leftSide);
-            CabinetElements.Add(rightSide);
-            CabinetElements.Add(bottom);
-            CabinetElements.Add(top);
-            CabinetElements.Add(back);
+
+            ChangeCabinetElement(EnumCabinetElement.Leftside,leftSide);
+            ChangeCabinetElement(EnumCabinetElement.Rightside,rightSide);
+            ChangeCabinetElement(EnumCabinetElement.Bottom,bottom);
+            ChangeCabinetElement(EnumCabinetElement.Top,top);
+
+            ChangeBack();
         }
 
+        private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, Element element)
+        {
+            if (CabinetElements.Exists(c => c.EName == enumCabinetElement))
+            {
+                var index = CabinetElements.FindIndex(c => c.EName == enumCabinetElement);
+                CabinetElements[index] = element;
+            }
+            else
+            {
+                CabinetElements.Add(element);
+            }
+        }
+
+        private void ChangeBack()
+        {
+            Element back;
+
+            if (Back == EnumBack.Nakladane)
+            {
+                back = new Element { EName = EnumCabinetElement.Back, Description = "Plecy", EHeight = Height, EWidth = Width, EDepth = BackSize, Ex = 0, Ey = 0, Ez = 0 };
+                CabinetElements.Add(back);
+            }
+
+             
+        }
 
         public void AddBack(EnumBack back=EnumBack.Nakladane)
         {
             Back = back;
+            ChangeBack();
         }
 
         /// <summary>
