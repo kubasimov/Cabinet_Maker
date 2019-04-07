@@ -7,7 +7,7 @@ namespace Core
         
         public int SwitchDepthByBackType( int depth, EnumBack back, int backSize)
         {
-            int tempBack=0;
+            var tempBack=0;
 
             switch (back)
             {

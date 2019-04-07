@@ -8,6 +8,7 @@
         Top,
         Back,
         VerticalBarrier,
-        HorizontalBarrier
+        HorizontalBarrier,
+        Front
     }
 }

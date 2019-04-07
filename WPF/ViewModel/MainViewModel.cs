@@ -3,23 +3,23 @@ using System.Diagnostics;
 using GalaSoft.MvvmLight;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System;
-using System.Windows.Data;
 using Core;
-using GalaSoft.MvvmLight.Command;
 using NLog;
 
 namespace WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        Cabinet cabinet = new Cabinet(back:EnumBack.Nakladane);
+        Cabinet Cabinet = new Cabinet();
         
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public MainViewModel()
         {
+
+            Cabinet.AddBack();
+
             if (IsInDesignMode)
             {
 
@@ -50,9 +50,9 @@ namespace WPF.ViewModel
 
             Int32Collection myTriangleIndicesCollection = new Int32Collection();
 
-            for (int i = 0; i < cabinet.CabinetElements.Count; i++)
+            for (int i = 0; i < Cabinet.CabinetElements.Count; i++)
             {
-                var element = cabinet.CabinetElements[i];
+                var element = Cabinet.CabinetElements[i];
 
                 Element3D element1 = new Element3D
                 {
@@ -70,11 +70,11 @@ namespace WPF.ViewModel
 
             }
 
-            cabinet.AddHorizontalBarrier(2);
+            Cabinet.AddHorizontalBarrier(2);
 
-            for (int i = 0; i < cabinet.HorizontalBarrier.Count; i++)
+            for (int i = 0; i < Cabinet.HorizontalBarrier.Count; i++)
             {
-                var element = cabinet.HorizontalBarrier[i];
+                var element = Cabinet.HorizontalBarrier[i];
 
                 Element3D element1 = new Element3D
                 {
@@ -92,11 +92,11 @@ namespace WPF.ViewModel
 
             }
 
-            cabinet.AddVerticalBarrier(2);
+            Cabinet.AddVerticalBarrier(2);
 
-            for (int i = 0; i < cabinet.VerticalBarrier.Count; i++)
+            for (int i = 0; i < Cabinet.VerticalBarrier.Count; i++)
             {
-                var element = cabinet.VerticalBarrier[i];
+                var element = Cabinet.VerticalBarrier[i];
 
                 Element3D element1 = new Element3D
                 {
@@ -113,6 +113,28 @@ namespace WPF.ViewModel
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
 
             }
+
+            Cabinet.AddFront(2);
+
+            for (int i = 0; i < Cabinet.FrontList.Count; i++)
+            {
+                var element = Cabinet.FrontList[i];
+
+                Element3D element1 = new Element3D
+                {
+                    EWidth = (double)element.EWidth / 100,
+                    EHeight = (double)element.EHeight / 100,
+                    EDepth = (double)element.EDepth / 100,
+                    EName = element.EName,
+                    Ex = (double)element.Ex / 100,
+                    Ey = (double)element.Ey / 100,
+                    Ez = (double)element.Ez / 100,
+                    Description = element.Description
+                };
+
+                AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
+            }
+
 
             //TODO add horizontal and vertical barrier
             //TODO add front
