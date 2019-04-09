@@ -116,9 +116,9 @@ namespace WPF.ViewModel
 
             Cabinet.AddFront(2);
 
-            for (int i = 0; i < Cabinet.FrontList.Count; i++)
+            for (int i = 0; i < Cabinet.GetFrontList().Count; i++)
             {
-                var element = Cabinet.FrontList[i];
+                var element = Cabinet.GetFront(i);
 
                 Element3D element1 = new Element3D
                 {

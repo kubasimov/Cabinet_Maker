@@ -18,7 +18,7 @@ namespace Core
         public List<Element> CabinetElements;
         public List<Element> HorizontalBarrier;
         public List<Element> VerticalBarrier;
-        public List<Element> FrontList;
+        private List<Element> FrontList;
 
         private readonly Back _switchBack = new Back();
 
@@ -73,7 +73,6 @@ namespace Core
             _horizontalBarrier.AddBarrier(number,barrier,  back, height);
         }
         
-
         private void GlobalCabinetElement()
         {
             var leftSide=new Element();
@@ -171,7 +170,7 @@ namespace Core
         public void AddFront(int number, EnumFront enumFront)
         {
             var slots = new Slots { betweenVertically = 3, betweenHorizontally = 3 };
-            _front.AddFront(number, slots,enumFront);
+            FrontList=_front.AddFront(number, slots,enumFront);
         }
 
         public void AddFront(int numberVertically=0)
@@ -183,7 +182,52 @@ namespace Core
 
         public void AddFront(Slots slots,int number=0 )
         {
-            _front.AddFront(number, slots,EnumFront.Pionowo);
+            FrontList = _front.AddFront(number, slots,EnumFront.Pionowo);
+        }
+
+        public void AddFront(Slots slots, int number, EnumFront enumFront)
+        {
+            FrontList = _front.AddFront(number,slots,enumFront);
+        }
+
+        public void AddFront(List<Element> frontList)
+        {
+            FrontList = _front.AddFront(frontList);
+        }
+
+        public void UpdateFront(Element front)
+        {
+            if (!FrontList.Exists(x => x.Guid == front.Guid)) return;
+            {
+                var T = FrontList.FirstOrDefault(x => x.Guid == front.Guid);
+                T.EWidth = front.EWidth;
+                T.EHeight = front.EHeight;
+                T.EDepth = front.EDepth;
+                T.Ex = front.Ex;
+                T.Ey = front.Ey;
+                T.Ez = front.Ez;
+                T.Description = front.Description;
+                T.EName = front.EName;
+            }
+        }
+
+        public Element GetFront(int number)
+        {
+            if(FrontList.Count >= number)return FrontList[number];
+            return new Element();
+        }
+
+        public List<Element> GetFrontList()
+        {
+            return FrontList;
+        }
+
+        public void DeleteFront(Element front)
+        {
+            if (!FrontList.Exists(x => x.Guid == front.Guid)) return;
+            {
+                FrontList.Remove(front);
+            }
         }
     }
 }

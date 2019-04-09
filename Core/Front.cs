@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core
 {
     public class Front
     {
         private Cabinet _cabinet;
+        private List<Element> frontList;
 
         public Front(Cabinet cabinet)
         {
             _cabinet = cabinet;
+            frontList=new List<Element>();
         }
 
-        public void AddFront(int number,Slots slots,EnumFront enumFront)
+        public List<Element> AddFront(int number,Slots slots,EnumFront enumFront)
         {
 
             var width = enumFront==EnumFront.Pionowo ? 
@@ -31,17 +34,27 @@ namespace Core
                     EDepth = _cabinet.SizeElement,
                     EHeight = height,
                     EWidth = width,
-                    Ex = slots.left + (width+slots.betweenVertically)*(i),
-                    Ey = slots.right,
+                    Ex = enumFront==EnumFront.Pionowo ? slots.left + (width+slots.betweenVertically)*i : slots.left,
+                    Ey = enumFront==EnumFront.Poziomo ? slots.bottom + (height+slots.betweenHorizontally)*i : slots.right,
                     Ez = _cabinet.Depth+slots.betweenCabinet
                 };
 
-                _cabinet.FrontList.Add(front);
+                frontList.Add(front);
             }
 
-            
-            
-            
+            return frontList;
+
+
+        }
+
+        public List<Element> AddFront(List<Element> frontListT)
+        {
+            foreach (var element in frontListT)
+            {
+                frontList.Add(element);
+            }
+
+            return frontList;
         }
     }
 }
