@@ -44,14 +44,17 @@ namespace WPF.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<HorizontalBarrierViewModel>();
         }
 
         public MainViewModel Main
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
+            get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
+        }
+
+        public HorizontalBarrierViewModel HorizontalBarrier
+        {
+            get { return ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>(); }
         }
         
         public static void Cleanup()

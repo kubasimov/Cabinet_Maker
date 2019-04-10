@@ -5,20 +5,22 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Core;
 using NLog;
+using GalaSoft.MvvmLight.Command;
 
 namespace WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        Cabinet Cabinet = new Cabinet();
+        Cabinet Cabinet;
         
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public MainViewModel()
         {
+            _myCabinet=new TempCabinet();
 
-            Cabinet.AddBack();
+            //Cabinet.AddBack();
 
             if (IsInDesignMode)
             {
@@ -33,14 +35,33 @@ namespace WPF.ViewModel
             else
             {
                 //_model3D = CreateContent2();
+                //_model3D = CreateCabinet();
+                //RaisePropertyChanged(MyModel3DPropertyName);
+                _myCabinet.height = 720.ToString();
+                _myCabinet.weight = 600.ToString();
+                _myCabinet.depth = 500.ToString();
+                _myCabinet.sizeElement = 18.ToString();
+                _myCabinet.BackSize = 3.ToString();
+                
+                Cabinet = new Cabinet(int.Parse(_myCabinet.height), int.Parse(_myCabinet.weight), int.Parse(_myCabinet.depth));
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
+
+
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
             }
+
+            
         }
 
+        public void ExecuteRelayCommand()
+        {
+            Cabinet=new Cabinet(int.Parse( _myCabinet.height),int.Parse(_myCabinet.weight),int.Parse(_myCabinet.depth),sizeElement:int.Parse(_myCabinet.sizeElement),backSize:int.Parse(_myCabinet.BackSize));
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
+        }
 
         private Model3D CreateCabinet()
         {
@@ -70,7 +91,7 @@ namespace WPF.ViewModel
 
             }
 
-            Cabinet.AddHorizontalBarrier(2);
+            //Cabinet.AddHorizontalBarrier(2);
 
             for (int i = 0; i < Cabinet.HorizontalBarrier.Count; i++)
             {
@@ -92,7 +113,7 @@ namespace WPF.ViewModel
 
             }
 
-            Cabinet.AddVerticalBarrier(2);
+            //Cabinet.AddVerticalBarrier(2);
 
             for (int i = 0; i < Cabinet.VerticalBarrier.Count; i++)
             {
@@ -114,7 +135,7 @@ namespace WPF.ViewModel
 
             }
 
-            Cabinet.AddFront(2);
+            //Cabinet.AddFront(2);
 
             for (int i = 0; i < Cabinet.GetFrontList().Count; i++)
             {
@@ -166,9 +187,7 @@ namespace WPF.ViewModel
 
             return myGeometryModel;
         }
-
-
-
+        
         private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y, double z)
         {
             Point3DCollection myPositionCollection = new Point3DCollection();
@@ -252,18 +271,7 @@ namespace WPF.ViewModel
             myTriangleIndicesCollection.Add(y + 5);
             myTriangleIndicesCollection.Add(y + 4);
         }
-
-
-
-
-
-
-
-
-
-
-
-
+        
         private Model3D CreateContent2()
 
         {
@@ -376,9 +384,7 @@ namespace WPF.ViewModel
             return myGeometryModel;
 
         }
-
-
-
+        
         private Model3D CreateLight()
         {
             DirectionalLight myDirectionalLight = new DirectionalLight();
@@ -390,7 +396,7 @@ namespace WPF.ViewModel
             return myDirectionalLight;
         }
 
-    #region BindingProperty
+        #region BindingProperty
 
 
         public const string MyModel3DPropertyName = "MyModel3D";
@@ -440,6 +446,65 @@ namespace WPF.ViewModel
                 RaisePropertyChanged(MyLightPropertyName);
             }
         }
-    #endregion
+
+        
+        public const string MyCabinetPropertyName = "MyCabinet";
+
+        private TempCabinet _myCabinet;
+
+        public TempCabinet MyCabinet
+        {
+            get
+            {
+                return _myCabinet;
+            }
+
+            set
+            {
+                if (_myCabinet == value)
+                {
+                    return;
+                }
+
+                _myCabinet = value;
+                RaisePropertyChanged(MyCabinetPropertyName);
+            }
+        }
+        #endregion
+
+
+        #region RelayCommand
+
+        private RelayCommand _myCommand;
+
+        /// <summary>
+        /// Gets the MyCommand.
+        /// </summary>
+        public RelayCommand MyCommand
+        {
+            get
+            {
+                return _myCommand
+                    ?? (_myCommand = new RelayCommand(
+                        () =>
+                        {
+                            ExecuteRelayCommand();
+
+                        }));
+            }
+        }
+
+        #endregion
+
+        public class TempCabinet
+        {
+            public string height { get; set; }
+            public string weight { get; set; }
+            public string depth { get; set; }
+            public string sizeElement { get; set; }
+            public string BackSize { get; set; }
+        }
+
+
     }
 }
