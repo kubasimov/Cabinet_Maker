@@ -79,5 +79,19 @@ namespace Core_Tests
 
             Assert.Equal(EnumBack.Wpuszczane, cabinet.Back);
         }
+
+        //[Fact]
+        //public void Serialize()
+        //{
+        //    var cabinet = new Cabinet
+        //    {
+        //        Name = "Dolna_60"
+        //    };
+        //    cabinet.AddHorizontalBarrier(new Core.Model.BarrierParameter {Number = 3});
+        //    cabinet.AddVerticalBarrier(new Core.Model.BarrierParameter {Number = 2});
+        //    cabinet.Serialize();
+
+
+        //}
     }
 }

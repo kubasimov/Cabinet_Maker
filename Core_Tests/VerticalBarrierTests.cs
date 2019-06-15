@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Model;
 using Xunit;
 
 namespace Core_Tests
@@ -12,8 +13,9 @@ namespace Core_Tests
         public void Add_vertical_barrier_to_default_cabinet()
         {
             var cabinet = new Cabinet();
+            var barrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddVerticalBarrier(1);
+            cabinet.AddVerticalBarrier(barrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
             Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
@@ -31,7 +33,9 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            cabinet.AddVerticalBarrier(2);
+            var barrierParameter = new BarrierParameter { Number = 2 };
+
+            cabinet.AddVerticalBarrier(barrierParameter);
 
             Assert.Equal(2,cabinet.VerticalBarrier.Count);
 
@@ -55,7 +59,10 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            cabinet.AddVerticalBarrier(1,back:5);
+            var barrierParameter = new BarrierParameter { Number = 1,Back=5 };
+
+            cabinet.AddVerticalBarrier(barrierParameter);
+
             Assert.Single(cabinet.VerticalBarrier);
             Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
             Assert.Equal(505, cabinet.VerticalBarrier[0].EDepth);
@@ -73,7 +80,9 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            cabinet.AddVerticalBarrier(2,back:5);
+            var barrierParameter = new BarrierParameter { Number = 2,Back=5 };
+
+            cabinet.AddVerticalBarrier(barrierParameter);
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
 

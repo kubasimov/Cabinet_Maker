@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core;
+using Core.Model;
 using Xunit;
 
 namespace Core_Tests
@@ -112,12 +113,12 @@ namespace Core_Tests
 
             var slots = new Slots
             {
-                top = 3,
-                bottom = 3,
-                left = 3,
-                right = 3,
-                betweenVertically = 3,
-                betweenCabinet = 2
+                Top = 3,
+                Bottom = 3,
+                Left = 3,
+                Right = 3,
+                BetweenVertically = 3,
+                BetweenCabinet = 2
             };
 
             cabinet.AddFront(slots,1);
@@ -144,12 +145,12 @@ namespace Core_Tests
 
             var slots = new Slots
             {
-                top = 3,
-                bottom = 3,
-                left = 3,
-                right = 3,
-                betweenVertically = 3,
-                betweenCabinet = 2
+                Top = 3,
+                Bottom = 3,
+                Left = 3,
+                Right = 3,
+                BetweenVertically = 3,
+                BetweenCabinet = 2
             };
 
             cabinet.AddFront(slots,3);
@@ -223,13 +224,13 @@ namespace Core_Tests
 
             var slots = new Slots
             {
-                top = 3,
-                bottom = 3,
-                left = 3,
-                right = 3,
-                betweenVertically = 3,
-                betweenCabinet = 2,
-                betweenHorizontally = 3
+                Top = 3,
+                Bottom = 3,
+                Left = 3,
+                Right = 3,
+                BetweenVertically = 3,
+                BetweenCabinet = 2,
+                BetweenHorizontally = 3
             };
 
             cabinet.AddFront(slots, 3, EnumFront.Poziomo);
@@ -267,9 +268,9 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            var frontList = new List<Element>();
+            var frontList = new List<ElementModel>();
 
-            var front = new Element
+            var front = new ElementModel
             {
                 EName = EnumCabinetElement.Front,
                 EDepth = 22,
@@ -298,9 +299,9 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            var frontList = new List<Element>();
+            var frontList = new List<ElementModel>();
 
-            var frontT = new Element
+            var frontT = new ElementModel
             {
                 EName = EnumCabinetElement.Front,
                 EDepth = 22,
@@ -311,7 +312,7 @@ namespace Core_Tests
                 Ez = 513
             };
 
-            var front1T = new Element
+            var front1T = new ElementModel
             {
                 EName = EnumCabinetElement.Front,
                 EDepth = 22,
@@ -352,7 +353,7 @@ namespace Core_Tests
         public void Dodanie_1_frontu_i_jego_modyfikacja()
         {
             var cabinet = new Cabinet();
-
+            
             cabinet.AddFront(1);
 
             var front = cabinet.GetFront(0);

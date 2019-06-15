@@ -51,7 +51,7 @@
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.0.1\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.6.0-rc1\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.3\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -82,17 +82,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Element3D.cs" />
-    <Compile Include="View\HorizontalBarrierWindow.xaml.cs">
-      <DependentUpon>HorizontalBarrierWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Enum\EnumExchangeViewmodel.cs" />
+    <Compile Include="Implement\DataExchangeViewModel.cs" />
+    <Compile Include="Interface\IDataExchangeViewModel.cs" />
     <Compile Include="model.cs" />
     <Compile Include="Validate\ValidateTextBox.cs" />
     <Compile Include="ViewModel\HorizontalBarrierViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\VerticalBarrierViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\VerticalBarrierWindow.xaml.cs">
+      <DependentUpon>VerticalBarrierWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\HorizontalBarrierWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -102,10 +106,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\HorizontalBarrierWindow.xaml.cs">
+      <DependentUpon>HorizontalBarrierWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\VerticalBarrierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

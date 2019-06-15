@@ -1,21 +1,8 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:WPF"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
-   
+using WPF.Implement;
+using WPF.Interface;
 
 namespace WPF.ViewModel
 {
@@ -32,19 +19,12 @@ namespace WPF.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+            
+            SimpleIoc.Default.Register<IDataExchangeViewModel, DataExchangeViewModel>(true);
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HorizontalBarrierViewModel>();
+            SimpleIoc.Default.Register<VerticalBarrierViewModel>();
         }
 
         public MainViewModel Main
@@ -56,7 +36,12 @@ namespace WPF.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>(); }
         }
-        
+
+        public VerticalBarrierViewModel VerticalBarrier
+        {
+            get { return ServiceLocator.Current.GetInstance<VerticalBarrierViewModel>(); }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

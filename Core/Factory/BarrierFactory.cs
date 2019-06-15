@@ -1,0 +1,18 @@
+﻿using System.Collections.Generic;
+using Core.Model;
+
+namespace Core.Factory
+{
+    public class BarrierFactory
+    {
+        protected Cabinet _cabinet;
+        protected List<ElementModel> elements;
+        protected int number;
+        protected int tempHeight;
+        protected int tempDepth;
+        protected int tempWidth;
+        protected int tempEy;
+        protected int tempEx;
+        protected int back;
+    }
+}

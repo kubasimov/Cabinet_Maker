@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Core
+namespace Core.Model
 {
-    public class Element
+    public class ElementModel
     {
         public Guid Guid;
         public EnumCabinetElement EName;    //Wewnetrzna nazwa elementu
@@ -14,7 +14,7 @@ namespace Core
         public int Ey;
         public int Ez;
 
-        public Element()
+        public ElementModel()
         {
             Guid = Guid.NewGuid();
         }

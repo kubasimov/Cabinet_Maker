@@ -7,13 +7,13 @@
 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight"
     xmlns:local="clr-namespace:WPF.Validate"
-    x:Class="WPF.MainWindow"
+    x:Class="WPF.View.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding Main, Source={StaticResource Locator}}" >
 
     <Grid x:Name="Grid" RenderTransformOrigin="0.5,0.5">
-        
+
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="245*"/>
@@ -24,7 +24,7 @@
         <_3DTools:TrackballDecorator Grid.Column="0">
             <!--<_3DTools:Interactive3DDecorator>-->
 
-            <Viewport3D Grid.Column="0" RenderTransformOrigin="0.5,0.5">
+            <Viewport3D x:Name="viewport3D" Grid.Column="0" RenderTransformOrigin="0.5,0.5">
                 <Viewport3D.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -48,16 +48,27 @@
 
             <!--</_3DTools:Interactive3DDecorator>-->
         </_3DTools:TrackballDecorator>
-            
-        <Label Content="Wysokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="10,10,0,0"/>
-        <Label Content="Szerokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,41,0,0" Grid.Column="1"/>
-        <Label Content="Glebokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,72,0,0" Grid.Column="1"/>
-        <Label Content="Grubosc elementu" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,102.96,0,0" Grid.Column="1"/>
-        <Label Content="Grubosc plecow" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,133.92,0,0" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Height="26" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Margin="154,10,0,0" Grid.Column="1">
+        <Label Content="Nazwa" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="10,8,0,0"/>
+        <Label Content="Wysokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="10,39,0,0"/>
+        <Label Content="Szerokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Grid.Column="1"/>
+        <Label Content="Glebokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,101,0,0" Grid.Column="1"/>
+        <Label Content="Grubosc elementu" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,132,0,0" Grid.Column="1"/>
+        <Label Content="Grubosc plecow" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,163,0,0" Grid.Column="1"/>
+
+        <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,8,0,0" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
-                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}"/>
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Binding Path="MyCabinet.Name"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+
+            </Binding>
+        </TextBox>
+        <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,39,0,0" Grid.Column="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Binding Path="MyCabinet.height"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -66,22 +77,22 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox HorizontalAlignment="Left" Height="26" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Margin="154,41,0,0" Grid.Column="1">
+        <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,70,0,0" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged" >
-                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}"/>
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <Binding Path="MyCabinet.weight"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+            <Binding Path="MyCabinet.width"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
                     <local:ValidateTextBox MinValue="0" MaxValue="2500000"/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,72,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,101,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="LostFocus">
-                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}"/>
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Binding Path="MyCabinet.depth"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -90,10 +101,10 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,103,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,132,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="LostFocus">
-                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}"/>
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Binding Path="MyCabinet.sizeElement"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -102,10 +113,10 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,133.88,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="154,163,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="LostFocus">
-                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}"/>
+                    <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Binding Path="MyCabinet.BackSize"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -114,6 +125,13 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
+        <Button Content="Dodaj przegrode pionową" Grid.Column="1" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}"/>
+        <Button Content="Dodaj przegrode poziomą" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddHorizontalBarrierCommand, Mode=OneWay}"/>
+        <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddFrontCommand, Mode=OneWay}"/>
+
+        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}"/>
+        <Button Content="Zakończ" Grid.Column="1" HorizontalAlignment="Left" Margin="150,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}"/>
+        
 
     </Grid>
 </Window>

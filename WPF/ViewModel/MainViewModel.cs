@@ -6,59 +6,93 @@ using System.Windows.Media.Media3D;
 using Core;
 using NLog;
 using GalaSoft.MvvmLight.Command;
+using WPF.Enum;
+using WPF.Interface;
+using Core.Model;
+using WPF.View;
+using System.Windows;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 
 namespace WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
         Cabinet Cabinet;
-        
+
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public MainViewModel()
+        private IDataExchangeViewModel _dataExchangeViewModel;
+
+        public MainViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
-            _myCabinet=new TempCabinet();
+            _dataExchangeViewModel = dataExchangeViewModel;
+
+            _myCabinet = new TempCabinet();
 
             //Cabinet.AddBack();
 
             if (IsInDesignMode)
             {
+                _myCabinet.Name = "Szafka_" + new Random().Next(100, 200).ToString();
+                _myCabinet.height = 720.ToString();
+                _myCabinet.width = 600.ToString();
+                _myCabinet.depth = 500.ToString();
+                _myCabinet.sizeElement = 18.ToString();
+                _myCabinet.BackSize = 3.ToString();
 
-                //_model3D = CreateContent2();
+
+                Cabinet = new Cabinet(
+                    int.Parse(_myCabinet.height), 
+                    int.Parse(_myCabinet.width),
+                    int.Parse(_myCabinet.depth), 
+                    name: _myCabinet.Name);
+                
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
+
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
             }
             else
             {
-                //_model3D = CreateContent2();
-                //_model3D = CreateCabinet();
-                //RaisePropertyChanged(MyModel3DPropertyName);
+                //_myCabinet.Name = "Szafka_" + new Random().Next(100,200).ToString();
                 _myCabinet.height = 720.ToString();
-                _myCabinet.weight = 600.ToString();
+                _myCabinet.width = 600.ToString();
                 _myCabinet.depth = 500.ToString();
                 _myCabinet.sizeElement = 18.ToString();
                 _myCabinet.BackSize = 3.ToString();
-                
-                Cabinet = new Cabinet(int.Parse(_myCabinet.height), int.Parse(_myCabinet.weight), int.Parse(_myCabinet.depth));
+
+
+                Cabinet = new Cabinet(
+                    int.Parse(_myCabinet.height), 
+                    int.Parse(_myCabinet.width),
+                    int.Parse(_myCabinet.depth),
+                    name:_myCabinet.Name);
+
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
-
-
+                
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
             }
-
             
         }
 
-        public void ExecuteRelayCommand()
+        public void DrawCabinetRelayCommand()
         {
-            Cabinet=new Cabinet(int.Parse( _myCabinet.height),int.Parse(_myCabinet.weight),int.Parse(_myCabinet.depth),sizeElement:int.Parse(_myCabinet.sizeElement),backSize:int.Parse(_myCabinet.BackSize));
+            Cabinet.Height = int.Parse(_myCabinet.height);
+            Cabinet.Width = int.Parse(_myCabinet.width);
+            Cabinet.Depth = int.Parse(_myCabinet.depth);
+            Cabinet.SizeElement = int.Parse(_myCabinet.sizeElement);
+            Cabinet.BackSize = int.Parse(_myCabinet.BackSize); 
+            Cabinet.Name=_myCabinet.Name;
+
+            Cabinet.Redraw();
+
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }
@@ -77,13 +111,13 @@ namespace WPF.ViewModel
 
                 Element3D element1 = new Element3D
                 {
-                    EWidth = (double)element.EWidth / 100,
-                    EHeight = (double)element.EHeight / 100,
-                    EDepth = (double)element.EDepth / 100,
+                    EWidth = (double) element.EWidth / 100,
+                    EHeight = (double) element.EHeight / 100,
+                    EDepth = (double) element.EDepth / 100,
                     EName = element.EName,
-                    Ex = (double)element.Ex / 100,
-                    Ey = (double)element.Ey / 100,
-                    Ez = (double)element.Ez / 100,
+                    Ex = (double) element.Ex / 100,
+                    Ey = (double) element.Ey / 100,
+                    Ez = (double) element.Ez / 100,
                     Description = element.Description
                 };
 
@@ -99,13 +133,13 @@ namespace WPF.ViewModel
 
                 Element3D element1 = new Element3D
                 {
-                    EWidth = (double)element.EWidth / 100,
-                    EHeight = (double)element.EHeight / 100,
-                    EDepth = (double)element.EDepth / 100,
+                    EWidth = (double) element.EWidth / 100,
+                    EHeight = (double) element.EHeight / 100,
+                    EDepth = (double) element.EDepth / 100,
                     EName = element.EName,
-                    Ex = (double)element.Ex / 100,
-                    Ey = (double)element.Ey / 100,
-                    Ez = (double)element.Ez / 100,
+                    Ex = (double) element.Ex / 100,
+                    Ey = (double) element.Ey / 100,
+                    Ez = (double) element.Ez / 100,
                     Description = element.Description
                 };
 
@@ -121,13 +155,13 @@ namespace WPF.ViewModel
 
                 Element3D element1 = new Element3D
                 {
-                    EWidth = (double)element.EWidth / 100,
-                    EHeight = (double)element.EHeight / 100,
-                    EDepth = (double)element.EDepth / 100,
+                    EWidth = (double) element.EWidth / 100,
+                    EHeight = (double) element.EHeight / 100,
+                    EDepth = (double) element.EDepth / 100,
                     EName = element.EName,
-                    Ex = (double)element.Ex / 100,
-                    Ey = (double)element.Ey / 100,
-                    Ez = (double)element.Ez / 100,
+                    Ex = (double) element.Ex / 100,
+                    Ey = (double) element.Ey / 100,
+                    Ez = (double) element.Ez / 100,
                     Description = element.Description
                 };
 
@@ -143,13 +177,13 @@ namespace WPF.ViewModel
 
                 Element3D element1 = new Element3D
                 {
-                    EWidth = (double)element.EWidth / 100,
-                    EHeight = (double)element.EHeight / 100,
-                    EDepth = (double)element.EDepth / 100,
+                    EWidth = (double) element.EWidth / 100,
+                    EHeight = (double) element.EHeight / 100,
+                    EDepth = (double) element.EDepth / 100,
                     EName = element.EName,
-                    Ex = (double)element.Ex / 100,
-                    Ey = (double)element.Ey / 100,
-                    Ez = (double)element.Ez / 100,
+                    Ex = (double) element.Ex / 100,
+                    Ey = (double) element.Ey / 100,
+                    Ez = (double) element.Ez / 100,
                     Description = element.Description
                 };
 
@@ -157,7 +191,6 @@ namespace WPF.ViewModel
             }
 
 
-            //TODO add horizontal and vertical barrier
             //TODO add front
             //TODO add dodatkowe eleemnty
 
@@ -166,7 +199,7 @@ namespace WPF.ViewModel
 
             myGeometryModel.Geometry = myMeshGeometry3D;
 
-            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Blue);
+            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Gray);
 
             // Define material that will use the gradient.
             DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
@@ -187,8 +220,9 @@ namespace WPF.ViewModel
 
             return myGeometryModel;
         }
-        
-        private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y, double z)
+
+        private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y,
+            double z)
         {
             Point3DCollection myPositionCollection = new Point3DCollection();
             myPositionCollection.Add(new Point3D(x, y, z));
@@ -199,7 +233,7 @@ namespace WPF.ViewModel
 
             myPositionCollection.Add(new Point3D(x + szer, y + wys, z));
 
-            myPositionCollection.Add(new Point3D(x, y, z+gl));
+            myPositionCollection.Add(new Point3D(x, y, z + gl));
 
             myPositionCollection.Add(new Point3D(x + szer, y, z + gl));
 
@@ -210,7 +244,8 @@ namespace WPF.ViewModel
             return myPositionCollection;
         }
 
-        private void AddElementToModel3D(Element3D element, ref MeshGeometry3D myMeshGeometry3D, ref Int32Collection myTriangleIndicesCollection)
+        private void AddElementToModel3D(Element3D element, ref MeshGeometry3D myMeshGeometry3D,
+            ref Int32Collection myTriangleIndicesCollection)
         {
             var items = cubeToPoint3DCollection(element.EHeight, element.EWidth, element.EDepth, element.Ex, element.Ey,
                 element.Ez);
@@ -220,8 +255,9 @@ namespace WPF.ViewModel
                 myMeshGeometry3D.Positions.Add(point3D);
                 //Debug.WriteLine(point3D);
             }
+
             //Debug.WriteLine("");
-            var y = myMeshGeometry3D.Positions.Count-8;
+            var y = myMeshGeometry3D.Positions.Count - 8;
 
             myTriangleIndicesCollection.Add(y);
             myTriangleIndicesCollection.Add(y + 2);
@@ -271,7 +307,7 @@ namespace WPF.ViewModel
             myTriangleIndicesCollection.Add(y + 5);
             myTriangleIndicesCollection.Add(y + 4);
         }
-        
+
         private Model3D CreateContent2()
 
         {
@@ -280,7 +316,7 @@ namespace WPF.ViewModel
 
             MeshGeometry3D myMeshGeometry3D = new MeshGeometry3D();
 
-           
+
 
             var modeList = new ArrayList();
 
@@ -291,16 +327,17 @@ namespace WPF.ViewModel
 
             Int32Collection myTriangleIndicesCollection = new Int32Collection();
 
-            for (int i = 0,y=0; i < modeList.Count; i++,y+=8)
+            for (int i = 0, y = 0; i < modeList.Count; i++, y += 8)
             {
                 var ll = (Model) modeList[i];
 
-                var z=cubeToPoint3DCollection(ll.Wys, ll.Szer, ll.Gl, ll.X, ll.Y, ll.Z);
+                var z = cubeToPoint3DCollection(ll.Wys, ll.Szer, ll.Gl, ll.X, ll.Y, ll.Z);
                 foreach (Point3D point3D in z)
                 {
                     myMeshGeometry3D.Positions.Add(point3D);
                     Debug.WriteLine(point3D);
                 }
+
                 Debug.WriteLine("");
 
 
@@ -353,7 +390,7 @@ namespace WPF.ViewModel
                 myTriangleIndicesCollection.Add(y + 5);
                 myTriangleIndicesCollection.Add(y + 4);
 
-                
+
 
 
             }
@@ -362,7 +399,7 @@ namespace WPF.ViewModel
             myMeshGeometry3D.TriangleIndices = myTriangleIndicesCollection;
 
             myGeometryModel.Geometry = myMeshGeometry3D;
-            
+
             SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.LightGray);
 
             // Define material that will use the gradient.
@@ -384,7 +421,7 @@ namespace WPF.ViewModel
             return myGeometryModel;
 
         }
-        
+
         private Model3D CreateLight()
         {
             DirectionalLight myDirectionalLight = new DirectionalLight();
@@ -405,10 +442,7 @@ namespace WPF.ViewModel
 
         public Model3D MyModel3D
         {
-            get
-            {
-                return _model3D;
-            }
+            get { return _model3D; }
 
             set
             {
@@ -430,10 +464,7 @@ namespace WPF.ViewModel
 
         public Model3D MyLight
         {
-            get
-            {
-                return _myLight;
-            }
+            get { return _myLight; }
 
             set
             {
@@ -447,17 +478,14 @@ namespace WPF.ViewModel
             }
         }
 
-        
+
         public const string MyCabinetPropertyName = "MyCabinet";
 
         private TempCabinet _myCabinet;
 
         public TempCabinet MyCabinet
         {
-            get
-            {
-                return _myCabinet;
-            }
+            get { return _myCabinet; }
 
             set
             {
@@ -470,39 +498,135 @@ namespace WPF.ViewModel
                 RaisePropertyChanged(MyCabinetPropertyName);
             }
         }
-        #endregion
 
+        #endregion
 
         #region RelayCommand
 
-        private RelayCommand _myCommand;
+        private RelayCommand _myDrawCabinetCommand;
 
-        /// <summary>
-        /// Gets the MyCommand.
-        /// </summary>
-        public RelayCommand MyCommand
+        public RelayCommand DrawCabinetCommand => _myDrawCabinetCommand
+                                                  ?? (_myDrawCabinetCommand =
+                                                      new RelayCommand(DrawCabinetRelayCommand));
+
+        private RelayCommand _myAddVerticalBarrierCommand;
+
+        public RelayCommand AddVerticalBarrierCommand => _myAddVerticalBarrierCommand
+                                                           ?? (_myAddVerticalBarrierCommand =
+                                                               new RelayCommand(AddVerticalBarrierRelayCommand));
+
+        private RelayCommand _myAddHorizontalBarrierCommand;
+
+        public RelayCommand AddHorizontalBarrierCommand => _myAddHorizontalBarrierCommand
+                                                           ?? (_myAddHorizontalBarrierCommand =
+                                                               new RelayCommand(AddHorizontalBarrierRelayCommand));
+
+        private RelayCommand _myAddFrontCommand;
+
+        public RelayCommand AddFrontCommand => _myAddFrontCommand
+                                                           ?? (_myAddFrontCommand =
+                                                               new RelayCommand(AddFrontRelayCommand));
+
+        private RelayCommand _mySaveCommand;
+
+        public RelayCommand SaveCommand => _mySaveCommand
+                                                           ?? (_mySaveCommand =
+                                                               new RelayCommand(SaveRelayCommand));
+
+        private RelayCommand _myEndCommand;
+
+        public RelayCommand EndCommand => _myEndCommand
+                                            ?? (_myEndCommand =
+                                                new RelayCommand(EndRelayCommand));
+
+
+        #endregion
+        
+        private void AddVerticalBarrierRelayCommand()
         {
-            get
-            {
-                return _myCommand
-                    ?? (_myCommand = new RelayCommand(
-                        () =>
-                        {
-                            ExecuteRelayCommand();
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.HorizontalBarrier, Cabinet.HorizontalBarrier.Count);
+            new VerticalBarrierWindow().ShowDialog();
 
-                        }));
+            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.verticalBarrierWindow))
+            {
+                var t = (BarrierParameter) _dataExchangeViewModel.Item(EnumExchangeViewmodel.verticalBarrierWindow);
+
+                Cabinet.AddVerticalBarrier(t);
+                _model3D = CreateCabinet();
+                RaisePropertyChanged(MyModel3DPropertyName);
             }
         }
 
-        #endregion
+        private void AddHorizontalBarrierRelayCommand()
+        {
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.VerticalBarrier, Cabinet.VerticalBarrier.Count);
+            new HorizontalBarrierWindow().ShowDialog();
+
+            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.HorizontalBarrierWindow))
+            {
+                var t = (BarrierParameter)_dataExchangeViewModel.Item(EnumExchangeViewmodel.HorizontalBarrierWindow);
+
+                Cabinet.AddHorizontalBarrier(t);
+                _model3D = CreateCabinet();
+                RaisePropertyChanged(MyModel3DPropertyName);
+            }
+        }
+
+        private void AddFrontRelayCommand()
+        {
+            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Front, Cabinet.GetFrontCount());
+            //new FrontWindow().ShowDialog();
+
+
+        }
+        private void SaveRelayCommand()
+        {
+            //var t = (System.Windows.Controls.Viewport3D)ob;
+
+            //RenderTargetBitmap bitmap = new RenderTargetBitmap((int)t.ActualWidth, (int)t.ActualHeight, 100, 100, PixelFormats.Pbgra32);
+            //bitmap.Render(t);
+
+            //// create a png bitmap encoder to save the png file
+            //BitmapEncoder encoder = new PngBitmapEncoder();
+            //encoder.Frames.Clear();
+
+            //// create frame from the writable bitmap and add to encoder
+            //encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            //// optionally write .png to the disk
+            //using (FileStream fs = new FileStream(@"d:\aaa.png", FileMode.Create))
+            //{
+            //    encoder.Save(fs);
+            //}
+
+            if (_myCabinet.Name == ""||_myCabinet.Name==null)
+            {
+                MessageBox.Show("Nazwa jest wymagana", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+            }
+            else
+            {
+                Cabinet.Serialize();
+                MessageBox.Show("Zapisano", "Zapis", MessageBoxButton.OK);
+            }
+
+            
+        }
+
+        private void EndRelayCommand()
+        {
+            Messenger.Default.Send(new NotificationMessage(this, "CloseMain"));
+        }
 
         public class TempCabinet
         {
+            public string Name { get; set; }
             public string height { get; set; }
-            public string weight { get; set; }
+            public string width { get; set; }
             public string depth { get; set; }
             public string sizeElement { get; set; }
             public string BackSize { get; set; }
+
         }
 
 
