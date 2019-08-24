@@ -41,7 +41,7 @@ namespace Core.Factory
             for (int i = 0; i <= _cabinet.VerticalBarrier.Count(); i++)
             {
                 //czy nie ma  informacji o wybranych kolumnach
-                if (barrierParameter.Barrier==null)
+                if (barrierParameter.GetBarrier()==null||barrierParameter.GetBarrier().Count==0)
                 {
                     // brak informacji o kolumnach - wstawianie w każda
                     tempWidth = TempWidth(i);
@@ -52,7 +52,7 @@ namespace Core.Factory
                 else
                 {
                     //sa wybrane kolumny
-                    if (barrierParameter.Barrier.Contains(i))
+                    if (barrierParameter.GetBarrier().Contains(i))
                     {
                         //wstawianie do danej kolumny - wybranej
                         tempWidth = TempWidth(i);

@@ -25,21 +25,27 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HorizontalBarrierViewModel>();
             SimpleIoc.Default.Register<VerticalBarrierViewModel>();
+            SimpleIoc.Default.Register<FrontViewModel>();
         }
 
-        public MainViewModel Main
+        public MainViewModel MainView
         {
             get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
         }
 
-        public HorizontalBarrierViewModel HorizontalBarrier
+        public HorizontalBarrierViewModel HorizontalBarrierView
         {
             get { return ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>(); }
         }
 
-        public VerticalBarrierViewModel VerticalBarrier
+        public VerticalBarrierViewModel VerticalBarrierView
         {
             get { return ServiceLocator.Current.GetInstance<VerticalBarrierViewModel>(); }
+        }
+
+        public FrontViewModel FrontView
+        {
+            get { return ServiceLocator.Current.GetInstance<FrontViewModel>(); }
         }
 
         public static void Cleanup()

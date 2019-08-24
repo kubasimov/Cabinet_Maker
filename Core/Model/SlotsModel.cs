@@ -1,6 +1,6 @@
 ﻿namespace Core.Model
 {
-    public struct Slots
+    public class SlotsModel
     {
         public int Top;
         public int Bottom;

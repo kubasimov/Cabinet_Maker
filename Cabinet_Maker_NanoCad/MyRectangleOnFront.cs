@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Core;
+using Core.Model;
 using Teigha.DatabaseServices;
 using Teigha.Geometry;
 
 namespace Cabinet_Maker_NanoCad
 {
-    public static class MyRectangle
+    public static class MyRectangleOnFront
     {
         private static Polyline Get(double startx, double starty, int szerokosc, int wysokosc)
         {
@@ -20,28 +21,16 @@ namespace Cabinet_Maker_NanoCad
             return acPoly;
         }
 
-        public static List<Polyline> Cabinet(Cabinet cabinet,Point3d start)
+        public static List<Polyline> GetPolylineListFromElementModelList(List<ElementModel> cabinet, Point3d start)
         {
-
             List<Polyline> poly = new List<Polyline>();
 
-            foreach (var t in cabinet.CabinetElements)
-            {
-                poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight));
-
-            }
-
-            foreach (var t in cabinet.HorizontalBarrier)
+            foreach (var t in cabinet)
             {
                 poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight));
             }
 
-            foreach (var t in cabinet.VerticalBarrier)
-            {
-                poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight));
-            }
             return poly;
-
         }
     }
 }

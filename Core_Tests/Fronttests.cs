@@ -111,7 +111,7 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            var slots = new Slots
+            var slots = new SlotsModel
             {
                 Top = 3,
                 Bottom = 3,
@@ -143,7 +143,7 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            var slots = new Slots
+            var slots = new SlotsModel
             {
                 Top = 3,
                 Bottom = 3,
@@ -222,7 +222,7 @@ namespace Core_Tests
         {
             var cabinet = new Cabinet();
 
-            var slots = new Slots
+            var slots = new SlotsModel
             {
                 Top = 3,
                 Bottom = 3,

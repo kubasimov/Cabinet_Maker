@@ -10,7 +10,7 @@
     x:Class="WPF.View.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        DataContext="{Binding Main, Source={StaticResource Locator}}" >
+        DataContext="{Binding MainView, Source={StaticResource Locator}}" >
 
     <Grid x:Name="Grid" RenderTransformOrigin="0.5,0.5">
 
@@ -57,7 +57,7 @@
 
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,8,0,0" Grid.Column="1">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
+                <i:EventTrigger EventName="LostFocus">
                     <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -67,7 +67,7 @@
         </TextBox>
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,39,0,0" Grid.Column="1">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged">
+                <i:EventTrigger EventName="LostFocus">
                     <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -79,7 +79,7 @@
         </TextBox>
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,70,0,0" Grid.Column="1">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextChanged" >
+                <i:EventTrigger EventName="LostFocus" >
                     <Custom:EventToCommand Command="{Binding DrawCabinetCommand, Mode=OneWay}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -129,9 +129,11 @@
         <Button Content="Dodaj przegrode poziomą" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddHorizontalBarrierCommand, Mode=OneWay}"/>
         <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddFrontCommand, Mode=OneWay}"/>
 
+        <Button Content="Nowy" Grid.Column="1" HorizontalAlignment="Left" Margin="50,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}"/>
         <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}"/>
         <Button Content="Zakończ" Grid.Column="1" HorizontalAlignment="Left" Margin="150,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}"/>
         
+
 
     </Grid>
 </Window>

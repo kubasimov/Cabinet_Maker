@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Text;
 using Core.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -11,69 +13,74 @@ namespace WPF.ViewModel
 {
     public class HorizontalBarrierViewModel:ViewModelBase
     {
-        private IDataExchangeViewModel _dataExchangeViewModel;
+        private readonly IDataExchangeViewModel _dataExchangeViewModel;
         private int _verticalBarrierCount;
+        private List<string> _intList;
 
         public HorizontalBarrierViewModel(IDataExchangeViewModel dataExchangeViewModel)
         {
             _dataExchangeViewModel = dataExchangeViewModel;
 
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.VerticalBarrier))
-            {
-                _verticalBarrierCount = (int)_dataExchangeViewModel.Item(EnumExchangeViewmodel.VerticalBarrier);
-            }
-
-            VerticalBarrier=new ObservableCollection<MyModel>();
-
-            if (_verticalBarrierCount > 0)
-            {
-                for (var i = 0; i <= _verticalBarrierCount; i++)
-                {
-                    var myModel = new MyModel{txt=i.ToString(),list =  new List<int>{i}};
-                    VerticalBarrier.Add(myModel);
-                }
-            }
-
+            LoadDataToComboBox();
+            
             if (IsInDesignMode)
             {
                 _barrierNumber = 2.ToString();
                 _backShelf = 0.ToString();
                 _shelf = true;
-                var myModel = new MyModel {txt = "1", list = new List<int> {1}};
-                var myModel1 = new MyModel {txt = "1,2", list = new List<int> {1, 2}};
-                _verticalBarrier.Add(myModel);
-                _verticalBarrier.Add(myModel1);
+                
+                _verticalBarrier.Add("1");
+                _verticalBarrier.Add("2");
+                _verticalBarrier.Add("3");
+                _verticalBarrier.Add("1 2");
+                _verticalBarrier.Add("1 3");
+                _verticalBarrier.Add("2 3");
             }
             else
             {
                 _barrierNumber = 0.ToString();
                 _backShelf = 0.ToString();
                 _shelf = false;
-                }
+            }
 
         }
-
-
+        
         private void ExecuteOkCommand()
         {
-            var barierParametter = new BarrierParameter();
+            var barierParametter = new BarrierParameter
+            {
+                Number = int.Parse(_barrierNumber),
+                Back = int.Parse(_backShelf)
+            };
 
-            barierParametter.Number = int.Parse(_barrierNumber);
-            barierParametter.Back = int.Parse(_backShelf);
+            if (Barriers < 0)
+            {
+                Barriers = _verticalBarrier.Count-1;
+            }
+
+            var z = _verticalBarrier[Barriers];
+            var zz = z.ToCharArray();
+
+            foreach (char c in zz)
+            {
+                barierParametter.AddBarrier((int)char.GetNumericValue(c));
+            }
             
-            //barierParametter.Barrier=
-
             _dataExchangeViewModel.Add(EnumExchangeViewmodel.HorizontalBarrierWindow, barierParametter);
             Messenger.Default.Send(new NotificationMessage(this, "CloseHorizontalBarrier"));
         }
-
-
+        
         private void ExecuteAbortRelayCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseHorizontalBarrier"));
 
         }
 
+        private void ExecuteGetFocusCommand()
+        {
+            LoadDataToComboBox();
+        }
+        
         #region BindingProperty
 
         public const string BarrierNumberPropertyName = "BarrierNumber";
@@ -95,7 +102,7 @@ namespace WPF.ViewModel
                 }
 
                 _barrierNumber = value;
-                RaisePropertyChanged(BarrierNumberPropertyName);
+                RaisePropertyChanged(()=>BarrierNumber);
             }
         }
 
@@ -119,7 +126,7 @@ namespace WPF.ViewModel
                 }
 
                 _shelf = value;
-                RaisePropertyChanged(ShelfPropertyName);
+                RaisePropertyChanged(()=>Shelf);
             }
         }
 
@@ -143,16 +150,16 @@ namespace WPF.ViewModel
                 }
 
                 _backShelf = value;
-                RaisePropertyChanged(BackShelfPropertyName);
+                RaisePropertyChanged(()=>BackShelf);
             }
         }
 
         
         public const string VerticalBarrierPropertyName = "VerticalBarrier";
 
-        private ObservableCollection<MyModel> _verticalBarrier;
+        private ObservableCollection<string> _verticalBarrier;
 
-        public ObservableCollection<MyModel> VerticalBarrier
+        public ObservableCollection<string> VerticalBarrier
         {
             get
             {
@@ -167,14 +174,39 @@ namespace WPF.ViewModel
                 }
 
                 _verticalBarrier = value;
-                RaisePropertyChanged(VerticalBarrierPropertyName);
+                RaisePropertyChanged(() => VerticalBarrier);
             }
         }
 
+
+        
+        public const string BarriersPropertyName = "Barriers";
+
+        private int _barriers;
+        
+        public int Barriers
+        {
+            get
+            {
+                return _barriers;
+            }
+
+            set
+            {
+                if (_barriers == value)
+                {
+                    return;
+                }
+
+                _barriers = value;
+                RaisePropertyChanged(() => Barriers);
+            }
+        }
         #endregion
 
 
         #region RelayMethod
+
         private RelayCommand _okRelayCommand;
 
         public RelayCommand OkRelayCommand =>_okRelayCommand
@@ -186,14 +218,146 @@ namespace WPF.ViewModel
 
         public RelayCommand AbortRelayCommand =>_abortCommand
             ?? (_abortCommand = new RelayCommand(ExecuteAbortRelayCommand));
+
+        private RelayCommand _getFocusCommand;
+
+        
+        public RelayCommand GetFocusCommand =>
+            _getFocusCommand
+            ?? (_getFocusCommand = new RelayCommand(ExecuteGetFocusCommand));
+
         
         #endregion
 
-
-        public class MyModel
+        private void AddPermutationToObservableCollection()
         {
-            public string txt { get; set; }
-            public List<int> list;
+            VerticalBarrier = new ObservableCollection<string>();
+
+            foreach (var str in _intList)
+            {
+                VerticalBarrier.Add(str);
+            }
+            RaisePropertyChanged(VerticalBarrierPropertyName);
+        }
+        
+        private static List<string> GeneratePermutationFromNumberElements(int elements)
+        {
+            var intElements = new int[elements+1];
+
+            for (var i = 0; i <=elements; i++)
+            {
+                intElements[i] = i;
+            }
+
+            var t2 = new List<string>();
+
+            for (var i = 0; i <=elements+1; i++)
+            {
+                t2 = GFG.printCombination(intElements, elements+1, i + 1);
+            }
+
+
+            return t2;
+        }
+        
+        private static class GFG
+        {
+
+            // This code is contributed by m_kit 
+            private static List<string> lll = new List<string>();
+            private static int[] y;
+            private static StringBuilder stringBuilder = new StringBuilder();
+
+            /* arr[] ---> Input Array 
+            data[] ---> Temporary array to 
+                        store current combination 
+            start & end ---> Staring and Ending 
+                            indexes in arr[] 
+            index ---> Current index in data[] 
+            r ---> Size of a combination 
+                    to be printed */
+            static void combinationUtil(int[] arr, int[] data, int start, int end, int index, int r)
+            {
+                // Current combination is 
+                // ready to be printed, 
+                // print it 
+                if (index == r)
+                {
+                    
+                    
+                    for (int j = 0; j < r; j++)
+                    {
+
+                        stringBuilder.Append(data[j]);
+
+                       
+                        Debug.Write(data[j] + " ");
+                    }
+
+                    lll.Add(stringBuilder.ToString());
+                    stringBuilder.Clear();
+
+                    Debug.WriteLine("");
+                    return;
+                }
+
+                // replace index with all 
+                // possible elements. The 
+                // condition "end-i+1 >= 
+                // r-index" makes sure that 
+                // including one element 
+                // at index will make a 
+                // combination with remaining 
+                // elements at remaining positions 
+                for (int i = start; i <= end &&
+                                    end - i + 1 >= r - index; i++)
+                {
+                    data[index] = arr[i];
+                    combinationUtil(arr, data, i + 1,
+                        end, index + 1, r);
+                }
+            }
+
+            // The main function that prints 
+            // all combinations of size r 
+            // in arr[] of size n. This 
+            // function mainly uses combinationUtil() 
+            public static List<string> printCombination(int[] arr, int n, int r)
+            {
+                // A temporary array to store 
+                // all combination one by one 
+                int[] data = new int[r];
+
+                // Print all combination 
+                // using temprary array 'data[]' 
+                combinationUtil(arr, data, 0,n - 1, 0, r);
+
+                return lll;
+            }
+
+            // Driver Code 
+            //static public void Main()
+            //{
+            //    int[] arr = { 1, 2, 3, 4, 5 };
+            //    int r = 3;
+            //    int n = arr.Length;
+            //    printCombination(arr, n, r);
+            //}
+        }
+
+        private void LoadDataToComboBox()
+        {
+            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.VerticalBarrier))
+            {
+                _verticalBarrierCount = (int)_dataExchangeViewModel.Item(EnumExchangeViewmodel.VerticalBarrier);
+            }
+
+           _intList?.Clear();
+
+
+            _intList = GeneratePermutationFromNumberElements(_verticalBarrierCount);
+
+            AddPermutationToObservableCollection();
         }
     }
 }

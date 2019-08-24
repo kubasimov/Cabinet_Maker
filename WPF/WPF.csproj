@@ -81,19 +81,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\EnumMatchToBooleanConverter.cs" />
     <Compile Include="Element3D.cs" />
     <Compile Include="Enum\EnumExchangeViewmodel.cs" />
     <Compile Include="Implement\DataExchangeViewModel.cs" />
     <Compile Include="Interface\IDataExchangeViewModel.cs" />
     <Compile Include="model.cs" />
     <Compile Include="Validate\ValidateTextBox.cs" />
+    <Compile Include="ViewModel\FrontViewModel.cs" />
     <Compile Include="ViewModel\HorizontalBarrierViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\VerticalBarrierViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\FrontWindow.xaml.cs">
+      <DependentUpon>FrontWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VerticalBarrierWindow.xaml.cs">
       <DependentUpon>VerticalBarrierWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\FrontWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HorizontalBarrierWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Dodaj pionowy element
 " Height="245.067" Width="231.92"
-        DataContext="{Binding VerticalBarrier, Source={StaticResource Locator}}">
+        DataContext="{Binding VerticalBarrierView, Source={StaticResource Locator}}">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>

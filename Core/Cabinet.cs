@@ -67,11 +67,6 @@ namespace Core
 
         private void GlobalCabinetElement()
         {
-            //leftSide=new ElementModel();
-            //var rightSide = new ElementModel();
-            //var bottom = new ElementModel();
-            //var top = new ElementModel();
-            
             switch (CabinetType)
             {
                 case EnumCabinetType.Standard:
@@ -87,8 +82,6 @@ namespace Core
                         Ey = 0,
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
                     };
-
-
                     _rightSide = new ElementModel
                     {
                         EName = EnumCabinetElement.Rightside,
@@ -97,10 +90,9 @@ namespace Core
                         EWidth = SizeElement,
                         EDepth = Depth,
                         Ex = Width - SizeElement,
+                        Ey = 0,
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
                     };
-
-
                     _bottom = new ElementModel
                     {
                         EName = EnumCabinetElement.Bottom,
@@ -113,8 +105,6 @@ namespace Core
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
 
                     };
-
-
                     _top = new ElementModel
                     {
                         EName = EnumCabinetElement.Top,
@@ -126,8 +116,6 @@ namespace Core
                         Ey = Height - SizeElement,
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
                     };
-
-
                     break;
 
                 case EnumCabinetType.odwrotna:
@@ -150,8 +138,6 @@ namespace Core
                         Ey = 0,
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
                     };
-
-
                     _rightSide = new ElementModel
                     {
                         EName = EnumCabinetElement.Rightside,
@@ -162,8 +148,6 @@ namespace Core
                         Ex = Width - SizeElement,
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
                     };
-
-
                     _bottom = new ElementModel
                     {
                         EName = EnumCabinetElement.Bottom,
@@ -176,8 +160,6 @@ namespace Core
                         Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
 
                     };
-
-
                     _top = new ElementModel
                     {
                         EName = EnumCabinetElement.Top,
@@ -253,8 +235,6 @@ namespace Core
                 CabinetElements[index].Ex = element.Ex;
                 CabinetElements[index].Ey = element.Ey;
                 CabinetElements[index].Ez = element.Ez;
-                
-                //CabinetElements[index] = element;
             }
             else
             {
@@ -264,23 +244,23 @@ namespace Core
 
         public void AddFront(int number, EnumFront enumFront)
         {
-            var slots = new Slots { BetweenVertically = 3, BetweenHorizontally = 3 };
+            var slots = new SlotsModel { BetweenVertically = 3, BetweenHorizontally = 3 };
             FrontList=Front.AddFront(number, slots,enumFront);
         }
 
         public void AddFront(int numberVertically=0)
         {
-            var slots = new Slots {BetweenVertically = 3, BetweenHorizontally = 3 };
+            var slots = new SlotsModel {BetweenVertically = 3, BetweenHorizontally = 3 };
 
             AddFront(slots,numberVertically);
         }
 
-        public void AddFront(Slots slots,int number=0 )
+        public void AddFront(SlotsModel slots,int number=0 )
         {
             FrontList = Front.AddFront(number, slots,EnumFront.Pionowo);
         }
 
-        public void AddFront(Slots slots, int number, EnumFront enumFront)
+        public void AddFront(SlotsModel slots, int number, EnumFront enumFront)
         {
             FrontList = Front.AddFront(number,slots,enumFront);
         }
@@ -288,6 +268,19 @@ namespace Core
         public void AddFront(List<ElementModel> frontList)
         {
             FrontList = Front.AddFront(frontList);
+        }
+
+        public void AddFront(FrontParameter frontParameter)
+        {
+            try
+            {
+                FrontList = Front.AddFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                
+            }
         }
 
         public void UpdateFront(ElementModel front)
@@ -351,6 +344,8 @@ namespace Core
             GlobalCabinetElement();
             AddVerticalBarrier(VerticalBarrierParameter);
         }
+
+        
     }
 }
      

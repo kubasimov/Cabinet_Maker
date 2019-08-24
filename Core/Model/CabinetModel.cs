@@ -21,7 +21,7 @@ namespace Core.Model
         public List<ElementModel> VerticalBarrier;
         protected BarrierParameter HorizontalBarrierParameter;
         protected BarrierParameter VerticalBarrierParameter;
-        protected List<ElementModel> FrontList;
+        public List<ElementModel> FrontList;
         protected readonly Back SwitchBack = new Back();
 
         

@@ -32,17 +32,66 @@ namespace Cabinet_Maker_NanoCad
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var name = listBox1.Items[listBox1.SelectedIndex];
-            
 
+            var dimension = checkBox1.Checked;
+
+            var _orientationDraw = orientationDraw();
+            
             var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", name.ToString()+".json");
 
             var cabinet = File.Exists(filename) ? JsonConvert.DeserializeObject<Cabinet>(File.ReadAllText(filename)) : new Cabinet();
 
             var ptStart = GetFromNanoCad.GetCoordinates();
 
-            var polylines = MyRectangle.Cabinet(cabinet, ptStart);
             var draw = new Draw();
-            draw.DrawObject(polylines);
+
+            if (_orientationDraw == 0)
+            {
+                var polylinesKorpus = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.CabinetElements, ptStart);
+                var polylinesVertcalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.VerticalBarrier, ptStart);
+                var polylinesHorizontalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.HorizontalBarrier, ptStart);
+                var polylinesFront = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.GetFrontList(), ptStart);
+
+                
+                draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
+                draw.DrawObjectsFromPolylineList(polylinesVertcalBarrier, "Korpus");
+                draw.DrawObjectsFromPolylineList(polylinesHorizontalBarrier, "Korpus");
+                draw.DrawObjectsFromPolylineList(polylinesFront, "Fronty");
+
+                if (dimension)
+                {
+                    var alignedCabinetDimensions = MyDimension.CabinetDimension(cabinet.CabinetElements, ptStart);
+                    var alignedVerticalBarrierDimension = MyDimension.VerticalBarrier(cabinet.VerticalBarrier, ptStart);
+                    var alignedHorizontalBarrierDimension = MyDimension.HorizontalBarrier(cabinet.HorizontalBarrier, ptStart);
+                    var alignedFrontDimension = MyDimension.Front(cabinet.GetFrontList(), ptStart);
+
+                    draw.DrawDimensionList(alignedCabinetDimensions, "Wymiary_korpusu");
+                    draw.DrawDimensionList(alignedVerticalBarrierDimension, "Wymiary_korpusu");
+                    draw.DrawDimensionList(alignedHorizontalBarrierDimension, "Wymiary_korpusu");
+                    draw.DrawDimensionList(alignedFrontDimension, "Wymiary frontow");
+                }
+            }
+            else if (_orientationDraw == 1)
+            {
+                var polylinesKorpus = MyRectangleOnTop.GetPolylineListFromCabinetElements(cabinet.CabinetElements, ptStart);
+                var polylinesFront = MyRectangleOnTop.GetPolylineListFromFrontList(cabinet.GetFrontList(), ptStart);
+
+
+                draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
+                draw.DrawObjectsFromPolylineList(polylinesFront, "Fronty");
+
+            }
+
+
+
+            
+        }
+
+        private int orientationDraw()
+        {
+            if (radioButton1.Checked) return 0;
+            if (radioButton2.Checked) return 1;
+            return 0;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Cabinet_Maker_NanoCad
         Database acCurDb = Application.DocumentManager.MdiActiveDocument.Database;
 
         //, List<AlignedDimension> rotatedDimensions, List<MText> acMTexts
-        public void DrawObject(List<Polyline> poly2D)
+        public void DrawObjectsFromPolylineList(List<Polyline> poly2D,string layer)
         {
             // Start a transaction
             using (var acTrans = acCurDb.TransactionManager.StartTransaction())
@@ -29,7 +29,7 @@ namespace Cabinet_Maker_NanoCad
 
                 foreach (var polyline in poly2D)
                 {
-                    polyline.Layer = "Korpus";
+                    polyline.Layer = layer;
                     acBlkTblRec.AppendEntity(polyline);
 
                     acTrans.AddNewlyCreatedDBObject(polyline, true);
@@ -55,5 +55,36 @@ namespace Cabinet_Maker_NanoCad
             }
 
         }
+
+        public void DrawDimensionList(List<AlignedDimension> rotatedDimensions, string layer)
+        {
+            // Start a transaction
+            using (var acTrans = acCurDb.TransactionManager.StartTransaction())
+            {
+
+                // Open the Block table for read
+                var acBlkTbl = acTrans.GetObject(acCurDb.BlockTableId,
+                    OpenMode.ForRead) as BlockTable;
+
+                // Open the Block table record Model space for write
+                var acBlkTblRec = acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace],
+                    OpenMode.ForWrite) as BlockTableRecord;
+
+                foreach (var dimension in rotatedDimensions)
+                {
+                    dimension.Layer = layer;
+                    acBlkTblRec.AppendEntity(dimension);
+
+
+                    acTrans.AddNewlyCreatedDBObject(dimension, true);
+                }
+                
+
+                // Save the new object to the database
+                acTrans.Commit();
+            }
+
+        }
+
     }
 }
