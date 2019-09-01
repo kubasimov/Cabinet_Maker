@@ -2,7 +2,7 @@
 
 namespace Core.Model
 {
-    public class ElementModel
+    public class ElementModel : Result
     {
         public Guid Guid;
         public EnumCabinetElement EName;    //Wewnetrzna nazwa elementu

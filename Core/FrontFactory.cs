@@ -6,20 +6,20 @@ namespace Core
 {
     public class Front
     {
-        private Cabinet _cabinet;
-        private List<ElementModel> frontList;
+        private readonly Cabinet _cabinet;
+        private List<ElementModel> _frontList;
 
         public Front(Cabinet cabinet)
         {
             _cabinet = cabinet;
-            frontList=new List<ElementModel>();
+            _frontList=new List<ElementModel>();
         }
 
         public List<ElementModel> AddFront(int number,SlotsModel slots,EnumFront enumFront)
         {
-            if (number==0||number==null) throw new ArgumentException("Wartosc musi byc wieksza niz 0 lub null");
+            if (number==0) throw new ArgumentException("Wartosc musi byc wieksza niz 0 lub null");
                 
-            frontList = new List<ElementModel>();
+            _frontList = new List<ElementModel>();
 
             var width = enumFront.HasFlag(EnumFront.Pionowo) ? 
                 (_cabinet.Width - slots.Left - slots.Right - slots.BetweenVertically * (number - 1)) / number :
@@ -43,10 +43,10 @@ namespace Core
                     Ez = _cabinet.Depth+slots.BetweenCabinet
                 };
 
-                frontList.Add(front);
+                _frontList.Add(front);
             }
 
-            return frontList;
+            return _frontList;
 
 
         }
@@ -55,10 +55,10 @@ namespace Core
         {
             foreach (var element in frontListT)
             {
-                frontList.Add(element);
+                _frontList.Add(element);
             }
 
-            return frontList;
+            return _frontList;
         }
     }
 }

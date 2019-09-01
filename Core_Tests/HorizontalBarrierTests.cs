@@ -13,7 +13,7 @@ namespace Core_Tests
             var cabinet = new Cabinet(name:"test_1");
             var barrierParameter = new BarrierParameter {Number = 1};
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -31,7 +31,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
@@ -55,7 +55,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 4 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(4, cabinet.HorizontalBarrier.Count);
@@ -92,7 +92,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
@@ -103,7 +103,7 @@ namespace Core_Tests
 
             barrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
@@ -127,7 +127,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 1,Back=5 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -146,7 +146,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 2,Back=10 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
@@ -191,13 +191,13 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
             
             var barrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
@@ -221,14 +221,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(1);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -246,13 +246,13 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(3, cabinet.HorizontalBarrier.Count);
@@ -276,14 +276,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
             
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(2);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
 
@@ -302,14 +302,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(1);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -327,13 +327,13 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(3, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Equal(4,cabinet.HorizontalBarrier.Count);
@@ -351,14 +351,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(3, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(3);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -376,14 +376,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(3, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(1);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -401,14 +401,14 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(3, cabinet.VerticalBarrier.Count);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             barrierParameter.AddBarrier(2);
 
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -426,18 +426,18 @@ namespace Core_Tests
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
 
             var barrierParameter = new BarrierParameter { Number = 1 };
             
-            cabinet.AddHorizontalBarrier(barrierParameter);
+            cabinet.NewHorizontalBarrier(barrierParameter);
             
             Assert.Equal(2,cabinet.HorizontalBarrier.Count);
 
             vBarrierParameter.Number = 2;
-            cabinet.AddVerticalBarrier(vBarrierParameter);
+            cabinet.NewVerticalBarrier(vBarrierParameter);
 
             Assert.Equal(2,cabinet.VerticalBarrier.Count);
 

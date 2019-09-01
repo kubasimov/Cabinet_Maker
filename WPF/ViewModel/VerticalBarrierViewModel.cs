@@ -29,13 +29,12 @@ namespace WPF.ViewModel
 
         private void ExecuteOkCommand()
         {
-            var barierParametter = new BarrierParameter();
-
-            barierParametter.Number = int.Parse(_barrierNumber);
-            barierParametter.Back = int.Parse(_backShelf);
-
-            //barierParametter.Barrier=
-
+            var barierParametter = new BarrierParameter
+            {
+                Number = int.Parse(_barrierNumber),
+                Back = int.Parse(_backShelf)
+            };
+            
             _dataExchangeViewModel.Add(EnumExchangeViewmodel.verticalBarrierWindow, barierParametter);
             Messenger.Default.Send(new NotificationMessage(this, "CloseVerticalBarrier"));
         }

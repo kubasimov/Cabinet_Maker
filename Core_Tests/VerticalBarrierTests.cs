@@ -15,7 +15,7 @@ namespace Core_Tests
             var cabinet = new Cabinet();
             var barrierParameter = new BarrierParameter { Number = 1 };
 
-            cabinet.AddVerticalBarrier(barrierParameter);
+            cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
             Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
@@ -35,7 +35,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 2 };
 
-            cabinet.AddVerticalBarrier(barrierParameter);
+            cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Equal(2,cabinet.VerticalBarrier.Count);
 
@@ -61,7 +61,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 1,Back=5 };
 
-            cabinet.AddVerticalBarrier(barrierParameter);
+            cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
             Assert.Equal(18, cabinet.VerticalBarrier[0].EWidth);
@@ -82,7 +82,7 @@ namespace Core_Tests
 
             var barrierParameter = new BarrierParameter { Number = 2,Back=5 };
 
-            cabinet.AddVerticalBarrier(barrierParameter);
+            cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
 

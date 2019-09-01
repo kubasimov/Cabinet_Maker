@@ -264,9 +264,9 @@ namespace WPF.ViewModel
         {
 
             // This code is contributed by m_kit 
-            private static List<string> lll = new List<string>();
-            private static int[] y;
-            private static StringBuilder stringBuilder = new StringBuilder();
+            private static readonly List<string> lll = new List<string>();
+           
+            private static readonly StringBuilder stringBuilder = new StringBuilder();
 
             /* arr[] ---> Input Array 
             data[] ---> Temporary array to 
@@ -276,7 +276,7 @@ namespace WPF.ViewModel
             index ---> Current index in data[] 
             r ---> Size of a combination 
                     to be printed */
-            static void combinationUtil(int[] arr, int[] data, int start, int end, int index, int r)
+            static void CombinationUtil(int[] arr, int[] data, int start, int end, int index, int r)
             {
                 // Current combination is 
                 // ready to be printed, 
@@ -313,7 +313,7 @@ namespace WPF.ViewModel
                                     end - i + 1 >= r - index; i++)
                 {
                     data[index] = arr[i];
-                    combinationUtil(arr, data, i + 1,
+                    CombinationUtil(arr, data, i + 1,
                         end, index + 1, r);
                 }
             }
@@ -330,7 +330,7 @@ namespace WPF.ViewModel
 
                 // Print all combination 
                 // using temprary array 'data[]' 
-                combinationUtil(arr, data, 0,n - 1, 0, r);
+                CombinationUtil(arr, data, 0,n - 1, 0, r);
 
                 return lll;
             }

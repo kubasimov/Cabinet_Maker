@@ -12,13 +12,13 @@ namespace Core.Factory
             elements=new List<ElementModel>();
         }
 
-        public List<ElementModel> AddBarrier(BarrierParameter barrierParameter)
+        public override List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
         {
             //UWAGA - KAZDE NOWE DODAWANIE POZIOMOW NIWELUJE OSTATNIE RYSOWANIE - ZWIEKSZA ILOSC POZIOMOW O NOWE, ALE WYLICZA WSZYSTKO NA NOWO
 
             //ILOSC PRZEGROD POZIOMYCH DO WYLICZENIA
             //number = elements.Count() >= barrierParameter.Number ? barrierParameter.Number + elements.Count : barrierParameter.Number;
-            number = barrierParameter.Number;
+            Number = barrierParameter.Number;
             //ODSUNIECIE OD PRZODU
             back = barrierParameter.Back;
             //WYSOKOSCI PRZESTRZENIE POMIEDZY
@@ -35,7 +35,7 @@ namespace Core.Factory
             tempDepth = _cabinet.Depth - back;
             
             tempEy = (_cabinet.Height - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
-                      - number * _cabinet.SizeElement) / (number + 1);
+                      - Number * _cabinet.SizeElement) / (Number + 1);
 
             //petla po wszystkich kolumnach
             for (int i = 0; i <= _cabinet.VerticalBarrier.Count(); i++)
@@ -143,7 +143,7 @@ namespace Core.Factory
 
         private void AddElement()
         {
-            for (var i = 0; i < number; i++)
+            for (var i = 0; i < Number; i++)
             {
                 var element = new ElementModel
                 {
@@ -159,6 +159,26 @@ namespace Core.Factory
 
 
             }
+        }
+
+        public override List<ElementModel> Add(int element)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<ElementModel> Delete(ElementModel element)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<ElementModel> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ElementModel Get(int element)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

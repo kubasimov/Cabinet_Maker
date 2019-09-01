@@ -286,11 +286,23 @@ namespace WPF.ViewModel
                                                   ?? (_myDrawCabinetCommand =
                                                       new RelayCommand(DrawCabinetRelayCommand));
 
+        private RelayCommand _myNewVerticalBarrierCommand;
+
+        public RelayCommand NewVerticalBarrierCommand => _myNewVerticalBarrierCommand
+                                                         ?? (_myNewVerticalBarrierCommand =
+                                                             new RelayCommand(NewVerticalBarrierRelayCommand));
+
         private RelayCommand _myAddVerticalBarrierCommand;
 
         public RelayCommand AddVerticalBarrierCommand => _myAddVerticalBarrierCommand
                                                            ?? (_myAddVerticalBarrierCommand =
                                                                new RelayCommand(AddVerticalBarrierRelayCommand));
+
+        private RelayCommand _myNewHorizontalBarrierCommand;
+
+        public RelayCommand NewHorizontalBarrierCommand => _myNewHorizontalBarrierCommand
+                                                           ?? (_myNewHorizontalBarrierCommand =
+                                                               new RelayCommand(NewHorizontalBarrierRelayCommand));
 
         private RelayCommand _myAddHorizontalBarrierCommand;
 
@@ -322,7 +334,11 @@ namespace WPF.ViewModel
                                             ?? (_myEndCommand =
                                                 new RelayCommand(EndRelayCommand));
 
+        private RelayCommand _myExportCommand;
 
+        public RelayCommand ExportCommand => _myExportCommand
+                    ?? (_myExportCommand =
+                        new RelayCommand(ExportRelayCommand));
         #endregion
 
         #region RelayCommand
@@ -342,7 +358,7 @@ namespace WPF.ViewModel
             RaisePropertyChanged(MyModel3DPropertyName);
         }
 
-        private void AddVerticalBarrierRelayCommand()
+        private void NewVerticalBarrierRelayCommand()
         {
             _dataExchangeViewModel.Add(EnumExchangeViewmodel.HorizontalBarrier, Cabinet.HorizontalBarrier.Count);
             new VerticalBarrierWindow().ShowDialog();
@@ -351,13 +367,20 @@ namespace WPF.ViewModel
             {
                 var t = (BarrierParameter) _dataExchangeViewModel.Item(EnumExchangeViewmodel.verticalBarrierWindow);
 
-                Cabinet.AddVerticalBarrier(t);
+                Cabinet.NewVerticalBarrier(t);
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
             }
         }
 
-        private void AddHorizontalBarrierRelayCommand()
+        private void AddVerticalBarrierRelayCommand()
+        {
+            Cabinet.AddVerticalBarrier(1);
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
+        }
+
+        private void NewHorizontalBarrierRelayCommand()
         {
             _dataExchangeViewModel.Add(EnumExchangeViewmodel.VerticalBarrier, Cabinet.VerticalBarrier.Count);
             new HorizontalBarrierWindow().ShowDialog();
@@ -366,10 +389,15 @@ namespace WPF.ViewModel
             {
                 var t = (BarrierParameter)_dataExchangeViewModel.Item(EnumExchangeViewmodel.HorizontalBarrierWindow);
 
-                Cabinet.AddHorizontalBarrier(t);
+                Cabinet.NewHorizontalBarrier(t);
                 _model3D = CreateCabinet();
                 RaisePropertyChanged(MyModel3DPropertyName);
             }
+        }
+
+        private void AddHorizontalBarrierRelayCommand()
+        {
+
         }
 
         private void AddFrontRelayCommand()
@@ -431,6 +459,12 @@ namespace WPF.ViewModel
         private void EndRelayCommand()
         {
             Messenger.Default.Send(new NotificationMessage(this, "CloseMain"));
+        }
+
+        private void ExportRelayCommand()
+        {
+            var export = new Core.Export.ExcelExport();
+            export.Export(Cabinet);
         }
 
         #endregion

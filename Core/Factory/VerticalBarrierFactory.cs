@@ -6,26 +6,47 @@ namespace Core.Factory
 {
     public class VerticalBarrierFactory:BarrierFactory
     {
-        
-
         public VerticalBarrierFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
             elements = new List<ElementModel>();
         }
 
-        public List<ElementModel> AddBarrier(BarrierParameter barrierParameter)
+        public override List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
         {
-            //var number = elements.Count() >= barrierParameter.Number ? barrierParameter.Number + elements.Count : barrierParameter.Number;
-            number = barrierParameter.Number;
-
+            Number = barrierParameter.Number;
+            
             back = barrierParameter.Back;
 
-            var height = barrierParameter.Height;
+            return Recalculate();
+        }
 
-            int barrier = 0;//barrierParameter.Barrier.FirstOrDefault();
+        public override List<ElementModel> Add(int element)
+        {
+            Number = elements.Count() + element;
             
-            //TABLICA NOWYCH PRZEGROD
+            return Recalculate();
+
+        }
+
+        public override List<ElementModel> Delete(ElementModel delete)
+        {
+            elements.Remove(delete);
+            return elements;
+        }
+
+        public override List<ElementModel> GetAll()
+        {
+            return elements;
+        }
+
+        public override ElementModel Get(int element)
+        {
+            return elements[element];
+        }
+
+        private List<ElementModel> Recalculate()
+        {
             elements = new List<ElementModel>();
 
             tempHeight = _cabinet.Height - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight;
@@ -37,8 +58,8 @@ namespace Core.Factory
             tempEy = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight;
 
             tempEx = (_cabinet.Width - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth -
-                          _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).EWidth - number * _cabinet.SizeElement) / (number + 1);
-            for (int i = 0; i < number; i++)
+                      _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).EWidth - Number * _cabinet.SizeElement) / (Number + 1);
+            for (var i = 0; i < Number; i++)
             {
                 var element = new ElementModel
                 {

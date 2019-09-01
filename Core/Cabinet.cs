@@ -59,11 +59,40 @@ namespace Core
             Front = new Front(this);
         }
 
-        public void AddHorizontalBarrier(BarrierParameter barrierParameter)
+        #region Vertical Barrier
+        public void NewVerticalBarrier(BarrierParameter barrierParameter)
         {
-            HorizontalBarrierParameter = barrierParameter;
-            HorizontalBarrier = HorizontalBarrierFactory.AddBarrier(barrierParameter);
+            if (barrierParameter == null)
+                return;
+            
+            VerticalBarrierParameter = barrierParameter;
+            VerticalBarrier = VerticalBarrierFactory.NewBarrier(VerticalBarrierParameter);
+            
+            
+            if(HorizontalBarrierParameter!=null)
+                NewHorizontalBarrier(HorizontalBarrierParameter);
+
         }
+        #endregion
+
+        public void AddVerticalBarrier(int i)
+        {
+            VerticalBarrier = VerticalBarrierFactory.Add(i);
+            if (HorizontalBarrierParameter != null)
+                NewHorizontalBarrier(HorizontalBarrierParameter);
+        }
+
+
+        #region Horizontal Barrier
+        public void NewHorizontalBarrier(BarrierParameter barrierParameter)
+        {
+            if (barrierParameter == null)
+                return;
+
+            HorizontalBarrierParameter = barrierParameter;
+            HorizontalBarrier = HorizontalBarrierFactory.NewBarrier(HorizontalBarrierParameter);
+        }
+        #endregion
 
         private void GlobalCabinetElement()
         {
@@ -208,20 +237,7 @@ namespace Core
         //{
         //    _verticalBarrier.AddBarrier(number,barrier,back);
         //}
-
-        public void AddVerticalBarrier(BarrierParameter barrierParameter)
-        {
-            if (barrierParameter != null)
-            {
-                VerticalBarrierParameter = barrierParameter;
-                VerticalBarrier = VerticalBarrierFactory.AddBarrier(barrierParameter);
-            }
-            
-            if(HorizontalBarrierParameter!=null)
-                AddHorizontalBarrier(HorizontalBarrierParameter);
-
-        }
-
+        
         private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, ElementModel element)
         {
             if (CabinetElements.Exists(c => c.EName == enumCabinetElement))
@@ -241,6 +257,9 @@ namespace Core
                 CabinetElements.Add(element);
             }
         }
+
+
+        #region Front command
 
         public void AddFront(int number, EnumFront enumFront)
         {
@@ -323,6 +342,8 @@ namespace Core
             }
         }
 
+        #endregion
+
         public void Serialize()
         {
             var path = Path.Combine(Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments), "Cabinet_Maker",Name + ".json");
@@ -342,7 +363,7 @@ namespace Core
         public void Redraw()
         {
             GlobalCabinetElement();
-            AddVerticalBarrier(VerticalBarrierParameter);
+            NewVerticalBarrier(VerticalBarrierParameter);
         }
 
         

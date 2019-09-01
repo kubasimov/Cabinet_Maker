@@ -125,14 +125,16 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <Button Content="Dodaj przegrode pionową" Grid.Column="1" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}"/>
-        <Button Content="Dodaj przegrode poziomą" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddHorizontalBarrierCommand, Mode=OneWay}"/>
+        <Button Content="Nowe przegrody pionowe" Grid.Column="1" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewVerticalBarrierCommand, Mode=OneWay}"/>
+        <Button Content="Dodaj przegrode poziomą" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewHorizontalBarrierCommand, Mode=OneWay}"/>
         <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddFrontCommand, Mode=OneWay}"/>
 
         <Button Content="Nowy" Grid.Column="1" HorizontalAlignment="Left" Margin="50,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}"/>
         <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}"/>
         <Button Content="Zakończ" Grid.Column="1" HorizontalAlignment="Left" Margin="150,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}"/>
-        
+        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,210,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}"/>
+        <Button Content="Export" Grid.Column="1" HorizontalAlignment="Left" Margin="150,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ExportCommand, Mode=OneWay}"/>
+
 
 
     </Grid>
