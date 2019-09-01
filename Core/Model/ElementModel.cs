@@ -13,6 +13,9 @@ namespace Core.Model
         public int Ex;
         public int Ey;
         public int Ez;
+        public bool Horizontal;
+        public string Material;
+
 
         public ElementModel()
         {

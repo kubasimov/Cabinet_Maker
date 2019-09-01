@@ -59,6 +59,7 @@ namespace Core.Factory
 
             tempEx = (_cabinet.Width - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth -
                       _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).EWidth - Number * _cabinet.SizeElement) / (Number + 1);
+
             for (var i = 0; i < Number; i++)
             {
                 var element = new ElementModel
@@ -68,7 +69,8 @@ namespace Core.Factory
                     EDepth = tempDepth,
                     Ex = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth + tempEx * (i + 1) + _cabinet.SizeElement * i,
                     Ey = tempEy,
-                    EName = EnumCabinetElement.VerticalBarrier
+                    EName = EnumCabinetElement.VerticalBarrier,
+                    Description="Poziom"
                 };
                 elements.Add(element);
             }
