@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="Draw.cs" />
+    <Compile Include="DrawC.cs" />
     <Compile Include="GetFromNanoCad.cs" />
     <Compile Include="MyDimension.cs" />
     <Compile Include="MyRectangleOnFront.cs" />

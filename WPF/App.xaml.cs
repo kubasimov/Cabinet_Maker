@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Language;
 
 namespace WPF
 {
@@ -20,8 +22,9 @@ namespace WPF
                 new RoutedEventHandler(SelectAllText), true);
 
             base.OnStartup(e);
-        }
 
+        }
+        
         private static void SelectAllText(object sender, RoutedEventArgs e)
         {
             var textBox = e.OriginalSource as TextBox;

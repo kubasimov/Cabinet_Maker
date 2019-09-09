@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DTools", "3DTools\3DTools.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cabinet_Maker_NanoCad", "Cabinet_Maker_NanoCad\Cabinet_Maker_NanoCad.csproj", "{069469EE-9EF0-4D30-8A15-0566C157E5A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Language", "Language\Language.csproj", "{6BE217F5-A86E-49F7-8394-0A570DC245D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,11 +41,18 @@ Global
 		{069469EE-9EF0-4D30-8A15-0566C157E5A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{069469EE-9EF0-4D30-8A15-0566C157E5A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{069469EE-9EF0-4D30-8A15-0566C157E5A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE217F5-A86E-49F7-8394-0A570DC245D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE217F5-A86E-49F7-8394-0A570DC245D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE217F5-A86E-49F7-8394-0A570DC245D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE217F5-A86E-49F7-8394-0A570DC245D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_ConfirmAddLanguageFile = True
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_NeutralResourcesLanguage = pl-PL
 		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
 	EndGlobalSection
 EndGlobal

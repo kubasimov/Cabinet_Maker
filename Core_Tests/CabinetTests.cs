@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Windows;
+using Core;
 using Xunit;
 
 namespace Core_Tests
@@ -93,5 +94,6 @@ namespace Core_Tests
 
 
         //}
+
     }
 }

@@ -1,4 +1,7 @@
-﻿using Teigha.Runtime;
+﻿using System.Windows;
+using Core;
+using Newtonsoft.Json;
+using Teigha.Runtime;
 
 namespace Cabinet_Maker_NanoCad
 {
@@ -17,9 +20,18 @@ namespace Cabinet_Maker_NanoCad
 
             var frm = new Start();
             frm.Show();
+        }
 
+        [CommandMethod("SzafkaClipboard")]
+        public static void szafkaClipboard()
+        {
+            var r = new DrawC();
+
+            var z = Clipboard.GetData("nano");
+            var t = JsonConvert.DeserializeObject < Cabinet >(z.ToString());
+
+            r.drawC(t);
             
-
         }
     }
 }

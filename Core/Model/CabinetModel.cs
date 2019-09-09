@@ -27,8 +27,9 @@ namespace Core.Model
         
         protected HorizontalBarrierFactory HorizontalBarrierFactory;
         protected VerticalBarrierFactory VerticalBarrierFactory;
-        protected Front Front;
 
+        protected Front Front;
+        protected FrontParameter FrontParameter;
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
     }

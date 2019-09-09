@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Core.Factory;
 using Core.Model;
-using Newtonsoft.Json;
-using NLog;
+
 
 namespace Core
 {
@@ -60,6 +58,7 @@ namespace Core
         }
 
         #region Vertical Barrier
+
         public void NewVerticalBarrier(BarrierParameter barrierParameter)
         {
             if (barrierParameter == null)
@@ -73,8 +72,7 @@ namespace Core
                 NewHorizontalBarrier(HorizontalBarrierParameter);
 
         }
-        #endregion
-
+        
         public void AddVerticalBarrier(int i)
         {
             VerticalBarrier = VerticalBarrierFactory.Add(i);
@@ -82,8 +80,24 @@ namespace Core
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
 
+        public void DeleteVerticalBarrier()
+        {
+            VerticalBarrier = VerticalBarrierFactory.Delete();
+            if (HorizontalBarrierParameter != null)
+                NewHorizontalBarrier(HorizontalBarrierParameter);
+        }
 
+        public void RemoveVerticalBarrier()
+        {
+            VerticalBarrier = VerticalBarrierFactory.Remove();
+            if (HorizontalBarrierParameter != null)
+                NewHorizontalBarrier(HorizontalBarrierParameter);
+        }
+        
+        #endregion
+        
         #region Horizontal Barrier
+
         public void NewHorizontalBarrier(BarrierParameter barrierParameter)
         {
             if (barrierParameter == null)
@@ -92,6 +106,22 @@ namespace Core
             HorizontalBarrierParameter = barrierParameter;
             HorizontalBarrier = HorizontalBarrierFactory.NewBarrier(HorizontalBarrierParameter);
         }
+
+        public void AddHorizontalBarrier(int i)
+        {
+            HorizontalBarrier = HorizontalBarrierFactory.Add(i);
+        }
+
+        public void DeleteHorizontalBarrier()
+        {
+            HorizontalBarrier = HorizontalBarrierFactory.Delete();
+        }
+
+        public void RemoveHorizontalBarrier()
+        {
+            HorizontalBarrier = HorizontalBarrierFactory.Remove();
+        }
+        
         #endregion
 
         private void GlobalCabinetElement()
@@ -291,6 +321,7 @@ namespace Core
 
         public void AddFront(FrontParameter frontParameter)
         {
+            FrontParameter = frontParameter;
             try
             {
                 FrontList = Front.AddFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
@@ -346,27 +377,25 @@ namespace Core
 
         public void Serialize()
         {
-            var path = Path.Combine(Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments), "Cabinet_Maker",Name + ".json");
+            var serialize = new Export.JsonExport();
+            serialize.Export(this);
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(this, Formatting.Indented));
         }
-
-        public void Serialize(string path)
-        {
-            File.WriteAllText(path, JsonConvert.SerializeObject(this, Formatting.Indented));
-        }
-        //var filename = @"D:\Hasla\settings.json";
-        //_settings = File.Exists(filename)
-        //    ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(filename))
-        //: new Dictionary<string, string>();
 
         public void Redraw()
         {
             GlobalCabinetElement();
-            NewVerticalBarrier(VerticalBarrierParameter);
+            VerticalBarrier= VerticalBarrierFactory.Redraw();
+            HorizontalBarrier = HorizontalBarrierFactory.Redraw();
+            //NewVerticalBarrier(VerticalBarrierParameter);
+            AddFront(FrontParameter);
         }
 
-        
+        public void ClipboardExport()
+        {
+            var clip = new Export.ClipboardExport();
+            clip.Export(this);
+        }
     }
 }
      

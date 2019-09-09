@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Core.Model;
 
 namespace Core.Factory
@@ -21,12 +23,22 @@ namespace Core.Factory
             return Recalculate();
         }
 
+        public override List<ElementModel> Redraw()
+        {
+            return Recalculate();
+        }
+
         public override List<ElementModel> Add(int element)
         {
-            Number = elements.Count() + element;
-            
-            return Recalculate();
+            Number = elements.Count + element;
 
+            return Recalculate();
+        }
+
+        public override List<ElementModel> Delete()
+        {
+            Number = elements.Count - 1;
+            return Recalculate();
         }
 
         public override List<ElementModel> Delete(ElementModel delete)
@@ -35,8 +47,10 @@ namespace Core.Factory
             return elements;
         }
 
-        public override List<ElementModel> GetAll()
+        public override List<ElementModel> Remove()
         {
+            Number = 0;
+            elements = new List<ElementModel>();
             return elements;
         }
 
@@ -44,6 +58,14 @@ namespace Core.Factory
         {
             return elements[element];
         }
+
+        public override List<ElementModel> GetAll()
+        {
+            return elements;
+        }
+
+        
+
 
         private List<ElementModel> Recalculate()
         {
@@ -70,12 +92,15 @@ namespace Core.Factory
                     Ex = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth + tempEx * (i + 1) + _cabinet.SizeElement * i,
                     Ey = tempEy,
                     EName = EnumCabinetElement.VerticalBarrier,
-                    Description="Poziom"
+                    Description="Pion"
                 };
                 elements.Add(element);
             }
 
             return elements;
         }
+
+
+        
     }
 }

@@ -1,123 +1,111 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Helpers;
 using Core.Model;
 
 namespace Core.Factory
 {
     public class HorizontalBarrierFactory:BarrierFactory
     {
+        private Dictionary<int, List< ElementModel>> _elem;
+
         public HorizontalBarrierFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
             elements=new List<ElementModel>();
+            _elem = new Dictionary<int, List<ElementModel>>();
         }
-
+        
         public override List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
         {
-            //UWAGA - KAZDE NOWE DODAWANIE POZIOMOW NIWELUJE OSTATNIE RYSOWANIE - ZWIEKSZA ILOSC POZIOMOW O NOWE, ALE WYLICZA WSZYSTKO NA NOWO
-
-            //ILOSC PRZEGROD POZIOMYCH DO WYLICZENIA
-            //number = elements.Count() >= barrierParameter.Number ? barrierParameter.Number + elements.Count : barrierParameter.Number;
             Number = barrierParameter.Number;
-            //ODSUNIECIE OD PRZODU
-            back = barrierParameter.Back;
-            //WYSOKOSCI PRZESTRZENIE POMIEDZY
-            //var height = barrierParameter.Height;
-            //KTORY RZAD DO STAWIENIA LUB DOMYSLNIE PIERWSZY
-            //int barrier = barrierParameter.Barrier.FirstOrDefault();
 
-            //TABLICA NOWYCH PRZEGROD
+            back = barrierParameter.Back;
+
+            return Recalculate(barrierParameter.GetBarrier());
+        }
+
+        public override List<ElementModel> Redraw()
+        {
+            return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+        }
+
+        public override List<ElementModel> Add(int element)
+        {
+            Number = elements.Count + element;
+
+            return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+        }
+
+        public override List<ElementModel> Delete()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<ElementModel> Delete(ElementModel element)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<ElementModel> Remove()
+        {
+            Number = 0;
+            elements = new List<ElementModel>();
+            return elements;
+        }
+
+        public override ElementModel Get(int element)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<ElementModel> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        
+
+
+        private List<ElementModel> Recalculate(List<int> barrier)
+        {
             elements = new List<ElementModel>();
 
-            //Wysokosc elementu
             tempHeight = _cabinet.SizeElement; ;
-            //GLEBOKOSC NOWYCH PRZEGROD
+
             tempDepth = _cabinet.Depth - back;
-            
+
             tempEy = (_cabinet.Height - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
                       - Number * _cabinet.SizeElement) / (Number + 1);
 
-            //petla po wszystkich kolumnach
-            for (int i = 0; i <= _cabinet.VerticalBarrier.Count(); i++)
+            for (var i = 0; i <= _cabinet.VerticalBarrier.Count; i++)
             {
-                //czy nie ma  informacji o wybranych kolumnach
-                if (barrierParameter.GetBarrier()==null||barrierParameter.GetBarrier().Count==0)
+                if (barrier == null || barrier.Count == 0)
                 {
-                    // brak informacji o kolumnach - wstawianie w każda
                     tempWidth = TempWidth(i);
                     tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
 
                     AddElement();
+                    //_elem.Add(i, elements);
                 }
                 else
                 {
-                    //sa wybrane kolumny
-                    if (barrierParameter.GetBarrier().Contains(i))
+                    if (barrier.Contains(i))
                     {
-                        //wstawianie do danej kolumny - wybranej
                         tempWidth = TempWidth(i);
                         tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
 
                         AddElement();
+                        //_elem.Add(i, elements);
                     }
                 }
             }
 
-
-
-
-
-
-
-
-            //if (_cabinet.VerticalBarrier.Count > 0)
-            //{
-            //    if (barrier == 0)
-            //    {
-            //        tempWidth = _cabinet.VerticalBarrier[barrier].Ex - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth;
-            //    }
-            //    else if (barrier == _cabinet.VerticalBarrier.Count)
-            //    {
-            //        tempWidth = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).Ex - _cabinet.VerticalBarrier[barrier - 1].Ex - _cabinet.VerticalBarrier[barrier - 1].EWidth;
-            //    }
-            //    else
-            //    {
-            //        tempWidth = _cabinet.VerticalBarrier[barrier].Ex - _cabinet.VerticalBarrier[barrier - 1].Ex - _cabinet.VerticalBarrier[barrier - 1].EWidth;
-            //    }
-            //}
-            //else
-            //{
-            //    tempWidth = _cabinet.Width - 2 * _cabinet.SizeElement;
-            //}
-
-            ////polozenie elementu na osi x
-            ////Jesli pierwsza lub jedyna przestrzen to punkt poczatkowy wiekszy o szerokosc boku
-            ////Jesli wybrano inna przestrzen niz pierwsza ( jedyna ) to punkt poczatkowy bariery + jej grubosc
-
-            //var tempEx = barrier == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[barrier - 1].Ex + _cabinet.VerticalBarrier[barrier - 1].EWidth;
-
-
-            ////polozenie elementu na osi y
-
-            //if (!height.Any())
-            //{
-                
-
-                
-            //}
-            //else
-            //{
-
-            //}
-
             return elements;
         }
 
-        //wyliczenie szerokosc do danej kolumny
         private int TempWidth(int column)
         {
-            int tempWidth;
-
             if (_cabinet.VerticalBarrier.Count > 0)
             {
                 if (column == 0)
@@ -152,33 +140,14 @@ namespace Core.Factory
                     EDepth = tempDepth,
                     Ex = tempEx,
                     Ey = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight + tempEy * (i + 1) + _cabinet.SizeElement * i,
-                    EName = EnumCabinetElement.HorizontalBarrier
+                    EName = EnumCabinetElement.HorizontalBarrier,
+                    Description = "Poziom"
                 };
 
                 elements.Add(element);
 
 
             }
-        }
-
-        public override List<ElementModel> Add(int element)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override List<ElementModel> Delete(ElementModel element)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override List<ElementModel> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ElementModel Get(int element)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

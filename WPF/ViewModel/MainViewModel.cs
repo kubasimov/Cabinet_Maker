@@ -10,16 +10,11 @@ using WPF.Enum;
 using WPF.Interface;
 using Core.Model;
 using WPF.View;
-using System.Windows;
-using GalaSoft.MvvmLight.Messaging;
-using System;
 
 namespace WPF.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
-        Cabinet Cabinet;
-        
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private IDataExchangeViewModel _dataExchangeViewModel;
@@ -59,28 +54,28 @@ namespace WPF.ViewModel
 
             Int32Collection myTriangleIndicesCollection = new Int32Collection();
 
-            foreach (var element in Cabinet.CabinetElements)
+            foreach (var element in _cabinet.CabinetElements)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
             //Cabinet.AddHorizontalBarrier(2);
-            foreach (var element in Cabinet.HorizontalBarrier)
+            foreach (var element in _cabinet.HorizontalBarrier)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
             //Cabinet.AddVerticalBarrier(2);
-            foreach (var element in Cabinet.VerticalBarrier)
+            foreach (var element in _cabinet.VerticalBarrier)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
             //Cabinet.AddFront(2);
-            foreach (var element in Cabinet.GetFrontList())
+            foreach (var element in _cabinet.GetFrontList())
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
@@ -278,197 +273,6 @@ namespace WPF.ViewModel
 
         #endregion
 
-        #region DeclareRelayCommand
-
-        private RelayCommand _myDrawCabinetCommand;
-
-        public RelayCommand DrawCabinetCommand => _myDrawCabinetCommand
-                                                  ?? (_myDrawCabinetCommand =
-                                                      new RelayCommand(DrawCabinetRelayCommand));
-
-        private RelayCommand _myNewVerticalBarrierCommand;
-
-        public RelayCommand NewVerticalBarrierCommand => _myNewVerticalBarrierCommand
-                                                         ?? (_myNewVerticalBarrierCommand =
-                                                             new RelayCommand(NewVerticalBarrierRelayCommand));
-
-        private RelayCommand _myAddVerticalBarrierCommand;
-
-        public RelayCommand AddVerticalBarrierCommand => _myAddVerticalBarrierCommand
-                                                           ?? (_myAddVerticalBarrierCommand =
-                                                               new RelayCommand(AddVerticalBarrierRelayCommand));
-
-        private RelayCommand _myNewHorizontalBarrierCommand;
-
-        public RelayCommand NewHorizontalBarrierCommand => _myNewHorizontalBarrierCommand
-                                                           ?? (_myNewHorizontalBarrierCommand =
-                                                               new RelayCommand(NewHorizontalBarrierRelayCommand));
-
-        private RelayCommand _myAddHorizontalBarrierCommand;
-
-        public RelayCommand AddHorizontalBarrierCommand => _myAddHorizontalBarrierCommand
-                                                           ?? (_myAddHorizontalBarrierCommand =
-                                                               new RelayCommand(AddHorizontalBarrierRelayCommand));
-
-        private RelayCommand _myAddFrontCommand;
-
-        public RelayCommand AddFrontCommand => _myAddFrontCommand
-                                                           ?? (_myAddFrontCommand =
-                                                               new RelayCommand(AddFrontRelayCommand));
-
-        private RelayCommand _myNewCommand;
-
-        public RelayCommand NewCommand => _myNewCommand
-                                           ?? (_myNewCommand =
-                                               new RelayCommand(NewRelayCommand));
-
-        private RelayCommand _mySaveCommand;
-
-        public RelayCommand SaveCommand => _mySaveCommand
-                                                           ?? (_mySaveCommand =
-                                                               new RelayCommand(SaveRelayCommand));
-
-        private RelayCommand _myEndCommand;
-
-        public RelayCommand EndCommand => _myEndCommand
-                                            ?? (_myEndCommand =
-                                                new RelayCommand(EndRelayCommand));
-
-        private RelayCommand _myExportCommand;
-
-        public RelayCommand ExportCommand => _myExportCommand
-                    ?? (_myExportCommand =
-                        new RelayCommand(ExportRelayCommand));
-        #endregion
-
-        #region RelayCommand
-
-        private void DrawCabinetRelayCommand()
-        {
-            Cabinet.Height = int.Parse(_myCabinet.height);
-            Cabinet.Width = int.Parse(_myCabinet.width);
-            Cabinet.Depth = int.Parse(_myCabinet.depth);
-            Cabinet.SizeElement = int.Parse(_myCabinet.sizeElement);
-            Cabinet.BackSize = int.Parse(_myCabinet.BackSize);
-            Cabinet.Name = _myCabinet.Name;
-
-            Cabinet.Redraw();
-
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
-        }
-
-        private void NewVerticalBarrierRelayCommand()
-        {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.HorizontalBarrier, Cabinet.HorizontalBarrier.Count);
-            new VerticalBarrierWindow().ShowDialog();
-
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.verticalBarrierWindow))
-            {
-                var t = (BarrierParameter) _dataExchangeViewModel.Item(EnumExchangeViewmodel.verticalBarrierWindow);
-
-                Cabinet.NewVerticalBarrier(t);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
-            }
-        }
-
-        private void AddVerticalBarrierRelayCommand()
-        {
-            Cabinet.AddVerticalBarrier(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
-        }
-
-        private void NewHorizontalBarrierRelayCommand()
-        {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.VerticalBarrier, Cabinet.VerticalBarrier.Count);
-            new HorizontalBarrierWindow().ShowDialog();
-
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.HorizontalBarrierWindow))
-            {
-                var t = (BarrierParameter)_dataExchangeViewModel.Item(EnumExchangeViewmodel.HorizontalBarrierWindow);
-
-                Cabinet.NewHorizontalBarrier(t);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
-            }
-        }
-
-        private void AddHorizontalBarrierRelayCommand()
-        {
-
-        }
-
-        private void AddFrontRelayCommand()
-        {
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Front, new FrontParameter());
-            new FrontWindow().ShowDialog();
-
-            if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.FrontWindow))
-            {
-                var frontParameter = (FrontParameter) _dataExchangeViewModel.Item(EnumExchangeViewmodel.FrontWindow);
-                
-
-                Cabinet.AddFront(frontParameter);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
-            }
-        }
-
-        private void NewRelayCommand()
-        {
-            NewCabinet();
-            RaisePropertyChanged(MyCabinetPropertyName);
-        }
-
-        private void SaveRelayCommand()
-        {
-            //var t = (System.Windows.Controls.Viewport3D)ob;
-
-            //RenderTargetBitmap bitmap = new RenderTargetBitmap((int)t.ActualWidth, (int)t.ActualHeight, 100, 100, PixelFormats.Pbgra32);
-            //bitmap.Render(t);
-
-            //// create a png bitmap encoder to save the png file
-            //BitmapEncoder encoder = new PngBitmapEncoder();
-            //encoder.Frames.Clear();
-
-            //// create frame from the writable bitmap and add to encoder
-            //encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-            //// optionally write .png to the disk
-            //using (FileStream fs = new FileStream(@"d:\aaa.png", FileMode.Create))
-            //{
-            //    encoder.Save(fs);
-            //}
-
-            if (_myCabinet.Name == ""||_myCabinet.Name==null)
-            {
-                MessageBox.Show("Nazwa jest wymagana", "Uwaga", MessageBoxButton.OK, MessageBoxImage.Warning);
-                
-            }
-            else
-            {
-                Cabinet.Serialize();
-                MessageBox.Show("Zapisano", "Zapis", MessageBoxButton.OK);
-            }
-
-            
-        }
-
-        private void EndRelayCommand()
-        {
-            Messenger.Default.Send(new NotificationMessage(this, "CloseMain"));
-        }
-
-        private void ExportRelayCommand()
-        {
-            var export = new Core.Export.ExcelExport();
-            export.Export(Cabinet);
-        }
-
-        #endregion
-
         public class TempCabinet
         {
             public string Name { get; set; }
@@ -604,7 +408,7 @@ namespace WPF.ViewModel
             _myCabinet.BackSize = 3.ToString();
 
 
-            Cabinet = new Cabinet(
+            _cabinet = new Cabinet(
                 int.Parse(_myCabinet.height),
                 int.Parse(_myCabinet.width),
                 int.Parse(_myCabinet.depth),
