@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Core.Interface;
 using Core.Model;
 
 namespace Core.Factory
 {
-    public class VerticalBarrierFactory:BarrierFactory
+    public class VerticalBarrierFactory:BarrierFactory, IElementRepository
     {
         public VerticalBarrierFactory(Cabinet cabinet)
         {
@@ -23,50 +24,44 @@ namespace Core.Factory
             return Recalculate();
         }
 
-        public override List<ElementModel> Redraw()
+        public List<ElementModel> ReCount()
         {
             return Recalculate();
         }
 
-        public override List<ElementModel> Add(int element)
+        public List<ElementModel> Add(int element)
         {
             Number = elements.Count + element;
 
             return Recalculate();
         }
 
-        public override List<ElementModel> Delete()
+        public List<ElementModel> Delete()
         {
             Number = elements.Count - 1;
+            if (Number < 0)
+                Number = 0;
             return Recalculate();
         }
 
-        public override List<ElementModel> Delete(ElementModel delete)
+        public List<ElementModel> Delete(ElementModel delete)
         {
             elements.Remove(delete);
             return elements;
         }
 
-        public override List<ElementModel> Remove()
+        public List<ElementModel> DeleteAll()
         {
             Number = 0;
             elements = new List<ElementModel>();
             return elements;
         }
 
-        public override ElementModel Get(int element)
-        {
-            return elements[element];
-        }
-
-        public override List<ElementModel> GetAll()
+        public List<ElementModel> GetAll()
         {
             return elements;
         }
-
         
-
-
         private List<ElementModel> Recalculate()
         {
             elements = new List<ElementModel>();

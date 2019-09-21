@@ -85,11 +85,12 @@ namespace Core
             VerticalBarrier = VerticalBarrierFactory.Delete();
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
+            Redraw();
         }
 
         public void RemoveVerticalBarrier()
         {
-            VerticalBarrier = VerticalBarrierFactory.Remove();
+            VerticalBarrier = VerticalBarrierFactory.DeleteAll();
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
@@ -119,7 +120,7 @@ namespace Core
 
         public void RemoveHorizontalBarrier()
         {
-            HorizontalBarrier = HorizontalBarrierFactory.Remove();
+            HorizontalBarrier = HorizontalBarrierFactory.DeleteAll();
         }
         
         #endregion
@@ -385,8 +386,8 @@ namespace Core
         public void Redraw()
         {
             GlobalCabinetElement();
-            VerticalBarrier= VerticalBarrierFactory.Redraw();
-            HorizontalBarrier = HorizontalBarrierFactory.Redraw();
+            VerticalBarrier= VerticalBarrierFactory.ReCount();
+            HorizontalBarrier = HorizontalBarrierFactory.ReCount();
             //NewVerticalBarrier(VerticalBarrierParameter);
             AddFront(FrontParameter);
         }

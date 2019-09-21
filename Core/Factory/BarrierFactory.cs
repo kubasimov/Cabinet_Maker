@@ -15,13 +15,8 @@ namespace Core.Factory
         protected int tempEx;
         protected int back;
 
-        public abstract List<ElementModel> Add(int element);
-        public abstract List<ElementModel> Delete(ElementModel element);
-        public abstract List<ElementModel> Delete();
-        public abstract List<ElementModel> GetAll();
-        public abstract ElementModel Get(int element);
-        public abstract List<ElementModel> Remove();
+        
         public abstract List<ElementModel> NewBarrier(BarrierParameter barrierParameter);
-        public abstract List<ElementModel> Redraw();
+        
     }
 }

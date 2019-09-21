@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Helpers;
+using Core.Interface;
 using Core.Model;
 
 namespace Core.Factory
 {
-    public class HorizontalBarrierFactory:BarrierFactory
+    public class HorizontalBarrierFactory:BarrierFactory, IElementRepository
     {
         private Dictionary<int, List< ElementModel>> _elem;
 
@@ -25,51 +26,52 @@ namespace Core.Factory
             return Recalculate(barrierParameter.GetBarrier());
         }
 
-        public override List<ElementModel> Redraw()
+        public List<ElementModel> ReCount()
         {
             return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
         }
 
-        public override List<ElementModel> Add(int element)
+        public List<ElementModel> Add(int element)
         {
             Number = elements.Count + element;
 
             return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
         }
 
-        public override List<ElementModel> Delete()
+        public List<ElementModel> Delete()
+        {
+            Number = elements.Count - 1;
+            if (Number < 0)
+                Number = 0;
+            return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+
+        }
+
+        public List<ElementModel> Delete(ElementModel element)
         {
             throw new System.NotImplementedException();
         }
 
-        public override List<ElementModel> Delete(ElementModel element)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override List<ElementModel> Remove()
+        public List<ElementModel> DeleteAll()
         {
             Number = 0;
             elements = new List<ElementModel>();
             return elements;
         }
 
-        public override ElementModel Get(int element)
+        public List<ElementModel> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
-        public override List<ElementModel> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        
 
 
         private List<ElementModel> Recalculate(List<int> barrier)
         {
             elements = new List<ElementModel>();
+            
+            _elem = new Dictionary<int, List<ElementModel>>();
+
 
             tempHeight = _cabinet.SizeElement; ;
 
@@ -77,6 +79,8 @@ namespace Core.Factory
 
             tempEy = (_cabinet.Height - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
                       - Number * _cabinet.SizeElement) / (Number + 1);
+
+
 
             for (var i = 0; i <= _cabinet.VerticalBarrier.Count; i++)
             {
@@ -86,7 +90,7 @@ namespace Core.Factory
                     tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
 
                     AddElement();
-                    //_elem.Add(i, elements);
+                    _elem.Add(i, elements);
                 }
                 else
                 {
@@ -96,9 +100,14 @@ namespace Core.Factory
                         tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
 
                         AddElement();
-                        //_elem.Add(i, elements);
+                        _elem.Add(i, elements);
                     }
                 }
+
+
+
+
+
             }
 
             return elements;

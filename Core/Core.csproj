@@ -63,7 +63,9 @@
     <Compile Include="Export\ExcelExport.cs" />
     <Compile Include="Export\IExport.cs" />
     <Compile Include="Factory\BarrierFactory.cs" />
+    <Compile Include="Factory\CabinetFactory.cs" />
     <Compile Include="Helpers\Permutation.cs" />
+    <Compile Include="Interface\IElementRepository.cs" />
     <Compile Include="Model\BarrierParameter.cs" />
     <Compile Include="Model\CabinetModel.cs" />
     <Compile Include="Model\ElementModel.cs" />
@@ -71,12 +73,12 @@
     <Compile Include="Enum\EnumBack.cs" />
     <Compile Include="Enum\EnumCabinetElement.cs" />
     <Compile Include="Enum\EnumFront.cs" />
-    <Compile Include="FrontFactory.cs" />
+    <Compile Include="Factory\FrontFactory.cs" />
     <Compile Include="Factory\HorizontalBarrierFactory.cs" />
     <Compile Include="Model\FrontParameter.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BackFactory.cs" />
+    <Compile Include="Factory\BackFactory.cs" />
     <Compile Include="Model\SlotsModel.cs" />
     <Compile Include="Export\JsonExport.cs" />
     <Compile Include="Factory\VerticalBarrierFactory.cs" />
