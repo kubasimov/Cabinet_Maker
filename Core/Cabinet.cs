@@ -94,6 +94,11 @@ namespace Core
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
+
+        public List<ElementModel> GetAllVerticalBarrier()
+        {
+            return VerticalBarrierFactory.GetAll();
+        }
         
         #endregion
         

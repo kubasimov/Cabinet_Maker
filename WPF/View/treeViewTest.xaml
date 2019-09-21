@@ -1,0 +1,61 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Custom="http://www.galasoft.ch/mvvmlight" x:Class="WPF.View.treeViewTest"
+        mc:Ignorable="d"
+        Title="treeViewTest" Height="450" Width="800"
+        DataContext="{Binding TreeViewTestModel, Source={StaticResource Locator}}">
+
+
+
+    <Grid>
+
+        <TreeView Name="treeView" ItemsSource="{Binding CabinetView }" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="220">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding elementModels}">
+                    <TextBlock Text="{Binding Name}"/>
+
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding  Description }"/>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <Custom:EventToCommand Command="{Binding MyCommand, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TreeView>
+        <Grid Margin="269,12,308,273" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="92*"/>
+                <ColumnDefinition Width="123*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Vertical" Grid.Column="0" Height="134">
+                <TextBlock Text="Nazwa" Height="26"/>
+                <TextBlock Text="Dlugosc" Height="26"/>
+                <TextBlock Text="Szerokosc" Height="26"/>
+                <TextBlock Text="Glebokosc" Height="26"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <TextBlock Text="{Binding MElement.Description}" Height="26"/>
+                <TextBlock Text="{Binding MElement.EDepth}" Height="26"/>
+                <TextBlock Text="{Binding MElement.EWidth}" Height="26"/>
+                <TextBlock Text="{Binding MElement.EHeight}" Height="26"/>
+            </StackPanel>
+
+
+        </Grid>
+
+
+
+    </Grid>
+</Window>

@@ -26,6 +26,7 @@ namespace WPF.ViewModel
             SimpleIoc.Default.Register<HorizontalBarrierViewModel>();
             SimpleIoc.Default.Register<VerticalBarrierViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
+            SimpleIoc.Default.Register<TreeViewTestViewModel>();
         }
 
         public MainViewModel MainView
@@ -46,6 +47,11 @@ namespace WPF.ViewModel
         public FrontViewModel FrontView
         {
             get { return ServiceLocator.Current.GetInstance<FrontViewModel>(); }
+        }
+
+        public TreeViewTestViewModel TreeViewTestModel
+        {
+            get { return ServiceLocator.Current.GetInstance<TreeViewTestViewModel>(); }
         }
 
         public static void Cleanup()

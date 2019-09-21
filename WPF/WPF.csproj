@@ -99,10 +99,14 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.Execute.cs" />
     <Compile Include="ViewModel\MainViewModel.RelayCommand.cs" />
+    <Compile Include="ViewModel\TreeViewTestViewModel.cs" />
     <Compile Include="ViewModel\VerticalBarrierViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\FrontWindow.xaml.cs">
       <DependentUpon>FrontWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\treeViewTest.xaml.cs">
+      <DependentUpon>treeViewTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VerticalBarrierWindow.xaml.cs">
       <DependentUpon>VerticalBarrierWindow.xaml</DependentUpon>
@@ -130,6 +134,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\treeViewTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VerticalBarrierWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
