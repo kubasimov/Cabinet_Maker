@@ -62,6 +62,8 @@
     <Compile Include="Export\ClipboardExport.cs" />
     <Compile Include="Export\ExcelExport.cs" />
     <Compile Include="Export\IExport.cs" />
+    <Compile Include="Export\IImport.cs" />
+    <Compile Include="Export\JsonImport.cs" />
     <Compile Include="Factory\BarrierFactory.cs" />
     <Compile Include="Factory\CabinetFactory.cs" />
     <Compile Include="Helpers\Permutation.cs" />

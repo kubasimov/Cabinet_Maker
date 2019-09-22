@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Factory;
 using Core.Model;
@@ -13,49 +14,72 @@ namespace Core
         private ElementModel _rightSide;
         private ElementModel _bottom;
         private ElementModel _top;
-
-        /// <summary>
-        /// Constructor z domyslnymi parametrami
-        /// ustawia podstawowe wartości szafki, alokuje pamięć dla tablic i wywoluje metode ustawiania podstawowych elementów
-        /// </summary>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="depth"></param>
-        /// <param name="sizeElement"></param>
-        /// <param name="back"></param>
-        /// <param name="backSize"></param>
-        /// <param name="cabinetType"></param>
-        /// <param name="name"></param>
-        public Cabinet( int height = 720, int width = 600, int depth = 510, int sizeElement = 18, EnumBack back=EnumBack.Brak, int backSize = 3, EnumCabinetType cabinetType = EnumCabinetType.Standard, string name="")
+         
+        public Cabinet(int height = 720, int width = 600, int depth = 510, int sizeElement = 18, int backSize = 3, string name = "")
         {
             HorizontalBarrier = new List<ElementModel>();
             VerticalBarrier = new List<ElementModel>();
             CabinetElements = new List<ElementModel>();
             FrontList = new List<ElementModel>();
 
-            CabinetType = cabinetType;
-
-            Height = height;
-
-            Width = width;
-
-            Depth = depth;
-
-            SizeElement = sizeElement;
-
+            //Default value
+            _height =height;
+            _width = width;
+            _depth = depth;
+            _sizeElement = sizeElement;
             BackSize = backSize;
+            Back = EnumBack.Brak;
+            _name = "Default";
+            CabinetType = EnumCabinetType.Standard;
 
-            Back = back;
-
-            Name = name;
 
             GlobalCabinetElement();
 
-            ChangeBack();
             HorizontalBarrierFactory = new HorizontalBarrierFactory(this);
             VerticalBarrierFactory = new VerticalBarrierFactory(this);
-            Front = new Front(this);
+            FrontFactory = new FrontFactory(this);
         }
+        
+        public Cabinet Height(int h)
+        {
+            _height = h;
+            Redraw();
+            return this;
+        }
+        public int Height() => _height;
+
+        public Cabinet Width(int w)
+        {
+            _width = w;
+            Redraw();
+            return this;
+        }
+        public int Width() => _width;
+
+        public Cabinet Depth(int d)
+        {
+            _depth = d;
+            Redraw();
+            return this;
+        }
+        public int Depth() => _depth;
+
+        public Cabinet SizeElement(int s)
+        {
+            _sizeElement = s;
+            Redraw();
+            return this;
+        }
+        public int SizeElement() => _sizeElement;
+
+        public Cabinet Name(string s)
+        {
+            _name = s;
+            Redraw();
+            return this;
+        }
+        public string Name() => _name;
+
 
         #region Vertical Barrier
 
@@ -95,7 +119,7 @@ namespace Core
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
 
-        public List<ElementModel> GetAllVerticalBarrier()
+        public IEnumerable<ElementModel> GetAllVerticalBarrier()
         {
             return VerticalBarrierFactory.GetAll();
         }
@@ -123,10 +147,13 @@ namespace Core
             HorizontalBarrier = HorizontalBarrierFactory.Delete();
         }
 
-        public void RemoveHorizontalBarrier()
+        public void DeleteAllHorizontalBarrier()
         {
             HorizontalBarrier = HorizontalBarrierFactory.DeleteAll();
         }
+
+        public List<ElementModel> GetAllHorizontalBarrier() => HorizontalBarrierFactory.GetAll();
+        
         
         #endregion
 
@@ -140,46 +167,50 @@ namespace Core
                     {
                         EName = EnumCabinetElement.Leftside,
                         Description = "Bok Lewy",
-                        EHeight = Height,
-                        EWidth = SizeElement,
-                        EDepth = Depth,
+                        EHeight = _height,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
                         Ex = 0,
                         Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=false
                     };
                     _rightSide = new ElementModel
                     {
                         EName = EnumCabinetElement.Rightside,
                         Description = "Bok Prawy",
-                        EHeight = Height,
-                        EWidth = SizeElement,
-                        EDepth = Depth,
-                        Ex = Width - SizeElement,
+                        EHeight = _height,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _width - _sizeElement,
                         Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal = false
                     };
                     _bottom = new ElementModel
                     {
                         EName = EnumCabinetElement.Bottom,
                         Description = "Spód",
-                        EHeight = SizeElement,
-                        EWidth = Width - 2 * SizeElement,
-                        EDepth = Depth,
-                        Ex = SizeElement,
+                        EHeight = _width - 2 * _sizeElement,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _sizeElement,
                         Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal = true
 
                     };
                     _top = new ElementModel
                     {
                         EName = EnumCabinetElement.Top,
                         Description = "Góra",
-                        EHeight = SizeElement,
-                        EWidth = Width - 2 * SizeElement,
-                        EDepth = Depth,
-                        Ex = SizeElement,
-                        Ey = Height - SizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        EHeight = _width - 2 * _sizeElement,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _sizeElement,
+                        Ey = _height - _sizeElement,
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=true
                     };
                     break;
 
@@ -196,45 +227,49 @@ namespace Core
                     {
                         EName = EnumCabinetElement.Leftside,
                         Description = "Bok Lewy",
-                        EHeight = Height,
-                        EWidth = SizeElement,
-                        EDepth = Depth,
+                        EHeight = _height,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
                         Ex = 0,
                         Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=false
                     };
                     _rightSide = new ElementModel
                     {
                         EName = EnumCabinetElement.Rightside,
                         Description = "Bok Prawy",
-                        EHeight = Height,
-                        EWidth = SizeElement,
-                        EDepth = Depth,
-                        Ex = Width - SizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        EHeight = _height,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _width - _sizeElement,
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=false
                     };
                     _bottom = new ElementModel
                     {
                         EName = EnumCabinetElement.Bottom,
                         Description = "Spód",
-                        EHeight = SizeElement,
-                        EWidth = Width - 2 * SizeElement,
-                        EDepth = Depth,
-                        Ex = SizeElement,
+                        EHeight = _width - 2 * _sizeElement,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _sizeElement,
                         Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=true
 
                     };
                     _top = new ElementModel
                     {
                         EName = EnumCabinetElement.Top,
                         Description = "Góra",
-                        EHeight = SizeElement,
-                        EWidth = Width - 2 * SizeElement,
-                        EDepth = Depth,
-                        Ex = SizeElement,
-                        Ey = Height - SizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this)
+                        EHeight = _width - 2 * _sizeElement,
+                        EWidth = _sizeElement,
+                        EDepth = _depth,
+                        Ex = _sizeElement,
+                        Ey = _height - _sizeElement,
+                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        Horizontal=true
                     };
 
                     break;
@@ -253,9 +288,9 @@ namespace Core
 
             if (Back == EnumBack.Nakladane)
             {
-                elementBack = new ElementModel { EName = EnumCabinetElement.Back, Description = "Plecy", EHeight = Height, EWidth = Width, EDepth = BackSize, Ex = 0, Ey = 0, Ez = 0 };
+                elementBack = new ElementModel { EName = EnumCabinetElement.Back, Description = "Plecy", EHeight = _height, EWidth = _width, EDepth = BackSize, Ex = 0, Ey = 0, Ez = 0 };
 
-                Depth = SwitchBack.SwitchDepthByBackType(Depth, Back, BackSize);
+                _depth = SwitchBack.SwitchDepthByBackType(_depth, Back, BackSize);
 
                 ChangeCabinetElement(EnumCabinetElement.Back,elementBack);
                 
@@ -269,11 +304,6 @@ namespace Core
             ChangeBack();
         }
 
-        //public void AddVerticalBarrier(int number, int barrier = 0, int back = 0)
-        //{
-        //    _verticalBarrier.AddBarrier(number,barrier,back);
-        //}
-        
         private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, ElementModel element)
         {
             if (CabinetElements.Exists(c => c.EName == enumCabinetElement))
@@ -287,20 +317,21 @@ namespace Core
                 CabinetElements[index].Ex = element.Ex;
                 CabinetElements[index].Ey = element.Ey;
                 CabinetElements[index].Ez = element.Ez;
+                CabinetElements[index].Horizontal = element.Horizontal;
+                CabinetElements[index].Material = element.Material;
             }
             else
             {
                 CabinetElements.Add(element);
             }
         }
-
-
+        
         #region Front command
 
         public void AddFront(int number, EnumFront enumFront)
         {
             var slots = new SlotsModel { BetweenVertically = 3, BetweenHorizontally = 3 };
-            FrontList=Front.AddFront(number, slots,enumFront);
+            FrontList=FrontFactory.AddFront(number, slots,enumFront);
         }
 
         public void AddFront(int numberVertically=0)
@@ -312,17 +343,17 @@ namespace Core
 
         public void AddFront(SlotsModel slots,int number=0 )
         {
-            FrontList = Front.AddFront(number, slots,EnumFront.Pionowo);
+            FrontList = FrontFactory.AddFront(number, slots,EnumFront.Pionowo);
         }
 
         public void AddFront(SlotsModel slots, int number, EnumFront enumFront)
         {
-            FrontList = Front.AddFront(number,slots,enumFront);
+            FrontList = FrontFactory.AddFront(number,slots,enumFront);
         }
 
         public void AddFront(List<ElementModel> frontList)
         {
-            FrontList = Front.AddFront(frontList);
+            FrontList = FrontFactory.AddFront(frontList);
         }
 
         public void AddFront(FrontParameter frontParameter)
@@ -330,7 +361,7 @@ namespace Core
             FrontParameter = frontParameter;
             try
             {
-                FrontList = Front.AddFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
+                FrontList = FrontFactory.AddFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
             }
             catch (Exception e)
             {
@@ -385,6 +416,22 @@ namespace Core
         {
             var serialize = new Export.JsonExport();
             serialize.Export(this);
+        }
+
+        public void Deserialize()
+        {
+            var deserialize = new Export.JsonImport();
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", "Default" + ".json");
+            var cab = deserialize.Import(path);
+            this.Height(cab.Height()).Width(cab.Width()).Depth(cab.Depth()).SizeElement(cab.SizeElement())
+                .Name(cab.Name());
+            this.HorizontalBarrier = cab.HorizontalBarrier;
+            HorizontalBarrierParameter = cab.HorizontalBarrierParameter;
+            VerticalBarrier = cab.VerticalBarrier;
+            VerticalBarrierParameter = cab.VerticalBarrierParameter;
+            FrontList = cab.FrontList;
+            FrontParameter = cab.FrontParameter;
+
 
         }
 
@@ -393,7 +440,6 @@ namespace Core
             GlobalCabinetElement();
             VerticalBarrier= VerticalBarrierFactory.ReCount();
             HorizontalBarrier = HorizontalBarrierFactory.ReCount();
-            //NewVerticalBarrier(VerticalBarrierParameter);
             AddFront(FrontParameter);
         }
 

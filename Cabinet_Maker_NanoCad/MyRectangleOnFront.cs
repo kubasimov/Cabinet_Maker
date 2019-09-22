@@ -8,8 +8,15 @@ namespace Cabinet_Maker_NanoCad
 {
     public static class MyRectangleOnFront
     {
-        private static Polyline Get(double startx, double starty, int szerokosc, int wysokosc)
+        private static Polyline Get(double startx, double starty, int szerokosc, int wysokosc,bool poziom)
         {
+            if (poziom)
+            {
+                var tmp = szerokosc;
+                szerokosc = wysokosc;
+                wysokosc = tmp;
+            }
+
             var acPoly = new Polyline();
             acPoly.SetDatabaseDefaults();
             acPoly.AddVertexAt(0, new Point2d(startx, starty), 0, 0, 0);
@@ -27,7 +34,7 @@ namespace Cabinet_Maker_NanoCad
 
             foreach (var t in cabinet)
             {
-                poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight));
+                poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight,t.Horizontal));
             }
 
             return poly;

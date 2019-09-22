@@ -1,12 +1,14 @@
 ﻿using System.Windows;
 using Core;
 using Newtonsoft.Json;
+using NLog;
 using Teigha.Runtime;
 
 namespace Cabinet_Maker_NanoCad
 {
     public class Command
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         [CommandMethod("Szafka")]
         public static void Szafka()
@@ -26,9 +28,13 @@ namespace Cabinet_Maker_NanoCad
         public static void szafkaClipboard()
         {
             var r = new DrawC();
+            //System.IO.File.WriteAllText(@"C:\TEST\WriteText.txt", "SzafkaClipboard\n");
 
             var z = Clipboard.GetData("nano");
-            var t = JsonConvert.DeserializeObject < Cabinet >(z.ToString());
+            //System.IO.File.AppendAllText(@"C:\TEST\WriteText.txt", z.ToString());
+
+            var t = JsonConvert.DeserializeObject <Cabinet>(z.ToString());
+            //System.IO.File.AppendAllText(@"C:\TEST\WriteText.txt", t.CabinetElements.Count.ToString());
 
             r.drawC(t);
             

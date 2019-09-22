@@ -17,7 +17,7 @@ namespace Core.Factory
             _elem = new Dictionary<int, List<ElementModel>>();
         }
         
-        public override List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
+        public List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
         {
             Number = barrierParameter.Number;
 
@@ -61,7 +61,7 @@ namespace Core.Factory
 
         public List<ElementModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            return elements;
         }
 
 
@@ -73,12 +73,12 @@ namespace Core.Factory
             _elem = new Dictionary<int, List<ElementModel>>();
 
 
-            tempHeight = _cabinet.SizeElement; ;
+            tempHeight = _cabinet.SizeElement(); ;
 
-            tempDepth = _cabinet.Depth - back;
+            tempDepth = _cabinet.Depth() - back;
 
-            tempEy = (_cabinet.Height - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EHeight
-                      - Number * _cabinet.SizeElement) / (Number + 1);
+            tempEy = (_cabinet.Height() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth
+                      - Number * _cabinet.SizeElement()) / (Number + 1);
 
 
 
@@ -132,7 +132,7 @@ namespace Core.Factory
             }
             else
             {
-                tempWidth = _cabinet.Width - 2 * _cabinet.SizeElement;
+                tempWidth = _cabinet.Width() - 2 * _cabinet.SizeElement();
             }
 
             return tempWidth;
@@ -144,13 +144,14 @@ namespace Core.Factory
             {
                 var element = new ElementModel
                 {
-                    EHeight = tempHeight,
-                    EWidth = tempWidth,
+                    EHeight = tempWidth,
+                    EWidth = tempHeight,
                     EDepth = tempDepth,
                     Ex = tempEx,
-                    Ey = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EHeight + tempEy * (i + 1) + _cabinet.SizeElement * i,
+                    Ey = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + tempEy * (i + 1) + _cabinet.SizeElement() * i,
                     EName = EnumCabinetElement.HorizontalBarrier,
-                    Description = "Poziom"
+                    Description = "Poziom",
+                    Horizontal=true
                 };
 
                 elements.Add(element);

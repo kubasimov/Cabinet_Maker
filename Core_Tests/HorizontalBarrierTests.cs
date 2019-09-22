@@ -10,16 +10,16 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_1_przegrody_poziomej()
         {
-            var cabinet = new Cabinet(name:"test_1");
+            var cabinet = new Cabinet().Name("test_1");
             var barrierParameter = new BarrierParameter {Number = 1};
 
             cabinet.NewHorizontalBarrier(barrierParameter);
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -27,7 +27,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_2_przegrod_poziomych()
         {
-            var cabinet = new Cabinet(name: "test_2");
+            var cabinet = new Cabinet().Name("test_2");
 
             var barrierParameter = new BarrierParameter { Number = 2 };
 
@@ -35,15 +35,15 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(234, cabinet.HorizontalBarrier[0].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(468, cabinet.HorizontalBarrier[1].Ey);
         }
@@ -51,7 +51,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_4_przegrod_poziomych()
         {
-            var cabinet = new Cabinet(name: "test_3");
+            var cabinet = new Cabinet().Name("test_3");
 
             var barrierParameter = new BarrierParameter { Number = 4 };
 
@@ -60,27 +60,27 @@ namespace Core_Tests
 
             Assert.Equal(4, cabinet.HorizontalBarrier.Count);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(140, cabinet.HorizontalBarrier[0].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(280, cabinet.HorizontalBarrier[1].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[2].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[2].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[2].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[2].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[2].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[2].Ex);
             Assert.Equal(420, cabinet.HorizontalBarrier[2].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[3].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[3].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[3].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[3].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[3].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[3].Ex);
             Assert.Equal(560, cabinet.HorizontalBarrier[3].Ey);
         }
@@ -88,16 +88,16 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_1_przegrody_potem_dodanie_nastepnej()
         {
-            var cabinet = new Cabinet(name: "test_4");
+            var cabinet = new Cabinet().Name("test_4");
 
             var barrierParameter = new BarrierParameter { Number = 1 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
 
@@ -107,15 +107,15 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(234, cabinet.HorizontalBarrier[0].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(468, cabinet.HorizontalBarrier[1].Ey);
         }
@@ -123,7 +123,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_1_polki()
         {
-            var cabinet = new Cabinet(name: "test_5");
+            var cabinet = new Cabinet().Name("test_5");
 
             var barrierParameter = new BarrierParameter { Number = 1,Back=5 };
 
@@ -132,9 +132,9 @@ namespace Core_Tests
 
             Assert.Single(cabinet.HorizontalBarrier);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(505, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -142,7 +142,7 @@ namespace Core_Tests
        [Fact]
         public void Dodanie_2_polek()
         {
-            var cabinet = new Cabinet(name: "test_6");
+            var cabinet = new Cabinet().Name("test_6");
 
             var barrierParameter = new BarrierParameter { Number = 2,Back=10 };
 
@@ -151,15 +151,15 @@ namespace Core_Tests
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(500, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(234, cabinet.HorizontalBarrier[0].Ey);
 
-            Assert.Equal(564, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(564, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(500, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(468, cabinet.HorizontalBarrier[1].Ey);
         }
@@ -186,7 +186,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_1_przegrody_poziomej_gdy_jest_przegroda_pionowa()
         {
-            var cabinet = new Cabinet(name: "test_8");
+            var cabinet = new Cabinet().Name("test_8");
 
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
@@ -201,15 +201,15 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
-            Assert.Equal(273, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(273, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
 
-            Assert.Equal(273, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(273, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(309,cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[1].Ey);
         }
@@ -217,7 +217,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_1_pionowej_bariery_a_potem_poziomej_do_2_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_9");
+            var cabinet = new Cabinet().Name("test_9");
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
 
@@ -232,9 +232,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(273, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(273, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(309, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -242,7 +242,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_2_pionowych_barier_a_potem_poziomej_do_1_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_10");
+            var cabinet = new Cabinet().Name("test_10");
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
@@ -256,15 +256,15 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Equal(3, cabinet.HorizontalBarrier.Count);
-            Assert.Equal(176, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(176, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
             
-            Assert.Equal(176, cabinet.HorizontalBarrier[1].EWidth);
+            Assert.Equal(176, cabinet.HorizontalBarrier[1].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[1].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[1].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[1].EWidth);
             Assert.Equal(212, cabinet.HorizontalBarrier[1].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[1].Ey);
         }
@@ -272,7 +272,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_2_pionowych_barier_a_potem_poziomej_do_3_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_11");
+            var cabinet = new Cabinet().Name("test_11");
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
@@ -288,9 +288,9 @@ namespace Core_Tests
 
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(176, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(176, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(406, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -298,7 +298,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_2_pionowych_barier_a_potem_poziomej_do_2_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_12");
+            var cabinet = new Cabinet().Name("test_12");
 
             var vBarrierParameter = new BarrierParameter { Number = 2 };
 
@@ -313,9 +313,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(176, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(176, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(212, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -323,7 +323,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_3_pionowych_barier_a_potem_poziomej_do_1_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_13");
+            var cabinet = new Cabinet().Name("test_13");
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
@@ -337,9 +337,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Equal(4,cabinet.HorizontalBarrier.Count);
-            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(18, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -347,7 +347,7 @@ namespace Core_Tests
        [Fact]
         public void Dodanie_najpierw_3_pionowych_barier_a_potem_poziomej_do_4_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_14");
+            var cabinet = new Cabinet().Name("test_14");
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
@@ -362,9 +362,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(129, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(129, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(453, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -372,7 +372,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_3_pionowych_barier_a_potem_poziomej_do_2_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_15");
+            var cabinet = new Cabinet().Name("test_15");
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
@@ -387,9 +387,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(163, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -397,7 +397,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_3_pionowych_barier_a_potem_poziomej_do_3_kolumny()
         {
-            var cabinet = new Cabinet(name: "test_16");
+            var cabinet = new Cabinet().Name("test_16");
 
             var vBarrierParameter = new BarrierParameter { Number = 3 };
 
@@ -412,9 +412,9 @@ namespace Core_Tests
             cabinet.Serialize();
 
             Assert.Single(cabinet.HorizontalBarrier);
-            Assert.Equal(127, cabinet.HorizontalBarrier[0].EWidth);
+            Assert.Equal(127, cabinet.HorizontalBarrier[0].EHeight);
             Assert.Equal(510, cabinet.HorizontalBarrier[0].EDepth);
-            Assert.Equal(18, cabinet.HorizontalBarrier[0].EHeight);
+            Assert.Equal(18, cabinet.HorizontalBarrier[0].EWidth);
             Assert.Equal(308, cabinet.HorizontalBarrier[0].Ex);
             Assert.Equal(351, cabinet.HorizontalBarrier[0].Ey);
         }
@@ -422,7 +422,7 @@ namespace Core_Tests
         [Fact]
         public void Dodanie_najpierw_1_pionowej_bariery_nastepnie_poziomej_a_na_koncu_jeszcze_jedna_pionowa()
         {
-            var cabinet = new Cabinet(name: "test_17");
+            var cabinet = new Cabinet().Name("test_17");
 
             var vBarrierParameter = new BarrierParameter { Number = 1 };
 

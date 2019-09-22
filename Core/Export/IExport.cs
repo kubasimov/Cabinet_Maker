@@ -3,6 +3,5 @@
     public interface IExport
     {
         void Export(Cabinet cabinet);
-
     }
 }

@@ -30,8 +30,9 @@ namespace WPF.ViewModel
         private void NewMethod2()
         {
             cabinet = new Cabinet();
-            cabinet.AddHorizontalBarrier(2);
-            cabinet.AddVerticalBarrier(2);
+            
+            cabinet.AddVerticalBarrier(1);
+            cabinet.AddHorizontalBarrier(1);
 
             var z = new Elements("Podstawa");
             foreach (ElementModel element in cabinet.CabinetElements)
@@ -45,7 +46,12 @@ namespace WPF.ViewModel
                 z1.elementModels.Add(element);
             }
 
-            _cabinetView = new ObservableCollection<Elements> {z, z1};
+            var z2 = new Elements("Horizontal Barrier");
+            foreach (ElementModel element in cabinet.GetAllHorizontalBarrier())
+            {
+                z2.elementModels.Add(element);
+            }
+            _cabinetView = new ObservableCollection<Elements> {z, z1,z2};
             RaisePropertyChanged(CabinetViewPropertyName);
 
         }

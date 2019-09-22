@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Windows;
 using Core;
 using Core.Model;
@@ -205,7 +202,7 @@ namespace WPF.ViewModel
 
         private void ExecuteRemoveHorizontalBarrierCommand()
         {
-            _cabinet.RemoveHorizontalBarrier();
+            _cabinet.DeleteAllHorizontalBarrier();
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }
@@ -236,12 +233,10 @@ namespace WPF.ViewModel
 
         private void ExecuteReDrawCabinetCommand()
         {
-            _cabinet.Height = int.Parse(_myCabinet.height);
-            _cabinet.Width = int.Parse(_myCabinet.width);
-            _cabinet.Depth = int.Parse(_myCabinet.depth);
-            _cabinet.SizeElement = int.Parse(_myCabinet.sizeElement);
+            _cabinet.Height(int.Parse(_myCabinet.height)).Width(int.Parse(_myCabinet.width)).Depth(int.Parse(_myCabinet.depth)).SizeElement(int.Parse(_myCabinet.sizeElement)).Name(_myCabinet.Name);
+
             _cabinet.BackSize = int.Parse(_myCabinet.BackSize);
-            _cabinet.Name = _myCabinet.Name;
+            
 
             _cabinet.Redraw();
 

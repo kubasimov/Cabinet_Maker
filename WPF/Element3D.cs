@@ -12,6 +12,7 @@ namespace WPF
         public double Ex;
         public double Ey;
         public double Ez;
+        public bool Horizontal;
     }
 }
      

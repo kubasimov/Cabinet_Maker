@@ -14,9 +14,5 @@ namespace Core.Factory
         protected int tempEy;
         protected int tempEx;
         protected int back;
-
-        
-        public abstract List<ElementModel> NewBarrier(BarrierParameter barrierParameter);
-        
     }
 }

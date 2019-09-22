@@ -1,4 +1,5 @@
 ﻿using HostMgd.EditorInput;
+using NLog;
 using Teigha.Geometry;
 
 namespace Cabinet_Maker_NanoCad
@@ -8,7 +9,7 @@ namespace Cabinet_Maker_NanoCad
         public static Point3d GetCoordinates()
         {
             var acDoc = HostMgd.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-
+            LogManager.GetCurrentClassLogger().Info("GetFromNanoCad");
 
             var pPtOpts = new PromptPointOptions("")
             {

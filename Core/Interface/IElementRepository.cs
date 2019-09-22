@@ -19,6 +19,6 @@ namespace Core.Interface
         
 
         List<ElementModel> ReCount();
-
+        List<ElementModel> NewBarrier(BarrierParameter barrierParameter);
     }
 }

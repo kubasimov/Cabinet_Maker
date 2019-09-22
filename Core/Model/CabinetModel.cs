@@ -8,11 +8,12 @@ namespace Core.Model
     {
         protected EnumCabinetType CabinetType;
 
-        public string Name;
-        public int Height;
-        public int Width;
-        public int Depth;
-        public int SizeElement;
+        //TODO: tymczasowo zmienne publiczne do serializacji. Przygotować dodatkowy model do serializacji(zapisu cabinet)
+        public string _name;
+        public int _height;
+        public int _width;
+        public int _depth;
+        public int _sizeElement;
         public int BackSize;
         public EnumBack Back;
 
@@ -28,7 +29,7 @@ namespace Core.Model
         protected HorizontalBarrierFactory HorizontalBarrierFactory;
         protected VerticalBarrierFactory VerticalBarrierFactory;
 
-        protected Front Front;
+        protected FrontFactory FrontFactory;
         protected FrontParameter FrontParameter;
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 

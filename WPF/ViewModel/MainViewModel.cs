@@ -26,7 +26,7 @@ namespace WPF.ViewModel
             _myCabinet = new TempCabinet();
 
             //Cabinet.AddBack();
-
+            Logger.Info("Start");
             if (IsInDesignMode)
             {
                 NewCabinet();
@@ -60,21 +60,18 @@ namespace WPF.ViewModel
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
-            //Cabinet.AddHorizontalBarrier(2);
             foreach (var element in _cabinet.HorizontalBarrier)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
-            //Cabinet.AddVerticalBarrier(2);
             foreach (var element in _cabinet.VerticalBarrier)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
-            //Cabinet.AddFront(2);
             foreach (var element in _cabinet.GetFrontList())
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
@@ -97,31 +94,31 @@ namespace WPF.ViewModel
             return myGeometryModel;
         }
 
-        private Point3DCollection cubeToPoint3DCollection(double wys, double szer, double gl, double x, double y,double z)
+        private Point3DCollection CubeToPoint3DCollection(double wys, double szer, double gl, double x, double y,double z,bool hor)
         {
-            Point3DCollection myPositionCollection = new Point3DCollection();
-            myPositionCollection.Add(new Point3D(x, y, z));
+            if (hor)
+            {
+                var r = wys;
+                wys = szer;
+                szer = r;
+            }
 
-            myPositionCollection.Add(new Point3D(x + szer, y, z));
-
-            myPositionCollection.Add(new Point3D(x, y + wys, z));
-
-            myPositionCollection.Add(new Point3D(x + szer, y + wys, z));
-
-            myPositionCollection.Add(new Point3D(x, y, z + gl));
-
-            myPositionCollection.Add(new Point3D(x + szer, y, z + gl));
-
-            myPositionCollection.Add(new Point3D(x, y + wys, z + gl));
-
-            myPositionCollection.Add(new Point3D(x + szer, y + wys, z + gl));
-
-            return myPositionCollection;
+            return  new Point3DCollection
+            {
+                new Point3D(x, y, z),
+                new Point3D(x + szer, y, z),
+                new Point3D(x, y + wys, z),
+                new Point3D(x + szer, y + wys, z),
+                new Point3D(x, y, z + gl),
+                new Point3D(x + szer, y, z + gl),
+                new Point3D(x, y + wys, z + gl),
+                new Point3D(x + szer, y + wys, z + gl)
+            };
         }
 
         private void AddElementToModel3D(Element3D element, ref MeshGeometry3D myMeshGeometry3D,ref Int32Collection myTriangleIndicesCollection)
         {
-            var items = cubeToPoint3DCollection(element.EHeight, element.EWidth, element.EDepth, element.Ex, element.Ey,element.Ez);
+            var items = CubeToPoint3DCollection(element.EHeight, element.EWidth, element.EDepth, element.Ex, element.Ey,element.Ez, element.Horizontal);
 
             foreach (Point3D point3D in items)
             {
@@ -181,13 +178,10 @@ namespace WPF.ViewModel
         
         private Model3D CreateLight()
         {
-            DirectionalLight myDirectionalLight = new DirectionalLight();
-
-            myDirectionalLight.Color = Colors.White;
-
-            myDirectionalLight.Direction = new Vector3D(-5, -5, -5);
-
-            return myDirectionalLight;
+            return new DirectionalLight
+            {
+                Color = Colors.White, Direction = new Vector3D(-5, -5, -5)
+            };
         }
 
         private Element3D GetElement3DFromElementModel(ElementModel element)
@@ -201,7 +195,8 @@ namespace WPF.ViewModel
                 Ex = (double)element.Ex / 100,
                 Ey = (double)element.Ey / 100,
                 Ez = (double)element.Ez / 100,
-                Description = element.Description
+                Description = element.Description,
+                Horizontal=element.Horizontal
             };
         }
         
@@ -284,123 +279,122 @@ namespace WPF.ViewModel
 
         }
 
-        private Model3D CreateContent2()
+        //private Model3D CreateContent2()
+        //{
 
-        {
+        //    GeometryModel3D myGeometryModel = new GeometryModel3D();
 
-            GeometryModel3D myGeometryModel = new GeometryModel3D();
-
-            MeshGeometry3D myMeshGeometry3D = new MeshGeometry3D();
-
-
-
-            var modeList = new ArrayList();
-
-            modeList.Add(new Model(7, 0.18, 5, 0, 0, 0));
-            //modeList.Add(new Model(7, 0.18, 5, 5.82, 0, 0));
-            //modeList.Add(new Model(0.18, 5.64, 5, 0.18, 0, 0));
-            //modeList.Add(new Model(0.18, 5.64, 5, 0.18, 6.82, 0));
-
-            Int32Collection myTriangleIndicesCollection = new Int32Collection();
-
-            for (int i = 0, y = 0; i < modeList.Count; i++, y += 8)
-            {
-                var ll = (Model)modeList[i];
-
-                var z = cubeToPoint3DCollection(ll.Wys, ll.Szer, ll.Gl, ll.X, ll.Y, ll.Z);
-                foreach (Point3D point3D in z)
-                {
-                    myMeshGeometry3D.Positions.Add(point3D);
-                    Debug.WriteLine(point3D);
-                }
-
-                Debug.WriteLine("");
+        //    MeshGeometry3D myMeshGeometry3D = new MeshGeometry3D();
 
 
 
-                myTriangleIndicesCollection.Add(y);
-                myTriangleIndicesCollection.Add(y + 2);
-                myTriangleIndicesCollection.Add(y + 1);
+        //    var modeList = new ArrayList();
 
-                myTriangleIndicesCollection.Add(y + 1);
-                myTriangleIndicesCollection.Add(y + 2);
-                myTriangleIndicesCollection.Add(y + 3);
+        //    modeList.Add(new Model(7, 0.18, 5, 0, 0, 0));
+        //    //modeList.Add(new Model(7, 0.18, 5, 5.82, 0, 0));
+        //    //modeList.Add(new Model(0.18, 5.64, 5, 0.18, 0, 0));
+        //    //modeList.Add(new Model(0.18, 5.64, 5, 0.18, 6.82, 0));
 
-                myTriangleIndicesCollection.Add(y);
-                myTriangleIndicesCollection.Add(y + 4);
-                myTriangleIndicesCollection.Add(y + 6);
+        //    Int32Collection myTriangleIndicesCollection = new Int32Collection();
 
-                myTriangleIndicesCollection.Add(y);
-                myTriangleIndicesCollection.Add(y + 6);
-                myTriangleIndicesCollection.Add(y + 2);
+        //    for (int i = 0, y = 0; i < modeList.Count; i++, y += 8)
+        //    {
+        //        var ll = (Model)modeList[i];
 
-                myTriangleIndicesCollection.Add(y + 1);
-                myTriangleIndicesCollection.Add(y + 3);
-                myTriangleIndicesCollection.Add(y + 7);
+        //        var z = CubeToPoint3DCollection(ll.Wys, ll.Szer, ll.Gl, ll.X, ll.Y, ll.Z,false);
+        //        foreach (Point3D point3D in z)
+        //        {
+        //            myMeshGeometry3D.Positions.Add(point3D);
+        //            Debug.WriteLine(point3D);
+        //        }
 
-                myTriangleIndicesCollection.Add(y + 1);
-                myTriangleIndicesCollection.Add(y + 7);
-                myTriangleIndicesCollection.Add(y + 5);
-
-                myTriangleIndicesCollection.Add(y + 4);
-                myTriangleIndicesCollection.Add(y + 5);
-                myTriangleIndicesCollection.Add(y + 6);
-
-                myTriangleIndicesCollection.Add(y + 5);
-                myTriangleIndicesCollection.Add(y + 7);
-                myTriangleIndicesCollection.Add(y + 6);
-
-                myTriangleIndicesCollection.Add(y + 7);
-                myTriangleIndicesCollection.Add(y + 3);
-                myTriangleIndicesCollection.Add(y + 2);
-
-                myTriangleIndicesCollection.Add(y + 6);
-                myTriangleIndicesCollection.Add(y + 7);
-                myTriangleIndicesCollection.Add(y + 2);
-
-                myTriangleIndicesCollection.Add(y);
-                myTriangleIndicesCollection.Add(y + 1);
-                myTriangleIndicesCollection.Add(y + 5);
-
-                myTriangleIndicesCollection.Add(y);
-                myTriangleIndicesCollection.Add(y + 5);
-                myTriangleIndicesCollection.Add(y + 4);
+        //        Debug.WriteLine("");
 
 
 
+        //        myTriangleIndicesCollection.Add(y);
+        //        myTriangleIndicesCollection.Add(y + 2);
+        //        myTriangleIndicesCollection.Add(y + 1);
 
-            }
+        //        myTriangleIndicesCollection.Add(y + 1);
+        //        myTriangleIndicesCollection.Add(y + 2);
+        //        myTriangleIndicesCollection.Add(y + 3);
+
+        //        myTriangleIndicesCollection.Add(y);
+        //        myTriangleIndicesCollection.Add(y + 4);
+        //        myTriangleIndicesCollection.Add(y + 6);
+
+        //        myTriangleIndicesCollection.Add(y);
+        //        myTriangleIndicesCollection.Add(y + 6);
+        //        myTriangleIndicesCollection.Add(y + 2);
+
+        //        myTriangleIndicesCollection.Add(y + 1);
+        //        myTriangleIndicesCollection.Add(y + 3);
+        //        myTriangleIndicesCollection.Add(y + 7);
+
+        //        myTriangleIndicesCollection.Add(y + 1);
+        //        myTriangleIndicesCollection.Add(y + 7);
+        //        myTriangleIndicesCollection.Add(y + 5);
+
+        //        myTriangleIndicesCollection.Add(y + 4);
+        //        myTriangleIndicesCollection.Add(y + 5);
+        //        myTriangleIndicesCollection.Add(y + 6);
+
+        //        myTriangleIndicesCollection.Add(y + 5);
+        //        myTriangleIndicesCollection.Add(y + 7);
+        //        myTriangleIndicesCollection.Add(y + 6);
+
+        //        myTriangleIndicesCollection.Add(y + 7);
+        //        myTriangleIndicesCollection.Add(y + 3);
+        //        myTriangleIndicesCollection.Add(y + 2);
+
+        //        myTriangleIndicesCollection.Add(y + 6);
+        //        myTriangleIndicesCollection.Add(y + 7);
+        //        myTriangleIndicesCollection.Add(y + 2);
+
+        //        myTriangleIndicesCollection.Add(y);
+        //        myTriangleIndicesCollection.Add(y + 1);
+        //        myTriangleIndicesCollection.Add(y + 5);
+
+        //        myTriangleIndicesCollection.Add(y);
+        //        myTriangleIndicesCollection.Add(y + 5);
+        //        myTriangleIndicesCollection.Add(y + 4);
 
 
-            myMeshGeometry3D.TriangleIndices = myTriangleIndicesCollection;
-
-            myGeometryModel.Geometry = myMeshGeometry3D;
-
-            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.LightGray);
-
-            // Define material that will use the gradient.
-            DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
-            //myMaterial.Color = Colors.Blue;
-            myGeometryModel.Material = myMaterial;
-
-            foreach (Point3D point3D in myMeshGeometry3D.Positions)
-            {
-                Logger.Log(LogLevel.Trace, "Point3D x=" + point3D.X + ", y=" + point3D.Y + ", z=" + point3D.Z);
-            }
-
-            foreach (int index in myMeshGeometry3D.TriangleIndices)
-            {
-                Logger.Log(LogLevel.Debug, "Triangle   " + index);
-            }
 
 
-            return myGeometryModel;
+        //    }
 
-        }
+
+        //    myMeshGeometry3D.TriangleIndices = myTriangleIndicesCollection;
+
+        //    myGeometryModel.Geometry = myMeshGeometry3D;
+
+        //    SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.LightGray);
+
+        //    // Define material that will use the gradient.
+        //    DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
+        //    //myMaterial.Color = Colors.Blue;
+        //    myGeometryModel.Material = myMaterial;
+
+        //    foreach (Point3D point3D in myMeshGeometry3D.Positions)
+        //    {
+        //        Logger.Log(LogLevel.Trace, "Point3D x=" + point3D.X + ", y=" + point3D.Y + ", z=" + point3D.Z);
+        //    }
+
+        //    foreach (int index in myMeshGeometry3D.TriangleIndices)
+        //    {
+        //        Logger.Log(LogLevel.Debug, "Triangle   " + index);
+        //    }
+
+
+        //    return myGeometryModel;
+
+        //}
 
         private void NewCabinet()
         {
-            _myCabinet.Name = "";
+            _myCabinet.Name = "Default";
             _myCabinet.height = 720.ToString();
             _myCabinet.width = 600.ToString();
             _myCabinet.depth = 500.ToString();
@@ -408,12 +402,9 @@ namespace WPF.ViewModel
             _myCabinet.BackSize = 3.ToString();
 
 
-            _cabinet = new Cabinet(
-                int.Parse(_myCabinet.height),
-                int.Parse(_myCabinet.width),
-                int.Parse(_myCabinet.depth),
-                name: _myCabinet.Name);
+            _cabinet = new Cabinet().Height(int.Parse(_myCabinet.height)).Width(int.Parse(_myCabinet.width)).Depth(int.Parse(_myCabinet.depth)).Name(_myCabinet.Name);
 
+            
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }

@@ -47,9 +47,9 @@
 
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <TextBlock Text="{Binding MElement.Description}" Height="26"/>
-                <TextBlock Text="{Binding MElement.EDepth}" Height="26"/>
-                <TextBlock Text="{Binding MElement.EWidth}" Height="26"/>
                 <TextBlock Text="{Binding MElement.EHeight}" Height="26"/>
+                <TextBlock Text="{Binding MElement.EWidth}" Height="26"/>
+                <TextBlock Text="{Binding MElement.EDepth}" Height="26"/>
             </StackPanel>
 
 
