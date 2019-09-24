@@ -36,9 +36,9 @@ namespace Core.Factory
             return Recalculate();
         }
 
-        public List<ElementModel> Delete()
+        public List<ElementModel> Delete(int delete)
         {
-            Number = elements.Count - 1;
+            Number = elements.Count - delete;
             if (Number < 0)
                 Number = 0;
             return Recalculate();

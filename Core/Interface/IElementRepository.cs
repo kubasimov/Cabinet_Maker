@@ -9,7 +9,7 @@ namespace Core.Interface
         //List<ElementModel> Add();
         List<ElementModel> Add(int element);
 
-        List<ElementModel> Delete();
+        List<ElementModel> Delete(int delete);
         List<ElementModel> Delete(ElementModel element);
         //List<ElementModel> Delete(Guid guid);
         List<ElementModel> DeleteAll();

@@ -14,5 +14,7 @@ namespace Core.Factory
         protected int tempEy;
         protected int tempEx;
         protected int back;
+        protected List<int> Height;
+        protected List<int> TempHeight;
     }
 }

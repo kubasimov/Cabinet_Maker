@@ -195,7 +195,7 @@ namespace WPF.ViewModel
 
         private void ExecuteDeleteHorizontalBarrierCommand()
         {
-            _cabinet.DeleteHorizontalBarrier();
+            _cabinet.DeleteHorizontalBarrier(1);
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }

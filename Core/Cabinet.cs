@@ -15,7 +15,7 @@ namespace Core
         private ElementModel _bottom;
         private ElementModel _top;
          
-        public Cabinet(int height = 720, int width = 600, int depth = 510, int sizeElement = 18, int backSize = 3, string name = "")
+        public Cabinet(int height = 720, int width = 600, int depth = 510, int sizeElement = 18, int backSize = 3, string name = "Default")
         {
             HorizontalBarrier = new List<ElementModel>();
             VerticalBarrier = new List<ElementModel>();
@@ -29,7 +29,7 @@ namespace Core
             _sizeElement = sizeElement;
             BackSize = backSize;
             Back = EnumBack.Brak;
-            _name = "Default";
+            _name = name;
             CabinetType = EnumCabinetType.Standard;
 
 
@@ -106,7 +106,7 @@ namespace Core
 
         public void DeleteVerticalBarrier()
         {
-            VerticalBarrier = VerticalBarrierFactory.Delete();
+            VerticalBarrier = VerticalBarrierFactory.Delete(1);
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
             Redraw();
@@ -142,9 +142,9 @@ namespace Core
             HorizontalBarrier = HorizontalBarrierFactory.Add(i);
         }
 
-        public void DeleteHorizontalBarrier()
+        public void DeleteHorizontalBarrier(int delete)
         {
-            HorizontalBarrier = HorizontalBarrierFactory.Delete();
+            HorizontalBarrier = HorizontalBarrierFactory.Delete(delete);
         }
 
         public void DeleteAllHorizontalBarrier()

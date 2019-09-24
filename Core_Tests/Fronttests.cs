@@ -10,10 +10,6 @@ namespace Core_Tests
 {
     public class FrontTests
     {
-        /// <summary>
-        /// Dodanie 1 frontu
-        /// Add_1_front_to_default_cabinet
-        /// </summary>
         [Fact]
         public void Dodanie_1_forntu()
         {
@@ -32,10 +28,6 @@ namespace Core_Tests
             Assert.Equal(510,front.Ez);
         }
 
-        /// <summary>
-        /// Dodanie 2 frontow pionowych
-        /// Add_2_vertically_front_to_default_cabinet
-        /// </summary>
         [Fact]
         public void Dodanie_2_pionowych_frontow()
         {
@@ -63,10 +55,6 @@ namespace Core_Tests
             Assert.Equal(510, front1.Ez);
         }
 
-        /// <summary>
-        /// Dodanie 3 frontow pionowych
-        /// Add_3_vertically_front_to_default_cabinet
-        /// </summary>
         [Fact]
         public void Dodanie_3_pionowych_frontow()
         {
@@ -102,10 +90,6 @@ namespace Core_Tests
             Assert.Equal(510, front2.Ez);
         }
 
-        /// <summary>
-        /// Dodanie 1 frontu z informacja o szczelinach
-        /// Add_1_front_to_default_cabinet_with_list_of_slots
-        /// </summary>
         [Fact]
         public void Dodanie_1_forntu_z_informacja_o_szczelinach()
         {
@@ -134,10 +118,6 @@ namespace Core_Tests
             Assert.Equal(512, front.Ez);
         }
 
-        /// <summary>
-        /// dodanie 3 frontow z informacja o szczelinach
-        /// Add_3_vartically_front_to_default_cabinet_with_list_of_slots
-        /// </summary>
         [Fact]
         public void Dodanie_3_forntow_pionowych_z_informacja_o_szczelinach()
         {
@@ -183,10 +163,6 @@ namespace Core_Tests
             Assert.Equal(512, front2.Ez);
         }
 
-        /// <summary>
-        /// Dodanie 2 frontow poziomych
-        /// Add_2_horizontally_front_to_default_cabinet
-        /// </summary>
         [Fact]
         public void Dodanie_2_poziomych_frontow()
         {
@@ -213,10 +189,6 @@ namespace Core_Tests
             Assert.Equal(510, front1.Ez);
         }
 
-        /// <summary>
-        /// dodanie 3 frontow poziomych z informacja o szczelinach
-        /// Add_3_horizontally_front_to_Default_cabinet_with_list_of_slots
-        /// </summary>
         [Fact]
         public void Dodanie_3_forntow_poziomych_z_informacja_o_szczelinach()
         {

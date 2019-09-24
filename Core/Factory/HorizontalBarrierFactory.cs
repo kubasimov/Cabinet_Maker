@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Helpers;
 using Core.Interface;
 using Core.Model;
+using NLog;
 
 namespace Core.Factory
 {
     public class HorizontalBarrierFactory:BarrierFactory, IElementRepository
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private Dictionary<int, List< ElementModel>> _elem;
 
         public HorizontalBarrierFactory(Cabinet cabinet)
@@ -23,6 +27,13 @@ namespace Core.Factory
 
             back = barrierParameter.Back;
 
+            Height = barrierParameter.Height;
+
+            if (Height!=null && Height.Last()-Number*_cabinet.SizeElement()<0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            
             return Recalculate(barrierParameter.GetBarrier());
         }
 
@@ -33,17 +44,37 @@ namespace Core.Factory
 
         public List<ElementModel> Add(int element)
         {
-            Number = elements.Count + element;
+            try
+            {
+                if (element < 0)
+                    throw new ArgumentException();
+                Number = elements.Count + element;
 
-            return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+                return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Error(e, "Blad dzielenia przez zero - minusowa ilosc polek"); ;
+                throw new ArgumentException();
+            }
+            
         }
 
-        public List<ElementModel> Delete()
+        public List<ElementModel> Delete(int delete)
         {
-            Number = elements.Count - 1;
-            if (Number < 0)
-                Number = 0;
-            return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+            try
+            {
+                Number = elements.Count - delete;
+                if (Number < 0)
+                    Number = 0;
+                return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+            }
+            catch (ArgumentNullException e)
+            {
+                Logger.Error(e, "Delete HorizontalBarrierFactory");
+                throw e;
+            }
+           
 
         }
 
@@ -72,42 +103,52 @@ namespace Core.Factory
             
             _elem = new Dictionary<int, List<ElementModel>>();
 
-
-            tempHeight = _cabinet.SizeElement(); ;
-
-            tempDepth = _cabinet.Depth() - back;
-
-            tempEy = (_cabinet.Height() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth
-                      - Number * _cabinet.SizeElement()) / (Number + 1);
-
-
-
-            for (var i = 0; i <= _cabinet.VerticalBarrier.Count; i++)
+            try
             {
-                if (barrier == null || barrier.Count == 0)
-                {
-                    tempWidth = TempWidth(i);
-                    tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
+                tempHeight = _cabinet.SizeElement();
+                
 
-                    AddElement();
-                    _elem.Add(i, elements);
-                }
-                else
+                tempDepth = _cabinet.Depth() - back;
+
+                TempHeight = TempEy();
+
+                for (var i = 0; i <= _cabinet.VerticalBarrier.Count; i++)
                 {
-                    if (barrier.Contains(i))
+                    if (barrier == null || barrier.Count == 0)
                     {
                         tempWidth = TempWidth(i);
-                        tempEx = i == 0 ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
+                        tempEx = i == 0
+                            ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth
+                            : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
 
                         AddElement();
                         _elem.Add(i, elements);
                     }
+                    else
+                    {
+                        if (barrier.Contains(i))
+                        {
+                            tempWidth = TempWidth(i);
+                            tempEx = i == 0
+                                ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth
+                                : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
+
+                            AddElement();
+                            _elem.Add(i, elements);
+                        }
+                    }
+
                 }
-
-
-
-
-
+            }
+            catch (DivideByZeroException e)
+            {
+                Logger.Error(e, "Blad dzielenia przez zero - minusowa ilosc polek");
+                throw new DivideByZeroException();
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Blad - recalculate HorizontalBarrierFactory");
+                throw;
             }
 
             return elements;
@@ -148,16 +189,65 @@ namespace Core.Factory
                     EWidth = tempHeight,
                     EDepth = tempDepth,
                     Ex = tempEx,
-                    Ey = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + tempEy * (i + 1) + _cabinet.SizeElement() * i,
+                    Ey = TempHeight[i],
                     EName = EnumCabinetElement.HorizontalBarrier,
                     Description = "Poziom",
                     Horizontal=true
                 };
 
                 elements.Add(element);
+            }
+        }
 
+        private List<int> TempEy()
+        {
+            var list = new List<int>();
+
+            if (Height != null && Height.Count > 0)
+            {
+                if (Number<=Height.Count)
+                {
+                    for (int i = 0; i < Number; i++)
+                    {
+                        list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + Height[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < Height.Count; i++)
+                    {
+                        list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + Height[i]);
+                    }
+
+                    var tempheight= _cabinet.Height() - list.Last() - _cabinet.SizeElement() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth;
+
+                    var z = (tempheight - (Number - Height.Count) * _cabinet.SizeElement()) / ((Number - Height.Count) + 1);
+
+
+                    var last = list.Last();
+
+                    for (int i = 0; i < Number-Height.Count; i++)
+                    {
+                        list.Add(last + z*(i+1)+ _cabinet.SizeElement() * (i+1));
+                    }
+
+                }
 
             }
+            else
+            {
+                tempEy = (_cabinet.Height() -
+                          _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth -
+                          _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth
+                          - Number * _cabinet.SizeElement()) / (Number + 1);
+
+                for (var i = 0; i < Number; i++)
+                {
+                    list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + tempEy * (i + 1) + _cabinet.SizeElement() * i);
+                }
+            }
+
+            return list;
         }
     }
 }

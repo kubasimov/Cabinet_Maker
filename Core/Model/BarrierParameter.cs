@@ -14,7 +14,7 @@ namespace Core.Model
             Number = 0;
             Barrier = new List<int>();
             Back = 0;
-            //Height = new List<int>();
+            Height = new List<int>();
         }
 
         public void AddBarrier(int item)
