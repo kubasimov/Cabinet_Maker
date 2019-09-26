@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>SAVENTO_ikona.ico</ApplicationIcon>
+    <Win32Resource />
+    <AssemblyName>WPF3</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.4" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
+    <PackageReference Include="MvvmLight" Version="5.4.1.1" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="NLog" Version="4.6.7" />
+    <PackageReference Include="NLog.Config" Version="4.6.7" />
+    <PackageReference Include="NLog.Schema" Version="4.6.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\3DTools\3DTools.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\FrontWindow.xaml.cs">
+      <DependentUpon>FrontWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\HorizontalBarrierWindow.xaml.cs">
+      <DependentUpon>HorizontalBarrierWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\treeViewTest.xaml.cs">
+      <DependentUpon>treeViewTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\VerticalBarrierWindow.xaml.cs">
+      <DependentUpon>VerticalBarrierWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\FrontWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\HorizontalBarrierWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\treeViewTest.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\VerticalBarrierWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

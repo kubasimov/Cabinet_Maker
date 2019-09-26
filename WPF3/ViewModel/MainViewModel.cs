@@ -6,12 +6,11 @@ using System.Windows.Media.Media3D;
 using Core;
 using NLog;
 using GalaSoft.MvvmLight.Command;
-using WPF3;
 using WPF3.Enum;
 using WPF3.Interface;
 using Core.Model;
-using WPF3.Interface;
 using WPF3.View;
+
 
 namespace WPF3.ViewModel
 {

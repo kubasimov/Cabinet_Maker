@@ -3,8 +3,8 @@ using System.Windows;
 using Core;
 using Core.Model;
 using GalaSoft.MvvmLight.Messaging;
-using WPF.Enum;
-using WPF.View;
+using WPF3.Enum;
+using WPF3.View;
 
 namespace WPF3.ViewModel
 {
@@ -13,6 +13,7 @@ namespace WPF3.ViewModel
         private Cabinet _cabinet;
 
         #region Cabinet ExecuteCommand
+
         private void ExecuteNewCommand()
         {
             NewCabinet();
