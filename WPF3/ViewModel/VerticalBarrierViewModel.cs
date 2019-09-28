@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Model;
+﻿using CoreS.Model;
 using WPF3.Enum;
 using WPF3.Interface;
 using GalaSoft.MvvmLight;

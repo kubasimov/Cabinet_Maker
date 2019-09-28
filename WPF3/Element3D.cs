@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using CoreS.Enum;
 
 namespace WPF3
 {

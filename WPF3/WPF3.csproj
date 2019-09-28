@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\3DTools\3DTools.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\CoreS\CoreS.csproj" />
   </ItemGroup>
 
   <ItemGroup>

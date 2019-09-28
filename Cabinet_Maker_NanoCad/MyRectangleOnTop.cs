@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
-using Core.Model;
+using CoreS.Enum;
+using CoreS.Model;
 using Teigha.DatabaseServices;
 using Teigha.Geometry;
 
@@ -26,9 +25,9 @@ namespace Cabinet_Maker_NanoCad
 
         public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModel> cabinetElements, Point3d ptStart)
         {
-            var leftSide = cabinetElements.FirstOrDefault(c => c.EName == Core.EnumCabinetElement.Leftside);
-            var rightSide = cabinetElements.FirstOrDefault(c => c.EName == Core.EnumCabinetElement.Rightside);
-            var top = cabinetElements.FirstOrDefault(c => c.EName == Core.EnumCabinetElement.Top);
+            var leftSide = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Leftside);
+            var rightSide = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Rightside);
+            var top = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Top);
 
             var poly = new List<Polyline>
             {

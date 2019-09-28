@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Diagnostics;
 using GalaSoft.MvvmLight;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using Core;
 using NLog;
-using GalaSoft.MvvmLight.Command;
-using WPF3.Enum;
 using WPF3.Interface;
-using Core.Model;
-using WPF3.View;
+using CoreS;
+using CoreS.Model;
 
 
 namespace WPF3.ViewModel

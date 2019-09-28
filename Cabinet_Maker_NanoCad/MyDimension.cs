@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
-using Core.Model;
-using Core;
+using CoreS.Enum;
+using CoreS.Model;
 using Teigha.DatabaseServices;
 using Teigha.Geometry;
 

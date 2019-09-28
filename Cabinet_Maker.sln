@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core_Tests", "Core_Tests\Core_Tests.csproj", "{CDB1BAC3-41A3-4C4D-A4BA-74287A14D32E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{81BD1609-6B91-4937-9EC3-76B6C20C03B8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DTools", "3DTools\3DTools.csproj", "{5F603892-DE40-4246-A969-1C6717AFE35D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cabinet_Maker_NanoCad", "Cabinet_Maker_NanoCad\Cabinet_Maker_NanoCad.csproj", "{069469EE-9EF0-4D30-8A15-0566C157E5A0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF3", "WPF3\WPF3.csproj", "{073EB171-EA42-47DA-AC7B-764F154AF00E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreS", "CoreS\CoreS.csproj", "{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestCore", "XUnitTestCore\XUnitTestCore.csproj", "{4475D13F-FC48-4B40-BE1B-6DE813696C51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CDB1BAC3-41A3-4C4D-A4BA-74287A14D32E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDB1BAC3-41A3-4C4D-A4BA-74287A14D32E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDB1BAC3-41A3-4C4D-A4BA-74287A14D32E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDB1BAC3-41A3-4C4D-A4BA-74287A14D32E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81BD1609-6B91-4937-9EC3-76B6C20C03B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81BD1609-6B91-4937-9EC3-76B6C20C03B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81BD1609-6B91-4937-9EC3-76B6C20C03B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81BD1609-6B91-4937-9EC3-76B6C20C03B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F603892-DE40-4246-A969-1C6717AFE35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F603892-DE40-4246-A969-1C6717AFE35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F603892-DE40-4246-A969-1C6717AFE35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,14 +31,22 @@ Global
 		{073EB171-EA42-47DA-AC7B-764F154AF00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073EB171-EA42-47DA-AC7B-764F154AF00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{073EB171-EA42-47DA-AC7B-764F154AF00E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = True
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_NeutralResourcesLanguage = pl-PL
 		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
+		RESX_NeutralResourcesLanguage = pl-PL
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_ConfirmAddLanguageFile = True
 	EndGlobalSection
 EndGlobal

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using Core;
+using CoreS;
 using Newtonsoft.Json;
 
 namespace Cabinet_Maker_NanoCad

@@ -5,7 +5,7 @@ using CoreS.Model;
 using FluentAssertions;
 using Xunit;
 
-namespace Core_Tests
+namespace XUnitTestCore
 {
     public class HorizontalBarrierTests
     {

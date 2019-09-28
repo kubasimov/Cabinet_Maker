@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using CoreS;
 
 namespace Cabinet_Maker_NanoCad
 {

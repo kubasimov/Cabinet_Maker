@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
-using Core;
-using Core.Model;
+using CoreS;
+using CoreS.Model;
 using GalaSoft.MvvmLight.Messaging;
 using WPF3.Enum;
 using WPF3.View;
@@ -58,7 +58,7 @@ namespace WPF3.ViewModel
 
         private void ExecuteExportCommand()
         {
-            var export = new Core.Export.ExcelExport();
+            var export = new CoreS.Export.ExcelExport();
             export.Export(_cabinet);
         }
 

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using Core;
-using Core.Model;
+using CoreS;
+using CoreS.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -10,7 +9,7 @@ namespace WPF3.ViewModel
 {
     public class TreeViewTestViewModel : ViewModelBase
     {
-        private Cabinet cabinet;
+        private Cabinet _cabinet;
 
         public TreeViewTestViewModel()
         {
@@ -29,25 +28,25 @@ namespace WPF3.ViewModel
 
         private void NewMethod2()
         {
-            cabinet = new Cabinet();
+            _cabinet = new Cabinet();
             
-            cabinet.AddVerticalBarrier(1);
-            cabinet.AddHorizontalBarrier(1);
+            _cabinet.AddVerticalBarrier(1);
+            _cabinet.AddHorizontalBarrier(1);
 
             var z = new Elements("Podstawa");
-            foreach (ElementModel element in cabinet.CabinetElements)
+            foreach (ElementModel element in _cabinet.CabinetElements)
             {
                 z.elementModels.Add(element);
             }
 
             var z1 = new Elements("Vertical Barrier");
-            foreach (ElementModel element in cabinet.GetAllVerticalBarrier())
+            foreach (ElementModel element in _cabinet.GetAllVerticalBarrier())
             {
                 z1.elementModels.Add(element);
             }
 
             var z2 = new Elements("Horizontal Barrier");
-            foreach (ElementModel element in cabinet.GetAllHorizontalBarrier())
+            foreach (ElementModel element in _cabinet.GetAllHorizontalBarrier())
             {
                 z2.elementModels.Add(element);
             }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core;
-using Core.Model;
+using CoreS.Model;
 using Teigha.DatabaseServices;
 using Teigha.Geometry;
 

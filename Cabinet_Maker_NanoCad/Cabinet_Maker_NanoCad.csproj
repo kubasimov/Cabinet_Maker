@@ -104,9 +104,9 @@
       <Project>{5F603892-DE40-4246-A969-1C6717AFE35D}</Project>
       <Name>3DTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{81bd1609-6b91-4937-9ec3-76b6c20c03b8}</Project>
-      <Name>Core</Name>
+    <ProjectReference Include="..\CoreS\CoreS.csproj">
+      <Project>{3a92ab4b-7295-4520-a857-da4c4ffc4dd0}</Project>
+      <Name>CoreS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
