@@ -77,54 +77,7 @@ namespace WPF3.ViewModel
             {
                 _cabinet.ClipboardExport();
             }
-
-            //var lBackup = new Dictionary<string, object>();
-            //var lDataObject = Clipboard.GetDataObject();
-            //var lFormats = lDataObject.GetFormats(false);
-            //foreach (var lFormat in lFormats)
-            //{
-            //    lBackup.Add(lFormat, lDataObject.GetData(lFormat, false));
-            //}
-
-            //var obj = Clipboard.GetDataObject();
-
-            //if (obj != null)
-            //{
-            //    // Find out whether the clipboard contains AutoCAD data
-
-            //    var formats = obj.GetFormats();
-            //    string formatFound = "";
-            //    bool foundDwg = false;
-            //    foreach (var name in formats)
-            //    {
-            //        if (name.Contains("AutoCAD.r"))
-            //        {
-            //            foundDwg = true;
-            //            formatFound = name;
-            //            break;
-            //        }
-            //    }
-
-            //    if (foundDwg)
-            //    {
-            //        // If Found, discover where is the Database
-            //        MemoryStream MStr = obj.GetData(formatFound) as MemoryStream;
-
-            //        //Transform into string
-            //        MStr.Position = 0;
-            //        var sr = new StreamReader(MStr, Encoding.UTF8);
-            //        var myStr = sr.ReadToEnd();
-
-            //        //Remove unnecessary chars
-            //        var sda = myStr.Replace("\0", "");
-            //        int index = sda.IndexOf(".dwg");
-            //        if (index > 0)
-            //            sda = sda.Substring(0, index + 4);
-
-
-
-            //    }
-            //}
+                        
         }
 
         #endregion
@@ -211,7 +164,7 @@ namespace WPF3.ViewModel
 
         #region Front ExecuteCommand
 
-        private void ExecuteAddFrontCommand()
+        private void ExecuteNewFrontCommand()
         {
             _dataExchangeViewModel.Add(EnumExchangeViewmodel.Front, new FrontParameter());
             new FrontWindow().ShowDialog();
@@ -227,8 +180,23 @@ namespace WPF3.ViewModel
             }
         }
 
+        private void ExecuteAddFrontCommand()
+        {
+            _cabinet.AddFront(1);
+        }
+
+        private void ExecuteDeleteFrontCommand()
+        {
+
+        }
+
+        private void ExecuteRemoveFrontCommand()
+        {
+
+        }
+
         #endregion
-        
+
         #region Cabinet ExecuteCommand
 
         private void ExecuteReDrawCabinetCommand()

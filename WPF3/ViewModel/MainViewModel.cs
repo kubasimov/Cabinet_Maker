@@ -30,6 +30,8 @@ namespace WPF3.ViewModel
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
+                _cabinetView = _cabinet;
+                RaisePropertyChanged(CabinetViewPropertyName);
             }
             else
             {
@@ -38,6 +40,8 @@ namespace WPF3.ViewModel
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
+                _cabinetView = _cabinet;
+                RaisePropertyChanged(CabinetViewPropertyName);
             }
             
         }
@@ -262,6 +266,28 @@ namespace WPF3.ViewModel
             }
         }
 
+        public const string CabinetViewPropertyName = "CabinetView";
+
+        private Cabinet _cabinetView;
+
+        public Cabinet CabinetView
+        {
+            get
+            {
+                return _cabinetView;
+            }
+
+            set
+            {
+                if (_cabinetView == value)
+                {
+                    return;
+                }
+
+                _cabinetView = value;
+                RaisePropertyChanged(CabinetViewPropertyName);
+            }
+        }
         #endregion
 
         public class TempCabinet

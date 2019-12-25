@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using CoreS.Enum;
 using CoreS.Model;
+using NLog;
 
 namespace CoreS.Factory
 {
     public class FrontFactory
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+
         private readonly Cabinet _cabinet;
         private List<ElementModel> _frontList;
+        private int number;
+        private EnumFront enumFront;
+        private SlotsModel slots;
 
         public FrontFactory(Cabinet cabinet)
         {
@@ -16,7 +23,55 @@ namespace CoreS.Factory
             _frontList=new List<ElementModel>();
         }
 
-        public List<ElementModel> AddFront(int number,SlotsModel slots,EnumFront enumFront)
+        public List<ElementModel> NewFront(int number, SlotsModel slots, EnumFront enumFront)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public List<ElementModel> Add(int element)
+        {
+            try
+            {
+                if (element < 0)
+                    throw new ArgumentException();
+                number += element;
+
+                return Recalculate();
+            }
+            catch(ArgumentException e)
+            {
+                Logger.Error(e, "Minusowa ilosc polek"); ;
+                throw new ArgumentException();
+            }
+        }
+
+        
+        public List<ElementModel> Delete(int delete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ElementModel> Delete(ElementModel element)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ElementModel> DeleteAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ElementModel> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ElementModel> ReCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<ElementModel> Recalculate()
         {
             if (number==0) throw new ArgumentException("Wartosc musi byc wieksza niz 0 lub null");
                 

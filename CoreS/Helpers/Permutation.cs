@@ -42,7 +42,7 @@ namespace CoreS.Helpers
         {
 
             // This code is contributed by m_kit 
-            private static readonly List<string> lll = new List<string>();
+            private static List<string> lll;
 
             private static readonly StringBuilder stringBuilder = new StringBuilder();
 
@@ -102,6 +102,7 @@ namespace CoreS.Helpers
             // function mainly uses combinationUtil() 
             public static List<string> printCombination(int[] arr, int n, int r)
             {
+                lll = new List<string>();
                 // A temporary array to store 
                 // all combination one by one 
                 int[] data = new int[r];

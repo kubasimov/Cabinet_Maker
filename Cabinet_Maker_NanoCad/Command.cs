@@ -27,17 +27,24 @@ namespace Cabinet_Maker_NanoCad
         [CommandMethod("SzafkaClipboard")]
         public static void szafkaClipboard()
         {
-            var r = new DrawC();
-            //System.IO.File.WriteAllText(@"C:\TEST\WriteText.txt", "SzafkaClipboard\n");
-
-            var z = Clipboard.GetText();
-            //System.IO.File.AppendAllText(@"C:\TEST\WriteText.txt", z.ToString());
-
-            var t = JsonConvert.DeserializeObject<Cabinet>(z.ToString());
-            //System.IO.File.AppendAllText(@"C:\TEST\WriteText.txt", t.CabinetElements.Count.ToString());
-
-            r.drawC(t);
             
+            var clipboardText = Clipboard.GetText();
+            
+            var deserializeText = JsonConvert.DeserializeObject<Cabinet>(clipboardText.ToString());
+            
+            DrawC.DrawFront(deserializeText);
+
+            
+        }
+
+        [CommandMethod("SzafkaClipboardGora")]
+        public static void SzafkaClipboardGora()
+        {
+            var clipboardText = Clipboard.GetText();
+
+            var deserializeText = JsonConvert.DeserializeObject<Cabinet>(clipboardText.ToString());
+
+            DrawC.DrawFront(deserializeText);
         }
     }
 }

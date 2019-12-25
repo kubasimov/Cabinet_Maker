@@ -591,5 +591,18 @@ namespace XUnitTestCore
             cabinet.Serialize();
 
         }
+
+        [Fact]
+        public void Dodanie_pionowej_bariery_potem_pozioma_2_razy_szybko()
+        {
+            var cabinet = new Cabinet().Name("test_18");
+
+            var vBarrierParameter = new BarrierParameter { Number = 1 };
+
+            cabinet.NewVerticalBarrier(vBarrierParameter);
+
+            cabinet.AddHorizontalBarrier(1);
+            cabinet.AddHorizontalBarrier(1);
+        }
     }
 }

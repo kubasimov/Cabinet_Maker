@@ -291,13 +291,13 @@ namespace WPF3.ViewModel
                         stringBuilder.Append(data[j]);
 
                        
-                        Debug.Write(data[j] + " ");
+                        //Debug.Write(data[j] + " ");
                     }
 
                     lll.Add(stringBuilder.ToString());
                     stringBuilder.Clear();
 
-                    Debug.WriteLine("");
+                    //Debug.WriteLine("");
                     return;
                 }
 

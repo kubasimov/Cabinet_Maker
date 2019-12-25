@@ -100,11 +100,26 @@ namespace WPF3.ViewModel
 
         #region Declare Front RelayCommand
 
+        private RelayCommand _myNewFrontCommand;
+
+        public RelayCommand NewFrontCommand => _myNewFrontCommand
+                                               ?? (_myNewFrontCommand =
+                                                   new RelayCommand(ExecuteNewFrontCommand));
+
         private RelayCommand _myAddFrontCommand;
 
         public RelayCommand AddFrontCommand => _myAddFrontCommand
-                                               ?? (_myAddFrontCommand =
-                                                   new RelayCommand(ExecuteAddFrontCommand));
+            ?? (_myAddFrontCommand = new RelayCommand(ExecuteAddFrontCommand));
+
+        private RelayCommand _mydeleteFrontCommand;
+
+        public RelayCommand DeleteFrontCommand => _mydeleteFrontCommand
+            ?? (_mydeleteFrontCommand = new RelayCommand(ExecuteDeleteFrontCommand));
+
+        private RelayCommand _myremoveFrontCommand;
+
+        public RelayCommand RemoveFrontCommand => _myremoveFrontCommand
+            ?? (_myremoveFrontCommand = new RelayCommand(ExecuteRemoveFrontCommand));
 
         #endregion
 

@@ -332,7 +332,7 @@ namespace CoreS
         public void AddFront(int number, EnumFront enumFront)
         {
             var slots = new SlotsModel { BetweenVertically = 3, BetweenHorizontally = 3 };
-            FrontList=FrontFactory.AddFront(number, slots,enumFront);
+            FrontList=FrontFactory.NewFront(number, slots,enumFront);
         }
 
         public void AddFront(int numberVertically=0)
@@ -344,12 +344,12 @@ namespace CoreS
 
         public void AddFront(SlotsModel slots,int number=0 )
         {
-            FrontList = FrontFactory.AddFront(number, slots,EnumFront.Pionowo);
+            FrontList = FrontFactory.NewFront(number, slots,EnumFront.Pionowo);
         }
 
         public void AddFront(SlotsModel slots, int number, EnumFront enumFront)
         {
-            FrontList = FrontFactory.AddFront(number,slots,enumFront);
+            FrontList = FrontFactory.NewFront(number,slots,enumFront);
         }
 
         public void AddFront(List<ElementModel> frontList)
@@ -362,7 +362,7 @@ namespace CoreS
             FrontParameter = frontParameter;
             try
             {
-                FrontList = FrontFactory.AddFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
+                FrontList = FrontFactory.NewFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
             }
             catch (Exception e)
             {

@@ -10,9 +10,11 @@
     xmlns:local="clr-namespace:WPF3.Validate"
     xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
 
+        xmlns:CustomControl="clr-namespace:WPF3.CustomControl"
+
         x:Class="WPF3.View.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1120"
+        Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding MainView, Source={StaticResource Locator}}" >
 
     <Grid x:Name="Grid" RenderTransformOrigin="0.5,0.5">
@@ -22,11 +24,13 @@
             <ColumnDefinition Width="490"/>
             <ColumnDefinition Width="302"/>
             <ColumnDefinition Width="127*"/>
-            
+
 
         </Grid.ColumnDefinitions>
 
         <_3DTools:TrackballDecorator Grid.Column="0">
+
+            <!--</_3DTools:Interactive3DDecorator>-->
             <!--<_3DTools:Interactive3DDecorator>-->
 
             <Viewport3D x:Name="Viewport3D" Margin="-63,0,63,0" >
@@ -37,10 +41,8 @@
                     <PerspectiveCamera x:Name="CamMain" Position="4,3,20" UpDirection="0,52,0" LookDirection="-1,0,-5" NearPlaneDistance="4" FieldOfView="51"/>
 
                 </Viewport3D.Camera>
-                <Viewport3D.Children>
-                    <ModelVisual3D Content="{Binding MyLight}"/>
-                    <ModelVisual3D Content="{Binding MyModel3D}"/>
-                </Viewport3D.Children>
+                <ModelVisual3D Content="{Binding MyLight}"/>
+                <ModelVisual3D Content="{Binding MyModel3D}"/>
 
                 <!--<ModelVisual3D Content="{Binding MyLight}"/>
 
@@ -48,7 +50,6 @@
 
             </Viewport3D>
 
-            <!--</_3DTools:Interactive3DDecorator>-->
         </_3DTools:TrackballDecorator>
         <Label Content="Nazwa" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="10,8,0,0" Height="26" Width="45"/>
         <Label Content="Wysokosc" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="10,39,0,0" Height="26" Width="63"/>
@@ -57,15 +58,12 @@
         <Label Content="Grubosc elementu" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,132,0,0" Grid.Column="1" Height="26" Width="107"/>
         <Label Content="Grubosc plecow" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,163,0,0" Grid.Column="1" Height="26" Width="95"/>
 
-        <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,8,0,0" Grid.Column="1">
+        <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,8,0,0" Grid.Column="1" Text="{Binding MyCabinet.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
                     <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
-            <Binding Path="MyCabinet.Name"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-
-            </Binding>
         </TextBox>
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,39,0,0" Grid.Column="1">
             <Interactions:Interaction.Triggers>
@@ -143,6 +141,10 @@
         <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="216,235,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
         <Button Content="Wczytaj" Grid.Column="1" HorizontalAlignment="Left" Margin="50,322,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ReadCabinetCommand, Mode=OneWay}" Height="20"/>
         <Button Content="Schowek" Grid.Column="1" HorizontalAlignment="Left" Margin="150,322,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ClipboardCommand, Mode=OneWay}" Height="20"/>
+
+
+
+        <CustomControl:TreeViewCabinet Grid.Column="2" HorizontalAlignment="Center" Height="410" Margin="0,14,0,0" VerticalAlignment="Top" Width="308" Cabinet="{Binding CabinetView}"/>
 
 
 

@@ -14,13 +14,14 @@ namespace CoreS.Factory
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private Dictionary<int, List< ElementModel>> _elem;
-
+        private Dictionary<int, List< ElementModel>> _elem;  //tablica poziomow - Dictionary<poziom,elementy_na_danym_poziomie>
+       
         public HorizontalBarrierFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
             elements=new List<ElementModel>();
             _elem = new Dictionary<int, List<ElementModel>>();
+                       
         }
         
         public List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
@@ -31,9 +32,10 @@ namespace CoreS.Factory
 
             Height = barrierParameter.Height;
 
-            if (Height!=null && Height.Last()-Number*_cabinet.SizeElement()<0)
+            if (Height!=null && Height.Count>0)
             {
-                throw new ArgumentOutOfRangeException();
+                if(Height.Last() - Number * _cabinet.SizeElement() < 0)
+                    throw new ArgumentOutOfRangeException();
             }
             
             return Recalculate(barrierParameter.GetBarrier());
@@ -50,13 +52,13 @@ namespace CoreS.Factory
             {
                 if (element < 0)
                     throw new ArgumentException();
-                Number = elements.Count + element;
-
+                Number = Number + element;
+                
                 return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
             }
             catch (ArgumentException e)
             {
-                Logger.Error(e, "Blad dzielenia przez zero - minusowa ilosc polek"); ;
+                Logger.Error(e, "Minusowa ilosc polek"); ;
                 throw new ArgumentException();
             }
             
@@ -66,7 +68,7 @@ namespace CoreS.Factory
         {
             try
             {
-                Number = elements.Count - delete;
+                Number = Number - delete;
                 if (Number < 0)
                     Number = 0;
                 return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
@@ -104,16 +106,20 @@ namespace CoreS.Factory
             elements = new List<ElementModel>();
             
             _elem = new Dictionary<int, List<ElementModel>>();
+            //_elem1 = new List<List<ElementModel>>();
 
             try
             {
+                //wysokosc eleemntu
                 tempHeight = _cabinet.SizeElement();
                 
-
+                //glebokosc elementu
                 tempDepth = _cabinet.Depth() - back;
 
-                TempHeight = TempEy();
+                //wysokosci elementow
+                TempHeight = List_of_Horizontal_Height();
 
+                //wyliczenie po kolumnach
                 for (var i = 0; i <= _cabinet.VerticalBarrier.Count; i++)
                 {
                     if (barrier == null || barrier.Count == 0)
@@ -156,23 +162,28 @@ namespace CoreS.Factory
             return elements;
         }
 
+        //Wylicanie szerokosci poziomu dla danej kolumny
         private int TempWidth(int column)
         {
             if (_cabinet.VerticalBarrier.Count > 0)
             {
+                //skrajna lewa kolumna
                 if (column == 0)
                 {
                     tempWidth = _cabinet.VerticalBarrier[column].Ex - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth;
                 }
+                //skrajna prawa kolumna
                 else if (column == _cabinet.VerticalBarrier.Count)
                 {
                     tempWidth = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).Ex - _cabinet.VerticalBarrier[column - 1].Ex - _cabinet.VerticalBarrier[column - 1].EWidth;
                 }
+                //wewnetrzne kolumny
                 else
                 {
                     tempWidth = _cabinet.VerticalBarrier[column].Ex - _cabinet.VerticalBarrier[column - 1].Ex - _cabinet.VerticalBarrier[column - 1].EWidth;
                 }
             }
+            //brak kolumn
             else
             {
                 tempWidth = _cabinet.Width() - 2 * _cabinet.SizeElement();
@@ -181,6 +192,7 @@ namespace CoreS.Factory
             return tempWidth;
         }
 
+        //Dodawanie elementów w danej kolumnie
         private void AddElement()
         {
             for (var i = 0; i < Number; i++)
@@ -201,7 +213,8 @@ namespace CoreS.Factory
             }
         }
 
-        private List<int> TempEy()
+        //Wyliczanie wysokosci poziomów
+        private List<int> List_of_Horizontal_Height()
         {
             var list = new List<int>();
 
