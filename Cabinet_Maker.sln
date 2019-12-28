@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cabinet_Maker_NanoCad", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF3", "WPF3\WPF3.csproj", "{073EB171-EA42-47DA-AC7B-764F154AF00E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreS", "CoreS\CoreS.csproj", "{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreS", "CoreS\CoreS.csproj", "{3A92AB4B-7295-4520-A857-DA4C4FFC4DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestCore", "XUnitTestCore\XUnitTestCore.csproj", "{4475D13F-FC48-4B40-BE1B-6DE813696C51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestCore", "XUnitTestCore\XUnitTestCore.csproj", "{4475D13F-FC48-4B40-BE1B-6DE813696C51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,9 +44,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
-		RESX_NeutralResourcesLanguage = pl-PL
-		RESX_AutoCreateNewLanguageFiles = True
 		RESX_ConfirmAddLanguageFile = True
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_NeutralResourcesLanguage = pl-PL
+		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
 	EndGlobalSection
 EndGlobal

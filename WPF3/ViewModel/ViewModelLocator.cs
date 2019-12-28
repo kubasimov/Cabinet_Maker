@@ -27,6 +27,7 @@ namespace WPF3.ViewModel
             SimpleIoc.Default.Register<VerticalBarrierViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
             SimpleIoc.Default.Register<TreeViewTestViewModel>();
+            
         }
 
         public MainViewModel MainView => ServiceLocator.Current.GetInstance<MainViewModel>();

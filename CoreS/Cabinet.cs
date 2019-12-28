@@ -335,11 +335,12 @@ namespace CoreS
             FrontList=FrontFactory.NewFront(number, slots,enumFront);
         }
 
-        public void AddFront(int numberVertically=0)
+        public void AddFront(int number)
         {
-            var slots = new SlotsModel {BetweenVertically = 3, BetweenHorizontally = 3 };
+            //var slots = new SlotsModel {BetweenVertically = 3, BetweenHorizontally = 3 };
 
-            AddFront(slots,numberVertically);
+            //AddFront(slots,numberVertically);
+            FrontList = FrontFactory.Add(number);
         }
 
         public void AddFront(SlotsModel slots,int number=0 )

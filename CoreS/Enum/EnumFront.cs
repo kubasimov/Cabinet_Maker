@@ -5,11 +5,12 @@ namespace CoreS.Enum
     [Flags]
     public enum EnumFront
     {
-        Nakladany = 0,
-        Wpuszczany = 1,
-        Poziomo = 2,
-        Pionowo = 4,
-        Szuflada = 8
+        None=0,
+        Nakladany = 1,
+        Wpuszczany = 2,
+        Poziomo = 4,
+        Pionowo = 8,
+        Szuflada = 16
 
     }
 }

@@ -21,11 +21,26 @@ namespace CoreS.Factory
         {
             _cabinet = cabinet;
             _frontList=new List<ElementModel>();
+            slots = new SlotsModel
+            {
+                Top = 3,
+                Bottom = 3,
+                Left = 3,
+                Right = 3,
+                BetweenVertically = 3,
+                BetweenHorizontally = 3,
+                BetweenCabinet = 2
+            };
+            enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
         }
 
-        public List<ElementModel> NewFront(int number, SlotsModel slots, EnumFront enumFront)
+        public List<ElementModel> NewFront(int Number, SlotsModel Slots, EnumFront EnumFront)
         {
-            throw new NotImplementedException();
+            number = Number;
+            slots = Slots;
+            enumFront = EnumFront;
+
+            return Recalculate();
         }
         
         public List<ElementModel> Add(int element)
@@ -35,7 +50,7 @@ namespace CoreS.Factory
                 if (element < 0)
                     throw new ArgumentException();
                 number += element;
-
+                
                 return Recalculate();
             }
             catch(ArgumentException e)
@@ -67,6 +82,11 @@ namespace CoreS.Factory
         }
 
         public List<ElementModel> ReCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ElementModel> Update(ElementModel element)
         {
             throw new NotImplementedException();
         }
