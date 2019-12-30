@@ -33,7 +33,7 @@ namespace Cabinet_Maker_NanoCad
 
             foreach (var t in cabinet)
             {
-                poly.Add(Get(t.Ex + start.X, t.Ey + start.Y, t.EWidth, t.EHeight,t.Horizontal));
+                poly.Add(Get(t.GetX() + start.X, t.GetY() + start.Y, t.GetWidth(), t.GetHeight(),t.GetHorizontal()));
             }
 
             return poly;

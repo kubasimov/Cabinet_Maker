@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Model;
 using CoreS.Enum;
 using CoreS.Model;
 using NLog;
@@ -86,9 +88,28 @@ namespace CoreS.Factory
             throw new NotImplementedException();
         }
 
-        public List<ElementModel> Update(ElementModel element)
+        public Result<List<ElementModel>> Update(ElementModel front)
         {
-            throw new NotImplementedException();
+            if (!_frontList.Exists(x => x.GetGuid() == front.GetGuid())) return new Result<List<ElementModel>> { Value = _frontList, IsValid = false, Errors = new List<Error> { new Error { ErrorMessage = "Obiekt nie znaleziomy" } } } ;
+            {
+                var T = _frontList.FirstOrDefault(x => x.GetGuid() == front.GetGuid());
+                T.SetWidth(front.GetWidth());
+                T.SetHeight(front.GetHeight());
+                T.SetDepth(front.GetDepth());
+                T.SetX(front.GetX());
+                T.SetY(front.GetY());
+                T.SetZ(front.GetZ());
+                T.SetDescription(front.GetDescription());          
+            }
+
+            var result = new Result<List<ElementModel>>
+            {
+                Value = _frontList,
+                IsValid = true
+            };
+
+
+            return result;
         }
 
         private List<ElementModel> Recalculate()
@@ -108,17 +129,18 @@ namespace CoreS.Factory
 
             for (var i = 0; i < number; i++)
             {
-                var front = new ElementModel
-                {
-                    EName = EnumCabinetElement.Front,
-                    EDepth = _cabinet.SizeElement(),
-                    EHeight = height,
-                    EWidth = width,
-                    Ex = enumFront.HasFlag(EnumFront.Pionowo) ? slots.Left + (width+slots.BetweenVertically)*i : slots.Left,
-                    Ey = enumFront.HasFlag(EnumFront.Poziomo) ? slots.Bottom + (height+slots.BetweenHorizontally)*i : slots.Right,
-                    Ez = _cabinet.Depth()+slots.BetweenCabinet
-                };
+                var front = new ElementModel(
 
+                    description: "Front",
+                    height: height,
+                    width:width,
+                    depth:_cabinet.SizeElement(),
+                    x: enumFront.HasFlag(EnumFront.Pionowo) ? slots.Left + (width + slots.BetweenVertically) * i : slots.Left,
+                    y: enumFront.HasFlag(EnumFront.Poziomo) ? slots.Bottom + (height + slots.BetweenHorizontally) * i : slots.Right,
+                    z: _cabinet.Depth() + slots.BetweenCabinet,
+                    enumCabinet: EnumCabinetElement.Front,
+                    horizontal: false); 
+                
                 _frontList.Add(front);
             }
 

@@ -25,15 +25,15 @@ namespace Cabinet_Maker_NanoCad
 
         public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModel> cabinetElements, Point3d ptStart)
         {
-            var leftSide = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Leftside);
-            var rightSide = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Rightside);
-            var top = cabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Top);
+            var leftSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Leftside);
+            var rightSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Rightside);
+            var top = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Top);
 
             var poly = new List<Polyline>
             {
-                Get(ptStart.X, ptStart.Y, leftSide.EWidth, leftSide.EDepth),
-                Get(ptStart.X + rightSide.Ex,ptStart.Y,rightSide.EWidth,rightSide.EDepth),
-                Get(ptStart.X + top.Ex,ptStart.Y,top.EWidth,top.EDepth)
+                Get(ptStart.X, ptStart.Y, leftSide.GetWidth(), leftSide.GetDepth()),
+                Get(ptStart.X + rightSide.GetX(),ptStart.Y,rightSide.GetWidth(),rightSide.GetDepth()),
+                Get(ptStart.X + top.GetX(),ptStart.Y,top.GetWidth(),top.GetDepth())
             };
             
             return poly;
@@ -47,8 +47,8 @@ namespace Cabinet_Maker_NanoCad
 
             foreach (var elementModel in frontList)
             {
-                poly.Add(Get(ptStart.X + elementModel.Ex, ptStart.Y - elementModel.Ey-elementModel.EDepth, elementModel.EWidth,
-                    elementModel.EDepth));
+                poly.Add(Get(ptStart.X + elementModel.GetX(), ptStart.Y - elementModel.GetY()-elementModel.GetDepth(), elementModel.GetWidth(),
+                    elementModel.GetDepth()));
             }
             
             return poly;

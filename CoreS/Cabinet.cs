@@ -164,55 +164,91 @@ namespace CoreS
             {
                 case EnumCabinetType.Standard:
 
-                    _leftSide = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Leftside,
-                        Description = "Bok Lewy",
-                        EHeight = _height,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = 0,
-                        Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=false
-                    };
-                    _rightSide = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Rightside,
-                        Description = "Bok Prawy",
-                        EHeight = _height,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _width - _sizeElement,
-                        Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal = false
-                    };
-                    _bottom = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Bottom,
-                        Description = "Spód",
-                        EHeight = _width - 2 * _sizeElement,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _sizeElement,
-                        Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal = true
+                    _leftSide = new ElementModel(
+                        description: "Bok Lewy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: 0,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Leftside,
+                        horizontal: false);
+                    //{
+                    //    GetEnumName() = EnumCabinetElement.Leftside,
+                    //    Description = "Bok Lewy",
+                    //    EHeight = _height,
+                    //    EWidth = _sizeElement,
+                    //    EDepth = _depth,
+                    //    Ex = 0,
+                    //    Ey = 0,
+                    //    Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                    //    Horizontal=false
+                    //};
+                    _rightSide = new ElementModel(
+                        description: "Bok Prawy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _width-_sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Rightside,
+                        horizontal: false);
+                    //{
+                    //    GetEnumName() = EnumCabinetElement.Rightside,
+                    //    Description = "Bok Prawy",
+                    //    EHeight = _height,
+                    //    EWidth = _sizeElement,
+                    //    EDepth = _depth,
+                    //    Ex = _width - _sizeElement,
+                    //    Ey = 0,
+                    //    Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                    //    Horizontal = false
+                    //};
+                    _bottom = new ElementModel(
+                        description: "Spód",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Bottom,
+                        horizontal: false);
+                    //{
+                    //    GetEnumName() = EnumCabinetElement.Bottom,
+                    //    Description = "Spód",
+                    //    EHeight = _width - 2 * _sizeElement,
+                    //    EWidth = _sizeElement,
+                    //    EDepth = _depth,
+                    //    Ex = _sizeElement,
+                    //    Ey = 0,
+                    //    Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                    //    Horizontal = true
 
-                    };
-                    _top = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Top,
-                        Description = "Góra",
-                        EHeight = _width - 2 * _sizeElement,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _sizeElement,
-                        Ey = _height - _sizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=true
-                    };
+                    //};
+                    _top = new ElementModel(
+                        description: "Góra",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _sizeElement,
+                        y: _height - _sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Top,
+                        horizontal: false);
+                    //{
+                    //    GetEnumName() = EnumCabinetElement.Top,
+                    //    Description = "Góra",
+                    //    EHeight = _width - 2 * _sizeElement,
+                    //    EWidth = _sizeElement,
+                    //    EDepth = _depth,
+                    //    Ex = _sizeElement,
+                    //    Ey = _height - _sizeElement,
+                    //    Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                    //    Horizontal=true
+                    //};
                     break;
 
                 case EnumCabinetType.odwrotna:
@@ -224,54 +260,46 @@ namespace CoreS
 
                 default:
 
-                    _leftSide = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Leftside,
-                        Description = "Bok Lewy",
-                        EHeight = _height,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = 0,
-                        Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=false
-                    };
-                    _rightSide = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Rightside,
-                        Description = "Bok Prawy",
-                        EHeight = _height,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _width - _sizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=false
-                    };
-                    _bottom = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Bottom,
-                        Description = "Spód",
-                        EHeight = _width - 2 * _sizeElement,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _sizeElement,
-                        Ey = 0,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=true
-
-                    };
-                    _top = new ElementModel
-                    {
-                        EName = EnumCabinetElement.Top,
-                        Description = "Góra",
-                        EHeight = _width - 2 * _sizeElement,
-                        EWidth = _sizeElement,
-                        EDepth = _depth,
-                        Ex = _sizeElement,
-                        Ey = _height - _sizeElement,
-                        Ez = SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        Horizontal=true
-                    };
+                    _leftSide = new ElementModel(
+                        description: "Bok Lewy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: 0,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Leftside,
+                        horizontal: false);
+                    _rightSide = new ElementModel(
+                        description: "Bok Prawy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _width - _sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Rightside,
+                        horizontal: false);
+                    _bottom = new ElementModel(
+                        description: "Spód",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Bottom,
+                        horizontal: false);
+                    _top = new ElementModel(
+                        description: "Góra",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _sizeElement,
+                        y: _height - _sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Top,
+                        horizontal: false);
 
                     break;
 
@@ -289,7 +317,18 @@ namespace CoreS
 
             if (Back == EnumBack.Nakladane)
             {
-                elementBack = new ElementModel { EName = EnumCabinetElement.Back, Description = "Plecy", EHeight = _height, EWidth = _width, EDepth = BackSize, Ex = 0, Ey = 0, Ez = 0 };
+                elementBack = new ElementModel(
+                        description: "Plecy",
+                        height: _height,
+                        width: _width,
+                        depth: BackSize,
+                        x: 0,
+                        y: 0,
+                        z: 0,
+                        enumCabinet: EnumCabinetElement.Back,
+                        horizontal: false);
+
+                
 
                 _depth = SwitchBack.SwitchDepthByBackType(_depth, Back, BackSize);
 
@@ -307,19 +346,21 @@ namespace CoreS
 
         private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, ElementModel element)
         {
-            if (CabinetElements.Exists(c => c.EName == enumCabinetElement))
+            if (CabinetElements.Exists(c => c.GetEnumName() == enumCabinetElement))
             {
-                var index = CabinetElements.FindIndex(c => c.EName == enumCabinetElement);
-                CabinetElements[index].Description = element.Description;
-                CabinetElements[index].EName = element.EName;
-                CabinetElements[index].EHeight = element.EHeight;
-                CabinetElements[index].EWidth = element.EWidth;
-                CabinetElements[index].EDepth = element.EDepth;
-                CabinetElements[index].Ex = element.Ex;
-                CabinetElements[index].Ey = element.Ey;
-                CabinetElements[index].Ez = element.Ez;
-                CabinetElements[index].Horizontal = element.Horizontal;
-                CabinetElements[index].Material = element.Material;
+                CabinetElements[CabinetElements.FindIndex(c => c.GetEnumName() == enumCabinetElement)] = element;
+                
+                //var index = CabinetElements.FindIndex(c => c.GetEnumName() == enumCabinetElement);
+                //CabinetElements[index].Description = element.Description;
+                //CabinetElements[index].GetEnumName() = element.GetEnumName();
+                //CabinetElements[index].EHeight = element.EHeight;
+                //CabinetElements[index].EWidth = element.EWidth;
+                //CabinetElements[index].EDepth = element.EDepth;
+                //CabinetElements[index].Ex = element.Ex;
+                //CabinetElements[index].Ey = element.Ey;
+                //CabinetElements[index].Ez = element.Ez;
+                //CabinetElements[index].Horizontal = element.Horizontal;
+                //CabinetElements[index].Material = element.Material;
             }
             else
             {
@@ -374,17 +415,15 @@ namespace CoreS
 
         public void UpdateFront(ElementModel front)
         {
-            if (!FrontList.Exists(x => x.Guid == front.Guid)) return;
+            var result = FrontFactory.Update(front);
+             
+            if(result.IsValid)
             {
-                var T = FrontList.FirstOrDefault(x => x.Guid == front.Guid);
-                T.EWidth = front.EWidth;
-                T.EHeight = front.EHeight;
-                T.EDepth = front.EDepth;
-                T.Ex = front.Ex;
-                T.Ey = front.Ey;
-                T.Ez = front.Ez;
-                T.Description = front.Description;
-                T.EName = front.EName;
+                FrontList = result.Value;
+            }
+            else
+            {
+                
             }
         }
 
@@ -406,7 +445,7 @@ namespace CoreS
 
         public void DeleteFront(ElementModel front)
         {
-            if (!FrontList.Exists(x => x.Guid == front.Guid)) return;
+            if (!FrontList.Exists(x => x.GetGuid() == front.GetGuid())) return;
             {
                 FrontList.Remove(front);
             }

@@ -29,17 +29,17 @@ namespace CoreS.Export
                 {
                     sheet.Cells[row, 1].Value = row-1;
 
-                    switch (element.EName)
+                    switch (element.GetEnumName())
                     {
                         case EnumCabinetElement.Leftside:
                         case EnumCabinetElement.Rightside:
-                            sheet.Cells[row, 2].Value = element.EHeight;
-                            sheet.Cells[row, 3].Value = element.EDepth;
+                            sheet.Cells[row, 2].Value = element.GetHeight();
+                            sheet.Cells[row, 3].Value = element.GetDepth();
                             sheet.Cells[row, 5].Value = "x";
                             break;
                         case EnumCabinetElement.Back:
-                            sheet.Cells[row, 2].Value = element.EHeight;
-                            sheet.Cells[row, 3].Value = element.EWidth;
+                            sheet.Cells[row, 2].Value = element.GetHeight();
+                            sheet.Cells[row, 3].Value = element.GetWidth();
                             break;
                         case EnumCabinetElement.VerticalBarrier:
                             break;
@@ -48,35 +48,35 @@ namespace CoreS.Export
                         case EnumCabinetElement.Front:
                             break;
                         default:
-                            sheet.Cells[row, 2].Value = element.EWidth;
-                            sheet.Cells[row, 3].Value = element.EDepth;
+                            sheet.Cells[row, 2].Value = element.GetWidth();
+                            sheet.Cells[row, 3].Value = element.GetDepth();
                             sheet.Cells[row, 5].Value = "x";
                             break;
                     }
 
                     sheet.Cells[row, 4].Value = 1;
                     
-                    sheet.Cells[row, 10].Value = element.Description;
+                    sheet.Cells[row, 10].Value = element.GetDescription();
                     ++row;
                 }
 
                 var elementH = cabinet.HorizontalBarrier[0];
 
                 sheet.Cells[row, 1].Value = row - 1;
-                sheet.Cells[row, 2].Value = elementH.EWidth;
-                sheet.Cells[row, 3].Value = elementH.EDepth;
+                sheet.Cells[row, 2].Value = elementH.GetWidth();
+                sheet.Cells[row, 3].Value = elementH.GetDepth();
                 sheet.Cells[row, 4].Value = cabinet.HorizontalBarrier.Count;
                 sheet.Cells[row, 5].Value = "x";
-                sheet.Cells[row, 10].Value = elementH.Description;
+                sheet.Cells[row, 10].Value = elementH.GetDescription();
                 ++row;
 
                 var elementV = cabinet.VerticalBarrier[0];
                 sheet.Cells[row, 1].Value = row - 1;
-                sheet.Cells[row, 2].Value = elementV.EHeight;
-                sheet.Cells[row, 3].Value = elementV.EDepth;
+                sheet.Cells[row, 2].Value = elementV.GetHeight();
+                sheet.Cells[row, 3].Value = elementV.GetDepth();
                 sheet.Cells[row, 4].Value = cabinet.VerticalBarrier.Count;
                 sheet.Cells[row, 5].Value = "x";
-                sheet.Cells[row, 10].Value = elementV.Description;
+                sheet.Cells[row, 10].Value = elementV.GetDescription();
                 ++row;
 
                 p.SaveAs(new FileInfo(@"C:\test\1.xlsx"));

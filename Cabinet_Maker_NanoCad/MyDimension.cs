@@ -11,30 +11,30 @@ namespace Cabinet_Maker_NanoCad
     {
         public static List<AlignedDimension> CabinetDimension(List<ElementModel> cabinetCabinetElements, Point3d ptStart)
         {
-            var leftside = cabinetCabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Leftside);
-            var rightside = cabinetCabinetElements.FirstOrDefault(c => c.EName == EnumCabinetElement.Rightside);
+            var leftside = cabinetCabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Leftside);
+            var rightside = cabinetCabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Rightside);
             
             return new List<AlignedDimension>
             {
                 new AlignedDimension
                 {
-                    XLine1Point = new Point3d(ptStart.X + leftside.Ex+leftside.EWidth,ptStart.Y + leftside.Ey,0),
-                    XLine2Point = new Point3d(ptStart.X + rightside.Ex,ptStart.Y + rightside.Ey,0),
-                    DimLinePoint = new Point3d(ptStart.X + leftside.Ex,ptStart.Y + leftside.Ey - 80,0)
+                    XLine1Point = new Point3d(ptStart.X + leftside.GetX()+leftside.GetWidth(),ptStart.Y + leftside.GetY(),0),
+                    XLine2Point = new Point3d(ptStart.X + rightside.GetX(),ptStart.Y + rightside.GetY(),0),
+                    DimLinePoint = new Point3d(ptStart.X + leftside.GetX(),ptStart.Y + leftside.GetY() - 80,0)
                 },
 
                 new AlignedDimension
                 {
-                    XLine1Point = new Point3d(ptStart.X + leftside.Ex,ptStart.Y + leftside.Ey,0),
-                    XLine2Point = new Point3d(ptStart.X + rightside.Ex + rightside.EWidth,ptStart.Y + rightside.Ey,0),
-                    DimLinePoint = new Point3d(ptStart.X + leftside.Ex,ptStart.Y + leftside.Ey - 160,0)
+                    XLine1Point = new Point3d(ptStart.X + leftside.GetX(),ptStart.Y + leftside.GetY(),0),
+                    XLine2Point = new Point3d(ptStart.X + rightside.GetX() + rightside.GetWidth(),ptStart.Y + rightside.GetY(),0),
+                    DimLinePoint = new Point3d(ptStart.X + leftside.GetX(),ptStart.Y + leftside.GetY() - 160,0)
                 },
 
                 new AlignedDimension
                 {
-                    XLine1Point = new Point3d(ptStart.X + rightside.Ex + rightside.EWidth,ptStart.Y + rightside.Ey,0),
-                    XLine2Point = new Point3d(ptStart.X + rightside.Ex + rightside.EWidth,ptStart.Y + rightside.Ey + rightside.EHeight,0),
-                    DimLinePoint = new Point3d(ptStart.X + rightside.Ex + rightside.EWidth + 80,ptStart.Y + rightside.Ey,0)
+                    XLine1Point = new Point3d(ptStart.X + rightside.GetX() + rightside.GetWidth(),ptStart.Y + rightside.GetY(),0),
+                    XLine2Point = new Point3d(ptStart.X + rightside.GetX() + rightside.GetWidth(),ptStart.Y + rightside.GetY() + rightside.GetHeight(),0),
+                    DimLinePoint = new Point3d(ptStart.X + rightside.GetX() + rightside.GetWidth() + 80,ptStart.Y + rightside.GetY(),0)
                 }
             };
         }
@@ -48,9 +48,9 @@ namespace Cabinet_Maker_NanoCad
                 _dimensionList.Add(
                     new AlignedDimension
                     {
-                        XLine1Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey, 0),
-                        XLine2Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey + item.EHeight,0),
-                        DimLinePoint = new Point3d(ptStart.X + item.Ex + item.EWidth + 80,ptStart.Y + item.Ey, 0)
+                        XLine1Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY(), 0),
+                        XLine2Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY() + item.GetHeight(),0),
+                        DimLinePoint = new Point3d(ptStart.X + item.GetX() + item.GetWidth() + 80,ptStart.Y + item.GetY(), 0)
                     });
             };
 
@@ -66,9 +66,9 @@ namespace Cabinet_Maker_NanoCad
                 _dimensionList.Add(
                     new AlignedDimension
                     {
-                        XLine1Point = new Point3d(ptStart.X + item.Ex, ptStart.Y + item.Ey, 0),
-                        XLine2Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey,0),
-                        DimLinePoint = new Point3d(ptStart.X + item.Ex,ptStart.Y + item.Ey-80, 0)
+                        XLine1Point = new Point3d(ptStart.X + item.GetX(), ptStart.Y + item.GetY(), 0),
+                        XLine2Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY(),0),
+                        DimLinePoint = new Point3d(ptStart.X + item.GetX(),ptStart.Y + item.GetY()-80, 0)
                     });
             };
 
@@ -84,16 +84,16 @@ namespace Cabinet_Maker_NanoCad
                 _dimensionList.Add(
                     new AlignedDimension
                     {
-                        XLine1Point = new Point3d(ptStart.X + item.Ex, ptStart.Y + item.Ey, 0),
-                        XLine2Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey, 0),
-                        DimLinePoint = new Point3d(ptStart.X + item.Ex, ptStart.Y + item.Ey + 80, 0)
+                        XLine1Point = new Point3d(ptStart.X + item.GetX(), ptStart.Y + item.GetY(), 0),
+                        XLine2Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY(), 0),
+                        DimLinePoint = new Point3d(ptStart.X + item.GetX(), ptStart.Y + item.GetY() + 80, 0)
                     });
                 _dimensionList.Add(
                     new AlignedDimension
                     {
-                        XLine1Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey, 0),
-                        XLine2Point = new Point3d(ptStart.X + item.Ex + item.EWidth, ptStart.Y + item.Ey + item.EHeight, 0),
-                        DimLinePoint = new Point3d(ptStart.X + item.Ex+item.EWidth-80, ptStart.Y + item.Ey, 0)
+                        XLine1Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY(), 0),
+                        XLine2Point = new Point3d(ptStart.X + item.GetX() + item.GetWidth(), ptStart.Y + item.GetY() + item.GetHeight(), 0),
+                        DimLinePoint = new Point3d(ptStart.X + item.GetX()+item.GetWidth()-80, ptStart.Y + item.GetY(), 0)
                     });
             };
 

@@ -65,30 +65,39 @@ namespace CoreS.Factory
         {
             elements = new List<ElementModel>();
 
-            tempHeight = _cabinet.Height() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth;
+            tempHeight = _cabinet.Height() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth();
 
             tempWidth = _cabinet.SizeElement();
 
             tempDepth = _cabinet.Depth() - back;
 
-            tempEy = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth;
+            tempEy = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth();
 
-            tempEx = (_cabinet.Width() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth -
-                      _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).EWidth - Number * _cabinet.SizeElement()) / (Number + 1);
+            tempEx = (_cabinet.Width() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth() -
+                      _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).GetWidth() - Number * _cabinet.SizeElement()) / (Number + 1);
 
             for (var i = 0; i < Number; i++)
             {
-                var element = new ElementModel
-                {
-                    EHeight = tempHeight,
-                    EWidth = tempWidth,
-                    EDepth = tempDepth,
-                    Ex = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth + tempEx * (i + 1) + _cabinet.SizeElement() * i,
-                    Ey = tempEy,
-                    EName = EnumCabinetElement.VerticalBarrier,
-                    Description="Pion",
-                    Horizontal=false
-                };
+                var element = new ElementModel(
+                    description: "Pion",
+                    height: tempHeight,
+                    width: tempWidth,
+                    depth: tempDepth,
+                    x: _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth() + tempEx * (i + 1) + _cabinet.SizeElement() * i,
+                    y: tempEy,
+                    z: 0,
+                    enumCabinet: EnumCabinetElement.VerticalBarrier,
+                    horizontal: false);
+                //{
+                //    EHeight = tempHeight,
+                //    GetWidth() = tempWidth,
+                //    EDepth = tempDepth,
+                //    Ex = 
+                //    Ey = tempEy,
+                //    GetEnumName() = EnumCabinetElement.VerticalBarrier,
+                //    Description="Pion",
+                //    Horizontal=false
+                //};
                 elements.Add(element);
             }
 

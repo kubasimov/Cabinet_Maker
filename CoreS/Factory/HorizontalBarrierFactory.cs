@@ -126,8 +126,8 @@ namespace CoreS.Factory
                     {
                         tempWidth = TempWidth(i);
                         tempEx = i == 0
-                            ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth
-                            : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
+                            ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).GetWidth()
+                            : _cabinet.VerticalBarrier[i - 1].GetX() + _cabinet.VerticalBarrier[i - 1].GetWidth();
 
                         AddElement();
                         _elem.Add(i, elements);
@@ -138,8 +138,8 @@ namespace CoreS.Factory
                         {
                             tempWidth = TempWidth(i);
                             tempEx = i == 0
-                                ? _cabinet.CabinetElements.First((x => x.EName == EnumCabinetElement.Leftside)).EWidth
-                                : _cabinet.VerticalBarrier[i - 1].Ex + _cabinet.VerticalBarrier[i - 1].EWidth;
+                                ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).GetWidth()
+                                : _cabinet.VerticalBarrier[i - 1].GetX() + _cabinet.VerticalBarrier[i - 1].GetWidth();
 
                             AddElement();
                             _elem.Add(i, elements);
@@ -170,17 +170,17 @@ namespace CoreS.Factory
                 //skrajna lewa kolumna
                 if (column == 0)
                 {
-                    tempWidth = _cabinet.VerticalBarrier[column].Ex - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Leftside).EWidth;
+                    tempWidth = _cabinet.VerticalBarrier[column].GetX() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth();
                 }
                 //skrajna prawa kolumna
                 else if (column == _cabinet.VerticalBarrier.Count)
                 {
-                    tempWidth = _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Rightside).Ex - _cabinet.VerticalBarrier[column - 1].Ex - _cabinet.VerticalBarrier[column - 1].EWidth;
+                    tempWidth = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).GetX() - _cabinet.VerticalBarrier[column - 1].GetX() - _cabinet.VerticalBarrier[column - 1].GetWidth();
                 }
                 //wewnetrzne kolumny
                 else
                 {
-                    tempWidth = _cabinet.VerticalBarrier[column].Ex - _cabinet.VerticalBarrier[column - 1].Ex - _cabinet.VerticalBarrier[column - 1].EWidth;
+                    tempWidth = _cabinet.VerticalBarrier[column].GetX() - _cabinet.VerticalBarrier[column - 1].GetX() - _cabinet.VerticalBarrier[column - 1].GetWidth();
                 }
             }
             //brak kolumn
@@ -197,17 +197,17 @@ namespace CoreS.Factory
         {
             for (var i = 0; i < Number; i++)
             {
-                var element = new ElementModel
-                {
-                    EHeight = tempWidth,
-                    EWidth = tempHeight,
-                    EDepth = tempDepth,
-                    Ex = tempEx,
-                    Ey = TempHeight[i],
-                    EName = EnumCabinetElement.HorizontalBarrier,
-                    Description = "Poziom",
-                    Horizontal=true
-                };
+                var element = new ElementModel("poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
+                //{
+                //    EHeight = tempWidth,
+                //    GetWidth() = tempHeight,
+                //    EDepth = tempDepth,
+                //    Ex = tempEx,
+                //    Ey = TempHeight[i],
+                //    GetEnumName() = EnumCabinetElement.HorizontalBarrier,
+                //    Description = "Poziom",
+                //    Horizontal=true
+                //};
 
                 elements.Add(element);
             }
@@ -224,17 +224,17 @@ namespace CoreS.Factory
                 {
                     for (int i = 0; i < Number; i++)
                     {
-                        list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + Height[i]);
+                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + Height[i]);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < Height.Count; i++)
                     {
-                        list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + Height[i]);
+                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + Height[i]);
                     }
 
-                    var tempheight= _cabinet.Height() - list.Last() - _cabinet.SizeElement() - _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth;
+                    var tempheight= _cabinet.Height() - list.Last() - _cabinet.SizeElement() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth();
 
                     var z = (tempheight - (Number - Height.Count) * _cabinet.SizeElement()) / ((Number - Height.Count) + 1);
 
@@ -252,13 +252,13 @@ namespace CoreS.Factory
             else
             {
                 tempEy = (_cabinet.Height() -
-                          _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth -
-                          _cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Top).EWidth
+                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() -
+                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth()
                           - Number * _cabinet.SizeElement()) / (Number + 1);
 
                 for (var i = 0; i < Number; i++)
                 {
-                    list.Add(_cabinet.CabinetElements.First(x => x.EName == EnumCabinetElement.Bottom).EWidth + tempEy * (i + 1) + _cabinet.SizeElement() * i);
+                    list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + tempEy * (i + 1) + _cabinet.SizeElement() * i);
                 }
             }
 

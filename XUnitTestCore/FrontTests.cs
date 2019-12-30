@@ -19,12 +19,12 @@ namespace XUnitTestCore
             var front = cabinet.GetFront(0);
 
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594,front.EWidth);
-            Assert.Equal(714,front.EHeight);
-            Assert.Equal(18,front.EDepth);
-            Assert.Equal(3,front.Ex);
-            Assert.Equal(3,front.Ey);
-            Assert.Equal(512,front.Ez);
+            Assert.Equal(594,front.GetWidth());
+            Assert.Equal(714,front.GetHeight());
+            Assert.Equal(18,front.GetDepth());
+            Assert.Equal(3,front.GetX());
+            Assert.Equal(3,front.GetY());
+            Assert.Equal(512,front.GetZ());
         }
 
         [Fact]
@@ -39,19 +39,19 @@ namespace XUnitTestCore
 
             Assert.Equal(2,cabinet.GetFrontList().Count);
 
-            Assert.Equal(298, front.EWidth);
-            Assert.Equal(720, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(298, front.GetWidth());
+            Assert.Equal(720, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(298, front1.EWidth);
-            Assert.Equal(720, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(301, front1.Ex);
-            Assert.Equal(0, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(298, front1.GetWidth());
+            Assert.Equal(720, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(301, front1.GetX());
+            Assert.Equal(0, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
         }
 
         [Fact]
@@ -67,26 +67,26 @@ namespace XUnitTestCore
 
             Assert.Equal(3, cabinet.GetFrontList().Count);
 
-            Assert.Equal(196, front.EWidth);
-            Assert.Equal(714, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(196, front.GetWidth());
+            Assert.Equal(714, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
 
-            Assert.Equal(196, front1.EWidth);
-            Assert.Equal(714, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(202, front1.Ex);
-            Assert.Equal(3, front1.Ey);
-            Assert.Equal(512, front1.Ez);
+            Assert.Equal(196, front1.GetWidth());
+            Assert.Equal(714, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(202, front1.GetX());
+            Assert.Equal(3, front1.GetY());
+            Assert.Equal(512, front1.GetZ());
 
-            Assert.Equal(196, front2.EWidth);
-            Assert.Equal(714, front2.EHeight);
-            Assert.Equal(18, front2.EDepth);
-            Assert.Equal(401, front2.Ex);
-            Assert.Equal(3, front2.Ey);
-            Assert.Equal(512, front2.Ez);
+            Assert.Equal(196, front2.GetWidth());
+            Assert.Equal(714, front2.GetHeight());
+            Assert.Equal(18, front2.GetDepth());
+            Assert.Equal(401, front2.GetX());
+            Assert.Equal(3, front2.GetY());
+            Assert.Equal(512, front2.GetZ());
         }
 
         [Fact]
@@ -109,12 +109,12 @@ namespace XUnitTestCore
             var front = cabinet.GetFront(0);
 
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594, front.EWidth);
-            Assert.Equal(714, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(594, front.GetWidth());
+            Assert.Equal(714, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
         }
 
         [Fact]
@@ -140,26 +140,26 @@ namespace XUnitTestCore
 
             Assert.Equal(3, cabinet.GetFrontList().Count);
 
-            Assert.Equal(196, front.EWidth);
-            Assert.Equal(714, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(196, front.GetWidth());
+            Assert.Equal(714, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
 
-            Assert.Equal(196, front1.EWidth);
-            Assert.Equal(714, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(202, front1.Ex);
-            Assert.Equal(3, front1.Ey);
-            Assert.Equal(512, front1.Ez);
+            Assert.Equal(196, front1.GetWidth());
+            Assert.Equal(714, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(202, front1.GetX());
+            Assert.Equal(3, front1.GetY());
+            Assert.Equal(512, front1.GetZ());
 
-            Assert.Equal(196, front2.EWidth);
-            Assert.Equal(714, front2.EHeight);
-            Assert.Equal(18, front2.EDepth);
-            Assert.Equal(401, front2.Ex);
-            Assert.Equal(3, front2.Ey);
-            Assert.Equal(512, front2.Ez);
+            Assert.Equal(196, front2.GetWidth());
+            Assert.Equal(714, front2.GetHeight());
+            Assert.Equal(18, front2.GetDepth());
+            Assert.Equal(401, front2.GetX());
+            Assert.Equal(3, front2.GetY());
+            Assert.Equal(512, front2.GetZ());
         }
 
         [Fact]
@@ -173,19 +173,19 @@ namespace XUnitTestCore
             var front1 = cabinet.GetFront(1);
             
             Assert.Equal(2,cabinet.GetFrontList().Count);
-            Assert.Equal(600, front.EWidth);
-            Assert.Equal(358, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(600, front.GetWidth());
+            Assert.Equal(358, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(600, front1.EWidth);
-            Assert.Equal(358, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(0, front1.Ex);
-            Assert.Equal(361, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(600, front1.GetWidth());
+            Assert.Equal(358, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(0, front1.GetX());
+            Assert.Equal(361, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
         }
 
         [Fact]
@@ -212,26 +212,26 @@ namespace XUnitTestCore
 
             Assert.Equal(3, cabinet.GetFrontList().Count);
 
-            Assert.Equal(594, front.EWidth);
-            Assert.Equal(236, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(594, front.GetWidth());
+            Assert.Equal(236, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
 
-            Assert.Equal(594, front1.EWidth);
-            Assert.Equal(236, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(3, front1.Ex);
-            Assert.Equal(242, front1.Ey);
-            Assert.Equal(512, front1.Ez);
+            Assert.Equal(594, front1.GetWidth());
+            Assert.Equal(236, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(3, front1.GetX());
+            Assert.Equal(242, front1.GetY());
+            Assert.Equal(512, front1.GetZ());
 
-            Assert.Equal(594, front2.EWidth);
-            Assert.Equal(236, front2.EHeight);
-            Assert.Equal(18, front2.EDepth);
-            Assert.Equal(3, front2.Ex);
-            Assert.Equal(481, front2.Ey);
-            Assert.Equal(512, front2.Ez);
+            Assert.Equal(594, front2.GetWidth());
+            Assert.Equal(236, front2.GetHeight());
+            Assert.Equal(18, front2.GetDepth());
+            Assert.Equal(3, front2.GetX());
+            Assert.Equal(481, front2.GetY());
+            Assert.Equal(512, front2.GetZ());
         }
 
         [Fact]
@@ -241,28 +241,29 @@ namespace XUnitTestCore
 
             var frontList = new List<ElementModel>();
 
-            var front = new ElementModel
-            {
-                EName = EnumCabinetElement.Front,
-                EDepth = 22,
-                EHeight = 600,
-                EWidth = 300,
-                Ex = 12,
-                Ey = 12,
-                Ez = 513
-            };
-
+            var front = new ElementModel(
+                description: "Front",
+                height: 600,
+                width: 300,
+                depth: 22,
+                x: 12,
+                y: 12,
+                z: 513,
+                enumCabinet: EnumCabinetElement.Front,
+                horizontal: false
+                );
+            
             frontList.Add(front);
 
             cabinet.AddFront(frontList);
 
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(300, front.EWidth);
-            Assert.Equal(600, front.EHeight);
-            Assert.Equal(22, front.EDepth);
-            Assert.Equal(12, front.Ex);
-            Assert.Equal(12, front.Ey);
-            Assert.Equal(513, front.Ez);
+            Assert.Equal(300, front.GetWidth());
+            Assert.Equal(600, front.GetHeight());
+            Assert.Equal(22, front.GetDepth());
+            Assert.Equal(12, front.GetX());
+            Assert.Equal(12, front.GetY());
+            Assert.Equal(513, front.GetZ());
         }
 
         [Fact]
@@ -272,28 +273,28 @@ namespace XUnitTestCore
 
             var frontList = new List<ElementModel>();
 
-            var frontT = new ElementModel
-            {
-                EName = EnumCabinetElement.Front,
-                EDepth = 22,
-                EHeight = 300,
-                EWidth = 300,
-                Ex = 12,
-                Ey = 12,
-                Ez = 513
-            };
-
-            var front1T = new ElementModel
-            {
-                EName = EnumCabinetElement.Front,
-                EDepth = 22,
-                EHeight = 300,
-                EWidth = 300,
-                Ex = 12,
-                Ey = 315,
-                Ez = 513
-            };
-
+            var frontT = new ElementModel(
+                description: "",
+                height: 300,
+                width: 300,
+                depth: 22,
+                x: 12,
+                y: 12,
+                z: 513,
+                enumCabinet: EnumCabinetElement.Front,
+                horizontal: false);
+            
+            var front1T = new ElementModel(
+                description: "",
+                height: 300,
+                width: 300,
+                depth: 22,
+                x: 12,
+                y: 315,
+                z: 513,
+                enumCabinet: EnumCabinetElement.Front,
+                horizontal: false);
+            
             frontList.Add(frontT);
             frontList.Add(front1T);
 
@@ -304,20 +305,20 @@ namespace XUnitTestCore
             
             Assert.Equal(2,cabinet.GetFrontList().Count);
 
-            Assert.Equal(300, front.EWidth);
-            Assert.Equal(300, front.EHeight);
-            Assert.Equal(22, front.EDepth);
-            Assert.Equal(12, front.Ex);
-            Assert.Equal(12, front.Ey);
-            Assert.Equal(513, front.Ez);
+            Assert.Equal(300, front.GetWidth());
+            Assert.Equal(300, front.GetHeight());
+            Assert.Equal(22, front.GetDepth());
+            Assert.Equal(12, front.GetX());
+            Assert.Equal(12, front.GetY());
+            Assert.Equal(513, front.GetZ());
 
 
-            Assert.Equal(300, front1.EWidth);
-            Assert.Equal(300, front1.EHeight);
-            Assert.Equal(22, front1.EDepth);
-            Assert.Equal(12, front1.Ex);
-            Assert.Equal(315, front1.Ey);
-            Assert.Equal(513, front1.Ez);
+            Assert.Equal(300, front1.GetWidth());
+            Assert.Equal(300, front1.GetHeight());
+            Assert.Equal(22, front1.GetDepth());
+            Assert.Equal(12, front1.GetX());
+            Assert.Equal(315, front1.GetY());
+            Assert.Equal(513, front1.GetZ());
         }
 
         [Fact]
@@ -330,29 +331,29 @@ namespace XUnitTestCore
             var front = cabinet.GetFront(0);
             
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594, front.EWidth);
-            Assert.Equal(714, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(594, front.GetWidth());
+            Assert.Equal(714, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
 
             var frontT = cabinet.GetFront(0);
 
-            frontT.EWidth = 500;
-            frontT.EHeight = 620;
+            frontT.SetWidth(500);
+            frontT.SetHeight(620);
 
             cabinet.UpdateFront(frontT);
 
             front = cabinet.GetFront(0);
 
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(500, front.EWidth);
-            Assert.Equal(620, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(3, front.Ex);
-            Assert.Equal(3, front.Ey);
-            Assert.Equal(512, front.Ez);
+            Assert.Equal(500, front.GetWidth());
+            Assert.Equal(620, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(3, front.GetX());
+            Assert.Equal(3, front.GetY());
+            Assert.Equal(512, front.GetZ());
         }
 
         [Fact]
@@ -368,24 +369,24 @@ namespace XUnitTestCore
 
             Assert.Equal(2, cabinet.GetFrontList().Count);
 
-            Assert.Equal(298, front.EWidth);
-            Assert.Equal(720, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(298, front.GetWidth());
+            Assert.Equal(720, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(298, front1.EWidth);
-            Assert.Equal(720, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(301, front1.Ex);
-            Assert.Equal(0, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(298, front1.GetWidth());
+            Assert.Equal(720, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(301, front1.GetX());
+            Assert.Equal(0, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
 
             var frontT = cabinet.GetFront(0);
 
-            frontT.EWidth = 100;
-            frontT.EHeight = 620;
+            frontT.SetWidth(100);
+            frontT.SetHeight(620);
 
             cabinet.UpdateFront(frontT);
 
@@ -394,19 +395,19 @@ namespace XUnitTestCore
 
             Assert.Equal(2, cabinet.GetFrontList().Count);
 
-            Assert.Equal(100, front.EWidth);
-            Assert.Equal(620, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(100, front.GetWidth());
+            Assert.Equal(620, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(298, front1.EWidth);
-            Assert.Equal(720, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(301, front1.Ex);
-            Assert.Equal(0, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(298, front1.GetWidth());
+            Assert.Equal(720, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(301, front1.GetX());
+            Assert.Equal(0, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
         }
 
         [Fact]
@@ -421,24 +422,24 @@ namespace XUnitTestCore
 
             Assert.Equal(2, cabinet.GetFrontList().Count);
 
-            Assert.Equal(298, front.EWidth);
-            Assert.Equal(720, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(298, front.GetWidth());
+            Assert.Equal(720, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(298, front1.EWidth);
-            Assert.Equal(720, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(301, front1.Ex);
-            Assert.Equal(0, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(298, front1.GetWidth());
+            Assert.Equal(720, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(301, front1.GetX());
+            Assert.Equal(0, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
 
             var frontT = cabinet.GetFront(1);
 
-            frontT.EWidth = 100;
-            frontT.EHeight = 620;
+            frontT.SetWidth(100);
+            frontT.SetHeight(620);
 
             cabinet.UpdateFront(frontT);
 
@@ -446,19 +447,19 @@ namespace XUnitTestCore
             front1 = cabinet.GetFront(1);
             Assert.Equal(2, cabinet.GetFrontList().Count);
 
-            Assert.Equal(298, front.EWidth);
-            Assert.Equal(720, front.EHeight);
-            Assert.Equal(18, front.EDepth);
-            Assert.Equal(0, front.Ex);
-            Assert.Equal(0, front.Ey);
-            Assert.Equal(510, front.Ez);
+            Assert.Equal(298, front.GetWidth());
+            Assert.Equal(720, front.GetHeight());
+            Assert.Equal(18, front.GetDepth());
+            Assert.Equal(0, front.GetX());
+            Assert.Equal(0, front.GetY());
+            Assert.Equal(510, front.GetZ());
 
-            Assert.Equal(100, front1.EWidth);
-            Assert.Equal(620, front1.EHeight);
-            Assert.Equal(18, front1.EDepth);
-            Assert.Equal(301, front1.Ex);
-            Assert.Equal(0, front1.Ey);
-            Assert.Equal(510, front1.Ez);
+            Assert.Equal(100, front1.GetWidth());
+            Assert.Equal(620, front1.GetHeight());
+            Assert.Equal(18, front1.GetDepth());
+            Assert.Equal(301, front1.GetX());
+            Assert.Equal(0, front1.GetY());
+            Assert.Equal(510, front1.GetZ());
         }
 
         [Fact]
@@ -552,27 +553,27 @@ namespace XUnitTestCore
             var frontlist = cabinet.GetFrontList();
 
             Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594, frontlist[0].EWidth);
-            Assert.Equal(714, frontlist[0].EHeight);
-            Assert.Equal(18, frontlist[0].EDepth);
-            Assert.Equal(3, frontlist[0].Ex);
-            Assert.Equal(3, frontlist[0].Ey);
-            Assert.Equal(512, frontlist[0].Ez);
+            Assert.Equal(594, frontlist[0].GetWidth());
+            Assert.Equal(714, frontlist[0].GetHeight());
+            Assert.Equal(18, frontlist[0].GetDepth());
+            Assert.Equal(3, frontlist[0].GetX());
+            Assert.Equal(3, frontlist[0].GetY());
+            Assert.Equal(512, frontlist[0].GetZ());
 
             var front = cabinet.GetFront(0);
 
-            front.EWidth = 200;
+            front.SetWidth(200);
             cabinet.UpdateFront(front);
 
             cabinet.AddFront(1);
 
             Assert.Equal(2, cabinet.GetFrontCount());
-            Assert.Equal(200, cabinet.GetFrontList()[0].EWidth);
-            Assert.Equal(714, cabinet.GetFrontList()[0].EHeight);
-            Assert.Equal(18, cabinet.GetFrontList()[0].EDepth);
-            Assert.Equal(3, cabinet.GetFrontList()[0].Ex);
-            Assert.Equal(3, cabinet.GetFrontList()[0].Ey);
-            Assert.Equal(512, cabinet.GetFrontList()[0].Ez);
+            Assert.Equal(200, cabinet.GetFrontList()[0].GetWidth());
+            Assert.Equal(714, cabinet.GetFrontList()[0].GetHeight());
+            Assert.Equal(18, cabinet.GetFrontList()[0].GetDepth());
+            Assert.Equal(3, cabinet.GetFrontList()[0].GetX());
+            Assert.Equal(3, cabinet.GetFrontList()[0].GetY());
+            Assert.Equal(512, cabinet.GetFrontList()[0].GetZ());
         }
     }
 }

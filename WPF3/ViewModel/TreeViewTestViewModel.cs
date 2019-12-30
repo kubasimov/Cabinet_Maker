@@ -77,9 +77,9 @@ namespace WPF3.ViewModel
 
                 foreach (var elements in CabinetView)
                 {
-                    if (elements.elementModels.Any(p => p.Guid == tmp.Guid))
+                    if (elements.elementModels.Any(p => p.GetGuid() == tmp.GetGuid()))
                     {
-                        MElement = elements.elementModels.First(p => p.Guid == tmp.Guid);
+                        MElement = elements.elementModels.First(p => p.GetGuid() == tmp.GetGuid());
                         RaisePropertyChanged(MElementPropertyName);
                         break;
                     }

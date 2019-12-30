@@ -188,15 +188,15 @@ namespace WPF3.ViewModel
         {
             return new Element3D
             {
-                EWidth = (double)element.EWidth / 100,
-                EHeight = (double)element.EHeight / 100,
-                EDepth = (double)element.EDepth / 100,
-                EName = element.EName,
-                Ex = (double)element.Ex / 100,
-                Ey = (double)element.Ey / 100,
-                Ez = (double)element.Ez / 100,
-                Description = element.Description,
-                Horizontal=element.Horizontal
+                EWidth = (double)element.GetWidth() / 100,
+                EHeight = (double)element.GetHeight() / 100,
+                EDepth = (double)element.GetDepth() / 100,
+                EName = element.GetEnumName(),
+                Ex = (double)element.GetX() / 100,
+                Ey = (double)element.GetY() / 100,
+                Ez = (double)element.GetZ() / 100,
+                Description = element.GetDescription(),
+                Horizontal=element.GetHorizontal()
             };
         }
         
