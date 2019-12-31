@@ -215,7 +215,7 @@ namespace CoreS
                         y: 0,
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: false);
+                        horizontal: true);
                     //{
                     //    GetEnumName() = EnumCabinetElement.Bottom,
                     //    Description = "Spód",
@@ -237,7 +237,7 @@ namespace CoreS
                         y: _height - _sizeElement,
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Top,
-                        horizontal: false);
+                        horizontal: true);
                     //{
                     //    GetEnumName() = EnumCabinetElement.Top,
                     //    Description = "Góra",
@@ -289,7 +289,7 @@ namespace CoreS
                         y: 0,
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: false);
+                        horizontal: true);
                     _top = new ElementModel(
                         description: "Góra",
                         height: _width - 2 * _sizeElement,
@@ -299,7 +299,7 @@ namespace CoreS
                         y: _height - _sizeElement,
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Top,
-                        horizontal: false);
+                        horizontal: true);
 
                     break;
 

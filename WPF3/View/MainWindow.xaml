@@ -127,7 +127,7 @@
         </TextBox>
         <Button Content="Nowe przegrody pionowe" Grid.Column="1" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
         <Button Content="Nowe przegrody poziome" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding AddFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewFrontCommand, Mode=OneWay}" Height="20"/>
 
         <Button Content="Nowy" Grid.Column="1" HorizontalAlignment="Left" Margin="50,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}" Height="20"/>
         <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}" Height="20"/>
