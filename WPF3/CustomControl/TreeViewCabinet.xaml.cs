@@ -50,17 +50,17 @@ namespace WPF3.CustomControl
         public class Elements
         {
             public string Name { get; }
-            public ObservableCollection<ElementModel> elementModels { get; }
+            public ObservableCollection<ElementModelDTO> elementModels { get; }
 
             public Elements(string name)
             {
                 Name = name;
-                elementModels = new ObservableCollection<ElementModel>();
+                elementModels = new ObservableCollection<ElementModelDTO>();
             }
 
             
         }
         
-        public ElementModel MElement { get; set; }
+        public ElementModelDTO MElement { get; set; }
     }
 }

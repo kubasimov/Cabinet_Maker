@@ -183,16 +183,23 @@ namespace WPF3.ViewModel
         private void ExecuteAddFrontCommand()
         {
             _cabinet.AddFront(1);
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
         }
 
         private void ExecuteDeleteFrontCommand()
         {
-
+            _cabinet.DeleteFront(1);
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
         }
 
         private void ExecuteRemoveFrontCommand()
         {
 
+            _cabinet.DeleteAllFront();
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
         }
 
         #endregion

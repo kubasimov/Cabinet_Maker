@@ -19,12 +19,12 @@ namespace CoreS.Model
         public int BackSize;
         public EnumBack Back;
 
-        public List<ElementModel> CabinetElements;
-        public List<ElementModel> HorizontalBarrier;
-        public List<ElementModel> VerticalBarrier;
+        public List<ElementModelDTO> CabinetElements;
+        public List<ElementModelDTO> HorizontalBarrier;
+        public List<ElementModelDTO> VerticalBarrier;
         protected BarrierParameter HorizontalBarrierParameter;
         protected BarrierParameter VerticalBarrierParameter;
-        public List<ElementModel> FrontList;
+        public List<ElementModelDTO> FrontList;
         protected readonly Back SwitchBack = new Back();
 
         

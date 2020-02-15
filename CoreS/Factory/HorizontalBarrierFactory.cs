@@ -14,17 +14,17 @@ namespace CoreS.Factory
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private Dictionary<int, List< ElementModel>> _elem;  //tablica poziomow - Dictionary<poziom,elementy_na_danym_poziomie>
+        private Dictionary<int, List< ElementModelDTO>> _elem;  //tablica poziomow - Dictionary<poziom,elementy_na_danym_poziomie>
        
         public HorizontalBarrierFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
-            elements=new List<ElementModel>();
-            _elem = new Dictionary<int, List<ElementModel>>();
+            elements=new List<ElementModelDTO>();
+            _elem = new Dictionary<int, List<ElementModelDTO>>();
                        
         }
         
-        public List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
+        public List<ElementModelDTO> NewBarrier(BarrierParameter barrierParameter)
         {
             Number = barrierParameter.Number;
 
@@ -41,12 +41,12 @@ namespace CoreS.Factory
             return Recalculate(barrierParameter.GetBarrier());
         }
 
-        public List<ElementModel> ReCount()
+        public List<ElementModelDTO> ReCount()
         {
             return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
         }
 
-        public List<ElementModel> Add(int element)
+        public List<ElementModelDTO> Add(int element)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace CoreS.Factory
             
         }
 
-        public List<ElementModel> Delete(int delete)
+        public List<ElementModelDTO> Delete(int delete)
         {
             try
             {
@@ -82,30 +82,30 @@ namespace CoreS.Factory
 
         }
 
-        public List<ElementModel> Delete(ElementModel element)
+        public List<ElementModelDTO> Delete(ElementModelDTO element)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<ElementModel> DeleteAll()
+        public List<ElementModelDTO> DeleteAll()
         {
             Number = 0;
-            elements = new List<ElementModel>();
+            elements = new List<ElementModelDTO>();
             return elements;
         }
 
-        public List<ElementModel> GetAll()
+        public List<ElementModelDTO> GetAll()
         {
             return elements;
         }
 
 
 
-        private List<ElementModel> Recalculate(List<int> barrier)
+        private List<ElementModelDTO> Recalculate(List<int> barrier)
         {
-            elements = new List<ElementModel>();
+            elements = new List<ElementModelDTO>();
             
-            _elem = new Dictionary<int, List<ElementModel>>();
+            _elem = new Dictionary<int, List<ElementModelDTO>>();
             //_elem1 = new List<List<ElementModel>>();
 
             try
@@ -197,7 +197,7 @@ namespace CoreS.Factory
         {
             for (var i = 0; i < Number; i++)
             {
-                var element = new ElementModel("poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
+                var element = new ElementModelDTO("poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
                 //{
                 //    EHeight = tempWidth,
                 //    GetWidth() = tempHeight,

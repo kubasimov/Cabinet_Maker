@@ -11,10 +11,10 @@ namespace CoreS.Factory
         public VerticalBarrierFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
-            elements = new List<ElementModel>();
+            elements = new List<ElementModelDTO>();
         }
 
-        public List<ElementModel> NewBarrier(BarrierParameter barrierParameter)
+        public List<ElementModelDTO> NewBarrier(BarrierParameter barrierParameter)
         {
             Number = barrierParameter.Number;
             
@@ -23,19 +23,19 @@ namespace CoreS.Factory
             return Recalculate();
         }
 
-        public List<ElementModel> ReCount()
+        public List<ElementModelDTO> ReCount()
         {
             return Recalculate();
         }
 
-        public List<ElementModel> Add(int element)
+        public List<ElementModelDTO> Add(int element)
         {
             Number = elements.Count + element;
 
             return Recalculate();
         }
 
-        public List<ElementModel> Delete(int delete)
+        public List<ElementModelDTO> Delete(int delete)
         {
             Number = elements.Count - delete;
             if (Number < 0)
@@ -43,27 +43,27 @@ namespace CoreS.Factory
             return Recalculate();
         }
 
-        public List<ElementModel> Delete(ElementModel delete)
+        public List<ElementModelDTO> Delete(ElementModelDTO delete)
         {
             elements.Remove(delete);
             return elements;
         }
 
-        public List<ElementModel> DeleteAll()
+        public List<ElementModelDTO> DeleteAll()
         {
             Number = 0;
-            elements = new List<ElementModel>();
+            elements = new List<ElementModelDTO>();
             return elements;
         }
 
-        public List<ElementModel> GetAll()
+        public List<ElementModelDTO> GetAll()
         {
             return elements;
         }
         
-        private List<ElementModel> Recalculate()
+        private List<ElementModelDTO> Recalculate()
         {
-            elements = new List<ElementModel>();
+            elements = new List<ElementModelDTO>();
 
             tempHeight = _cabinet.Height() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth();
 
@@ -78,7 +78,7 @@ namespace CoreS.Factory
 
             for (var i = 0; i < Number; i++)
             {
-                var element = new ElementModel(
+                var element = new ElementModelDTO(
                     description: "Pion",
                     height: tempHeight,
                     width: tempWidth,

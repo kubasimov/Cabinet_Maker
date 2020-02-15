@@ -144,7 +144,10 @@
 
 
 
-        <CustomControl:TreeViewCabinet Grid.Column="2" HorizontalAlignment="Center" Height="410" Margin="0,14,0,0" VerticalAlignment="Top" Width="308" Cabinet="{Binding CabinetView}"/>
+        <CustomControl:TreeViewCabinet Grid.Column="2" HorizontalAlignment="Left" Height="410" Margin="53,-17,0,0" VerticalAlignment="Top" Width="190" Cabinet="{Binding CabinetView}"/>
+        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="193,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="216,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveFrontCommand, Mode=OneWay}" Height="20"/>
 
 
 

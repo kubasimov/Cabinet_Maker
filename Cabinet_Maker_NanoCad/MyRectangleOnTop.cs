@@ -23,7 +23,7 @@ namespace Cabinet_Maker_NanoCad
         }
 
 
-        public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModel> cabinetElements, Point3d ptStart)
+        public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModelDTO> cabinetElements, Point3d ptStart)
         {
             var leftSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Leftside);
             var rightSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Rightside);
@@ -41,7 +41,7 @@ namespace Cabinet_Maker_NanoCad
 
 
 
-        public static List<Polyline> GetPolylineListFromFrontList(List<ElementModel> frontList, Point3d ptStart)
+        public static List<Polyline> GetPolylineListFromFrontList(List<ElementModelDTO> frontList, Point3d ptStart)
         {
             var poly = new List<Polyline>();
 

@@ -9,7 +9,7 @@ namespace Cabinet_Maker_NanoCad
 {
     public static class MyDimension
     {
-        public static List<AlignedDimension> CabinetDimension(List<ElementModel> cabinetCabinetElements, Point3d ptStart)
+        public static List<AlignedDimension> CabinetDimension(List<ElementModelDTO> cabinetCabinetElements, Point3d ptStart)
         {
             var leftside = cabinetCabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Leftside);
             var rightside = cabinetCabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Rightside);
@@ -39,7 +39,7 @@ namespace Cabinet_Maker_NanoCad
             };
         }
 
-        public static List<AlignedDimension> VerticalBarrier(List<ElementModel> elements, Point3d ptStart)
+        public static List<AlignedDimension> VerticalBarrier(List<ElementModelDTO> elements, Point3d ptStart)
         {
             var _dimensionList = new List<AlignedDimension>();
 
@@ -57,7 +57,7 @@ namespace Cabinet_Maker_NanoCad
             return _dimensionList;
         }
 
-        public static List<AlignedDimension> HorizontalBarrier(List<ElementModel> elements, Point3d ptStart)
+        public static List<AlignedDimension> HorizontalBarrier(List<ElementModelDTO> elements, Point3d ptStart)
         {
             var _dimensionList = new List<AlignedDimension>();
 
@@ -75,7 +75,7 @@ namespace Cabinet_Maker_NanoCad
             return _dimensionList;
         }
 
-        public static List<AlignedDimension> Front(List<ElementModel> elements, Point3d ptStart)
+        public static List<AlignedDimension> Front(List<ElementModelDTO> elements, Point3d ptStart)
         {
             var _dimensionList = new List<AlignedDimension>();
 

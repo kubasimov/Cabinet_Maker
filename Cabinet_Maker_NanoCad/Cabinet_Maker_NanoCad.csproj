@@ -40,6 +40,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Collection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=e57c3f0a3d6646db, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Collection.6.0.0\lib\net461\AutoMapper.Collection.dll</HintPath>
+    </Reference>
     <Reference Include="hostdbmgd">
       <HintPath>..\..\..\Library\NCadSDK_100_EN_4447.1969.4520\include-x64\hostdbmgd.dll</HintPath>
     </Reference>

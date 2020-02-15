@@ -184,7 +184,7 @@ namespace WPF3.ViewModel
             };
         }
 
-        private Element3D GetElement3DFromElementModel(ElementModel element)
+        private Element3D GetElement3DFromElementModel(ElementModelDTO element)
         {
             return new Element3D
             {

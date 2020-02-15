@@ -6,7 +6,7 @@ namespace CoreS.Factory
     public abstract class BarrierFactory
     {
         protected Cabinet _cabinet;
-        protected List<ElementModel> elements;
+        protected List<ElementModelDTO> elements;
         protected int Number;
         protected int tempHeight;
         protected int tempDepth;

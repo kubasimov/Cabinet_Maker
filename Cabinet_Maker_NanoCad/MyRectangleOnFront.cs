@@ -27,7 +27,7 @@ namespace Cabinet_Maker_NanoCad
             return acPoly;
         }
 
-        public static List<Polyline> GetPolylineListFromElementModelList(List<ElementModel> cabinet, Point3d start)
+        public static List<Polyline> GetPolylineListFromElementModelList(List<ElementModelDTO> cabinet, Point3d start)
         {
             List<Polyline> poly = new List<Polyline>();
 

@@ -34,19 +34,19 @@ namespace WPF3.ViewModel
             _cabinet.AddHorizontalBarrier(1);
 
             var z = new Elements("Podstawa");
-            foreach (ElementModel element in _cabinet.CabinetElements)
+            foreach (ElementModelDTO element in _cabinet.CabinetElements)
             {
                 z.elementModels.Add(element);
             }
 
             var z1 = new Elements("Vertical Barrier");
-            foreach (ElementModel element in _cabinet.GetAllVerticalBarrier())
+            foreach (ElementModelDTO element in _cabinet.GetAllVerticalBarrier())
             {
                 z1.elementModels.Add(element);
             }
 
             var z2 = new Elements("Horizontal Barrier");
-            foreach (ElementModel element in _cabinet.GetAllHorizontalBarrier())
+            foreach (ElementModelDTO element in _cabinet.GetAllHorizontalBarrier())
             {
                 z2.elementModels.Add(element);
             }
@@ -71,9 +71,9 @@ namespace WPF3.ViewModel
         private void ExecuteMyCommand(object parameter)
         {
             
-            if (parameter.GetType()==typeof(ElementModel))
+            if (parameter.GetType()==typeof(ElementModelDTO))
             {
-                var tmp = (ElementModel)parameter;
+                var tmp = (ElementModelDTO)parameter;
 
                 foreach (var elements in CabinetView)
                 {
@@ -91,12 +91,12 @@ namespace WPF3.ViewModel
         public class Elements
         {
             public string Name { get;}
-            public ObservableCollection<ElementModel> elementModels { get; }
+            public ObservableCollection<ElementModelDTO> elementModels { get; }
 
             public Elements(string name)
             {
                 Name = name;
-                elementModels = new ObservableCollection<ElementModel>();
+                elementModels = new ObservableCollection<ElementModelDTO>();
             }
         }
 
@@ -128,9 +128,9 @@ namespace WPF3.ViewModel
         
         public const string MElementPropertyName = "MElement";
 
-        private ElementModel _element  ;
+        private ElementModelDTO _element  ;
 
-        public ElementModel MElement
+        public ElementModelDTO MElement
         {
             get
             {

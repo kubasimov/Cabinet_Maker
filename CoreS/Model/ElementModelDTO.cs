@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace CoreS.Model
 {
-    public class ElementModel
+    public class ElementModelDTO
     {
         [JsonProperty]
         private Guid _guid;
@@ -129,14 +129,14 @@ namespace CoreS.Model
         public bool ChangeZ { get; private set; }
 
 
-        public ElementModel()
+        public ElementModelDTO()
         {
             _guid = Guid.NewGuid();
             ChangeHeight = false;
 
         }
 
-        public ElementModel(string description, int height, int width, int depth, int x, int y, int z, EnumCabinetElement enumCabinet, bool horizontal)
+        public ElementModelDTO(string description, int height, int width, int depth, int x, int y, int z, EnumCabinetElement enumCabinet, bool horizontal)
         {
             _guid = Guid.NewGuid();
             _description = description;

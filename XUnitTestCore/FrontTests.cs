@@ -239,9 +239,9 @@ namespace XUnitTestCore
         {
             var cabinet = new Cabinet();
 
-            var frontList = new List<ElementModel>();
+            var frontList = new List<ElementModelDTO>();
 
-            var front = new ElementModel(
+            var front = new ElementModelDTO(
                 description: "Front",
                 height: 600,
                 width: 300,
@@ -255,10 +255,6 @@ namespace XUnitTestCore
             
             frontList.Add(front);
 
-            cabinet.AddFront(frontList);
-
-            Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(300, front.GetWidth());
             Assert.Equal(600, front.GetHeight());
             Assert.Equal(22, front.GetDepth());
             Assert.Equal(12, front.GetX());
@@ -271,9 +267,9 @@ namespace XUnitTestCore
         {
             var cabinet = new Cabinet();
 
-            var frontList = new List<ElementModel>();
+            var frontList = new List<ElementModelDTO>();
 
-            var frontT = new ElementModel(
+            var frontT = new ElementModelDTO(
                 description: "",
                 height: 300,
                 width: 300,
@@ -284,7 +280,7 @@ namespace XUnitTestCore
                 enumCabinet: EnumCabinetElement.Front,
                 horizontal: false);
             
-            var front1T = new ElementModel(
+            var front1T = new ElementModelDTO(
                 description: "",
                 height: 300,
                 width: 300,

@@ -14,7 +14,7 @@ namespace CoreS.Factory
 
 
         private readonly Cabinet _cabinet;
-        private List<ElementModel> _frontList;
+        private List<ElementModelDTO> _frontList;
         private int number;
         private EnumFront enumFront;
         private SlotsModel slots;
@@ -22,7 +22,7 @@ namespace CoreS.Factory
         public FrontFactory(Cabinet cabinet)
         {
             _cabinet = cabinet;
-            _frontList=new List<ElementModel>();
+            _frontList=new List<ElementModelDTO>();
             slots = new SlotsModel
             {
                 Top = 3,
@@ -36,7 +36,7 @@ namespace CoreS.Factory
             enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
         }
 
-        public List<ElementModel> NewFront(int Number, SlotsModel Slots, EnumFront EnumFront)
+        public List<ElementModelDTO> NewFront(int Number, SlotsModel Slots, EnumFront EnumFront)
         {
             number = Number;
             slots = Slots;
@@ -45,7 +45,7 @@ namespace CoreS.Factory
             return Recalculate();
         }
         
-        public List<ElementModel> Add(int element)
+        public List<ElementModelDTO> Add(int element)
         {
             try
             {
@@ -63,34 +63,49 @@ namespace CoreS.Factory
         }
 
         
-        public List<ElementModel> Delete(int delete)
+        public List<ElementModelDTO> Delete(int delete)
+        {
+            try
+            {
+                number -= delete;
+                if (number <= 0)
+                {
+                    number = 0;
+                    return new List<ElementModelDTO>();
+                }
+                return Recalculate();
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Error(e, "Blad usuwania frontu"); ;
+                throw e;
+            }
+        }
+
+        public List<ElementModelDTO> Delete(ElementModelDTO element)
         {
             throw new NotImplementedException();
         }
 
-        public List<ElementModel> Delete(ElementModel element)
+        public List<ElementModelDTO> DeleteAll()
+        {
+            number = 0;
+            return new List<ElementModelDTO>();
+        }
+
+        public List<ElementModelDTO> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<ElementModel> DeleteAll()
+        public List<ElementModelDTO> ReCount()
         {
             throw new NotImplementedException();
         }
 
-        public List<ElementModel> GetAll()
+        public Result<List<ElementModelDTO>> Update(ElementModelDTO front)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<ElementModel> ReCount()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Result<List<ElementModel>> Update(ElementModel front)
-        {
-            if (!_frontList.Exists(x => x.GetGuid() == front.GetGuid())) return new Result<List<ElementModel>> { Value = _frontList, IsValid = false, Errors = new List<Error> { new Error { ErrorMessage = "Obiekt nie znaleziomy" } } } ;
+            if (!_frontList.Exists(x => x.GetGuid() == front.GetGuid())) return new Result<List<ElementModelDTO>> { Value = _frontList, IsValid = false, Errors = new List<Error> { new Error { ErrorMessage = "Obiekt nie znaleziomy" } } } ;
             {
                 var T = _frontList.FirstOrDefault(x => x.GetGuid() == front.GetGuid());
                 T.SetWidth(front.GetWidth());
@@ -102,7 +117,7 @@ namespace CoreS.Factory
                 T.SetDescription(front.GetDescription());          
             }
 
-            var result = new Result<List<ElementModel>>
+            var result = new Result<List<ElementModelDTO>>
             {
                 Value = _frontList,
                 IsValid = true
@@ -112,11 +127,11 @@ namespace CoreS.Factory
             return result;
         }
 
-        private List<ElementModel> Recalculate()
+        private List<ElementModelDTO> Recalculate()
         {
             if (number==0) throw new ArgumentException("Wartosc musi byc wieksza niz 0 lub null");
                 
-            _frontList = new List<ElementModel>();
+            _frontList = new List<ElementModelDTO>();
 
             var width = enumFront.HasFlag(EnumFront.Pionowo) ? 
                 (_cabinet.Width() - slots.Left - slots.Right - slots.BetweenVertically * (number - 1)) / number :
@@ -129,7 +144,7 @@ namespace CoreS.Factory
 
             for (var i = 0; i < number; i++)
             {
-                var front = new ElementModel(
+                var front = new ElementModelDTO(
 
                     description: "Front",
                     height: height,
@@ -149,7 +164,7 @@ namespace CoreS.Factory
 
         }
 
-        public List<ElementModel> AddFront(List<ElementModel> frontListT)
+        public List<ElementModelDTO> AddFront(List<ElementModelDTO> frontListT)
         {
             foreach (var element in frontListT)
             {
