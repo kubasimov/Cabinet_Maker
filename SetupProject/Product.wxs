@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define 3DTools_TargetDir=$(var.3DTools.TargetDir)?><?define Cabinet_Maker_NanoCad_TargetDir=$(var.Cabinet_Maker_NanoCad.TargetDir)?><?define CoreS_TargetDir=$(var.CoreS.TargetDir)?><?define Config_TargetDir=$(var.Config.TargetDir)?><?define WPF3_TargetDir=$(var.WPF3.TargetDir)?>
+	<Product Id="*" Name="Cabinet Maker" Language="1033" Version="1.0.0.0" Manufacturer="Savento" UpgradeCode="feb35392-b0bc-417a-8ae0-abceefc1a0ad">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"  />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="Cabinet Maker" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="ProgramFilesFolder_files" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Cabinet Maker" />
+			</Directory>
+		</Directory>
+	</Fragment>
+	<Fragment>
+		<Condition Message="This aplication reguires .net core 3.1">
+			<![CDATA[Installen OR NETCORE31]]>
+		</Condition>
+	</Fragment>
+	
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+		</ComponentGroup>
+	</Fragment>
+	<Fragment>
+	  <ComponentGroup Id="ProgramFilesFolder_files" Directory="ProgramFilesFolder">
+	    <Component Id="_3DTools.dll" Guid="7009fd22-5db8-4429-8e31-e42ee6c7823c">
+	      <File Id="_3DTools.dll" Name="3DTools.dll" Source="$(var.3DTools_TargetDir)3DTools.dll" />
+	    </Component>
+	    <Component Id="NLog.config" Guid="f2ebb2f1-0f3f-4ebf-ac51-b2b5340e7829">
+	      <File Id="NLog.config" Name="NLog.config" Source="$(var.Cabinet_Maker_NanoCad_TargetDir)NLog.config" />
+	    </Component>
+	    <Component Id="Cabinet_Maker_NanoCad.dll" Guid="dda17f80-ae5f-430b-a352-3029cdec3019">
+	      <File Id="Cabinet_Maker_NanoCad.dll" Name="Cabinet_Maker_NanoCad.dll" Source="$(var.Cabinet_Maker_NanoCad_TargetDir)Cabinet_Maker_NanoCad.dll" />
+	    </Component>
+	    <Component Id="CoreS.dll" Guid="8f08ef8a-9726-4708-9781-384a91bb237d">
+	      <File Id="CoreS.dll" Name="CoreS.dll" Source="$(var.CoreS_TargetDir)CoreS.dll" />
+	    </Component>
+	    <Component Id="Config.dll" Guid="99051792-5579-485a-8639-4c31d87aeb4c">
+	      <File Id="Config.dll" Name="Config.dll" Source="$(var.Config_TargetDir)Config.dll" />
+	    </Component>
+	    <Component Id="WPF3.runtimeconfig.json" Guid="23ed7813-9418-4979-b2f5-7d8470cac812">
+	      <File Id="WPF3.runtimeconfig.json" Name="WPF3.runtimeconfig.json" Source="$(var.WPF3_TargetDir)WPF3.runtimeconfig.json" />
+	    </Component>
+	    <Component Id="WPF3.dll" Guid="2be569c9-4fd1-4a21-8d20-cb01ea357c59">
+	      <File Id="WPF3.dll" Name="WPF3.dll" Source="$(var.WPF3_TargetDir)WPF3.dll" />
+	    </Component>
+	  </ComponentGroup>
+	</Fragment>
+</Wix>

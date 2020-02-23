@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="Bootstrapper" Version="1.0.0.0" Manufacturer="Savento" UpgradeCode="57a3d4ea-8473-4663-8e80-6692a9bc1c46">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+		<Chain>
+			<MsiPackage SourceFile="$(var.SetupProject.TargetPath)" />
+		</Chain>
+	</Bundle>
+</Wix>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DeployedProjects>
+    <string>3DTools\3DTools.csproj</string>
+    <string>Cabinet_Maker_NanoCad\Cabinet_Maker_NanoCad.csproj</string>
+    <string>Config\Config.csproj</string>
+    <string>CoreS\CoreS.csproj</string>
+    <string>WPF3\WPF3.csproj</string>
+  </DeployedProjects>
+  <DirectoryMappings>
+    <Item Key="" Value="ProgramFilesFolder" />
+  </DirectoryMappings>
+  <FileMappings />
+  <DeploySymbols>false</DeploySymbols>
+  <DeployLocalizations>true</DeployLocalizations>
+  <DeployExternalLocalizations>false</DeployExternalLocalizations>
+</Configuration>
