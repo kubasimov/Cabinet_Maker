@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Model;
-using CoreS.Enum;
+﻿using CoreS.Enum;
 using CoreS.Helpers;
 using CoreS.Interface;
 using CoreS.Model;
 using NLog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CoreS.Factory
 {

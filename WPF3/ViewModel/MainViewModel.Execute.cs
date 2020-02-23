@@ -1,8 +1,8 @@
-using System;
-using System.Windows;
 using CoreS;
 using CoreS.Model;
 using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.Windows;
 using WPF3.Enum;
 using WPF3.View;
 

@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using Core.Model;
-using CoreS.Model;
+﻿using CoreS.Model;
+using System.Collections.Generic;
 
 namespace CoreS.Interface
 {

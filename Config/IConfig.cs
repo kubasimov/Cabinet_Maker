@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Config
+﻿namespace Config
 {
     public interface IConfig
     {
-        public T GetSetting<T>() where T : class, new();
+        //public T GetSetting<T>(string name);
     }
 }

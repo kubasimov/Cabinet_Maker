@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using CoreS;
+﻿using CoreS;
 using Newtonsoft.Json;
 using NLog;
+using System.Windows;
 using Teigha.Runtime;
 
 namespace Cabinet_Maker_NanoCad

@@ -1,10 +1,10 @@
-using GalaSoft.MvvmLight;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
-using NLog;
-using WPF3.Interface;
 using CoreS;
 using CoreS.Model;
+using GalaSoft.MvvmLight;
+using NLog;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
+using WPF3.Interface;
 
 
 namespace WPF3.ViewModel

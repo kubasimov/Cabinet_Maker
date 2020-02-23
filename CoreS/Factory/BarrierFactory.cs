@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CoreS.Model;
+﻿using CoreS.Model;
+using System.Collections.Generic;
 
 namespace CoreS.Factory
 {

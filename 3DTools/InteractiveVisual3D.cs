@@ -13,19 +13,13 @@
 //---------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Security;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Composition;
-using System.Windows.Markup;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using System.Windows.Documents;
-using System.Collections;
 
 namespace _3DTools
 {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CoreS.Enum;
+﻿using CoreS.Enum;
 using CoreS.Interface;
 using CoreS.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CoreS.Factory
 {

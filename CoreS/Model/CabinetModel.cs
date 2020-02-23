@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Core.Model;
-using CoreS.Enum;
+﻿using CoreS.Enum;
 using CoreS.Factory;
 using NLog;
+using System.Collections.Generic;
 
 namespace CoreS.Model
 {

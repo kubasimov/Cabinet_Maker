@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreS", "CoreS\CoreS.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestCore", "XUnitTestCore\XUnitTestCore.csproj", "{4475D13F-FC48-4B40-BE1B-6DE813696C51}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config", "Config\Config.csproj", "{60CD2095-1864-4EE9-88B9-C5420329635F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4475D13F-FC48-4B40-BE1B-6DE813696C51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60CD2095-1864-4EE9-88B9-C5420329635F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60CD2095-1864-4EE9-88B9-C5420329635F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60CD2095-1864-4EE9-88B9-C5420329635F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60CD2095-1864-4EE9-88B9-C5420329635F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

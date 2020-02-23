@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using CoreS;
+﻿using CoreS;
 using CoreS.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace WPF3.ViewModel
 {

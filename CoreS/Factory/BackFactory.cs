@@ -1,5 +1,5 @@
-﻿using System;
-using CoreS.Enum;
+﻿using CoreS.Enum;
+using System;
 
 namespace CoreS.Factory
 {

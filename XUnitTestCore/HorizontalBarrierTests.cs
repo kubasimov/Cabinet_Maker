@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using CoreS;
+﻿using CoreS;
 using CoreS.Model;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace XUnitTestCore

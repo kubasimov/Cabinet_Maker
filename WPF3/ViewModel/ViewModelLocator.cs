@@ -1,6 +1,5 @@
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
+using GalaSoft.MvvmLight.Ioc;
 using WPF3.Implement;
 using WPF3.Interface;
 

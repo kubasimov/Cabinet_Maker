@@ -1,7 +1,6 @@
-﻿using System;
-using Core.Model;
-using CoreS.Enum;
+﻿using CoreS.Enum;
 using Newtonsoft.Json;
+using System;
 
 namespace CoreS.Model
 {

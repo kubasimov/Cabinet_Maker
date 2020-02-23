@@ -1,4 +1,3 @@
-using System;
 using GalaSoft.MvvmLight.Command;
 
 namespace WPF3.ViewModel

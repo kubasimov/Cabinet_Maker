@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text;
-using CoreS.Model;
+﻿using CoreS.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text;
 using WPF3.Enum;
 using WPF3.Interface;
 

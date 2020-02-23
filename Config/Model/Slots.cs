@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Config
+﻿namespace Config
 {
-    class Slots
+    public class Slots
     {
         public int Top;
         public int Bottom;
@@ -13,5 +9,11 @@ namespace Config
         public int BetweenVertically;
         public int BetweenHorizontally;
         public int BetweenCabinet;
+
+
+        public Slots()
+        {
+
+        }
     }
 }

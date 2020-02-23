@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WPF3.Config
+﻿namespace WPF3.Config
 {
     public interface IConfig
     {

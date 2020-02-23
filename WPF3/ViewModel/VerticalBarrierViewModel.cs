@@ -1,9 +1,9 @@
 ﻿using CoreS.Model;
-using WPF3.Enum;
-using WPF3.Interface;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using WPF3.Enum;
+using WPF3.Interface;
 
 namespace WPF3.ViewModel
 {
