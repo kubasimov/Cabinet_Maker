@@ -157,127 +157,15 @@ namespace WPF3.ViewModel
 
         #region Declare ChangeElement RelayCommand
 
-        private RelayCommand<string> _changeWidthMElementCommand;
+        private RelayCommand<KeyEventArgs> _ChangeTextWhenKeyDownCommand;
 
-        public RelayCommand<string> ChangeWidthMElementCommand => _changeWidthMElementCommand
-                                            ?? (_changeWidthMElementCommand = new RelayCommand<string>(ExecuteChangeWidthMElementCommand));
+        public RelayCommand<KeyEventArgs> ChangeTextWhenKeyDownCommand => _ChangeTextWhenKeyDownCommand
+                                            ?? (_ChangeTextWhenKeyDownCommand = new RelayCommand<KeyEventArgs>(ExecuteChangeTextWhenKeyDownCommand));
 
-        
-        private RelayCommand<string> _changeHeihgtMElementCommand;
+        private RelayCommand<object> _ChangeTextWhenLostFocusCommand;
 
-        public RelayCommand<string> ChangeHeightMElementCommand => _changeHeihgtMElementCommand
-                    ?? (_changeHeihgtMElementCommand = new RelayCommand<string>(ExecuteChangeHeightMElementCommand));
-
-        
-        private RelayCommand<string> _changeDepthMElementCommand;
-
-        public RelayCommand<string> ChangeDepthMElementCommand => _changeDepthMElementCommand
-                                            ?? (_changeDepthMElementCommand = new RelayCommand<string>(ExecuteChangeDepthMElementCommand));
-
-   
-        private RelayCommand<string> _changeDescriptionMElementCommand; 
-
-        public RelayCommand<string> ChangeDescriptionMElementCommand => _changeDescriptionMElementCommand
-            ?? (_changeDescriptionMElementCommand = new RelayCommand<string>(ExecuteChangeDescriptionMElementCommand));
-        
-
-        private RelayCommand<string> _changeXMelementCommand;
-
-        public RelayCommand<string> ChangeXMelementCommand
-        {
-            get
-            {
-                return _changeXMelementCommand
-                    ?? (_changeXMelementCommand = new RelayCommand<string>(ExecuteChangeXMelementCommand));
-            }
-        }
-
-
-        private RelayCommand<string> _changeYMelementCommand;
-
-        public RelayCommand<string> ChangeYMElementCommand => _changeYMelementCommand
-                    ?? (_changeYMelementCommand = new RelayCommand<string>(ExecuteChangeYMElementCommand));
-
-
-        private RelayCommand<string> _changeZMElementCommand;
-
-        public RelayCommand<string> ChangeZElementCommand => _changeZMElementCommand
-                    ?? (_changeZMElementCommand = new RelayCommand<string>(ExecuteChangeZElementCommand));
-
-
-
-
-        private RelayCommand<KeyEventArgs> _ChangeWidthTextCommand;
-
-        public RelayCommand<KeyEventArgs> ChangeWidthTextCommand => _ChangeWidthTextCommand
-                                            ?? (_ChangeWidthTextCommand = new RelayCommand<KeyEventArgs>(ExecuteChangeWidthTextCommand));
-
-        private void ExecuteChangeWidthTextCommand(KeyEventArgs obj)
-        {
-
-            if (obj == null || _mElement == null || obj.Source==null) return;
-                        
-            var TextBoxObject = (System.Windows.Controls.TextBox)obj.Source;
-            var ParameterName = TextBoxObject.Name.Substring(TextBoxObject.Name.IndexOf('_') + 1);
-            EnumElementParameter enumElementParameter = (EnumElementParameter) System.Enum.Parse(typeof(EnumElementParameter), ParameterName);
-
-            
-            Type type = typeof(ElementModel);
-            MethodInfo method = type.GetMethod("Set"+ParameterName);
-            
-            PropertyInfo[] propertyInfo = type.GetProperties();
-            string PropertyResult="";
-
-            foreach (var item in propertyInfo)
-            {
-                if (item.Name==ParameterName)
-                {
-                     PropertyResult = item.GetValue(_mElement).ToString();
-                }
-            }
-
-            if (PropertyResult == "") return;
-                                          
-            switch (obj.Key)
-            {
-                case Key.Enter:
-                
-                    if (int.TryParse(TextBoxObject.Text,out int result))
-                    {
-                        //method.Invoke(_mElement, new object[] { result });
-                        _cabinet.ChangeElemenet(_mElement, enumElementParameter, TextBoxObject.Text);
-                        _model3D = CreateCabinet();
-
-                        RaisePropertyChanged(MyModel3DPropertyName);
-                        RaisePropertyChanged(MElementPropertyName);
-                    }
-                    
-                    break;
-
-                case Key.Up:
-                    //method.Invoke(_mElement, new object[] { int.Parse(PropertyResult)+1});
-                    _cabinet.ChangeElemenet(_mElement, enumElementParameter, (int.Parse(PropertyResult) + 1).ToString());
-                    _model3D = CreateCabinet();
-
-                    RaisePropertyChanged(MyModel3DPropertyName);
-                    RaisePropertyChanged(MElementPropertyName);
-                    break;
-
-                case Key.Down:
-                    //method.Invoke(_mElement, new object[] { int.Parse(PropertyResult) - 1 });
-                    _cabinet.ChangeElemenet(_mElement, enumElementParameter, (int.Parse(PropertyResult) - 1).ToString());
-                    _model3D = CreateCabinet();
-
-                    RaisePropertyChanged(MyModel3DPropertyName);
-                    RaisePropertyChanged(MElementPropertyName);
-                    break;
-
-                default:
-                    break;
-
-            }
-
-        }
+        public RelayCommand<object> ChangeTextWhenLostFocusCommand => _ChangeTextWhenLostFocusCommand
+                                            ?? (_ChangeTextWhenLostFocusCommand = new RelayCommand<object>(ExecuteChangeTextWhenLostFocusCommand));
 
         #endregion
     }

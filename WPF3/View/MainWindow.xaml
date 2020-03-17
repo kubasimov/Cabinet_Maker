@@ -202,75 +202,102 @@
             <TextBlock Text="Z" Height="26"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="4" Margin="0,10,0,0">
-            <TextBox Name="MElement_Description" Text="{Binding MElement.Description, Mode=OneWay}" Height="26" >
+            <TextBox Name="MElement_Description" Text="{Binding MElement.Description, Mode=OneWay}" Height="26" local:SelectAllFocusBehavior.Enable="True">
                 <Interactions:Interaction.Triggers>
-                    <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
-                    </Interactions:EventTrigger>
-                    <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeDescriptionMElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Description}"/>
+                     <Interactions:EventTrigger EventName="LostFocus">
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Description, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_Height" Text="{Binding MElement.Height, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_Height" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.Height"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="0" MaxValue="2500000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
-                    <Interactions:EventTrigger EventName="LostFocus" SourceObject="{Binding ElementName=MElement_Height}">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeHeightMElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Height}"/>
+                    <Interactions:EventTrigger EventName="LostFocus">
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Height, Mode=OneWay}" />
                     </Interactions:EventTrigger>
                     
 
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_Width" Text="{Binding MElement.Width, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_Width" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.Width"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="0" MaxValue="2500000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
                     <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthMElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Width}"/>
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Width, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_Depth" Text="{Binding MElement.Depth, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_Depth" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.Depth"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="0" MaxValue="2500000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
                     <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeDepthMElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Depth}"/>
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Depth, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_X" Text="{Binding MElement.X, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_X" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.X"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="-100000" MaxValue="250000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
                     <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeXMelementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_X}"/>
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_X, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_Y" Text="{Binding MElement.Y, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_Y" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.Y"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="-100000" MaxValue="2500000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
                     <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeYMElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Y}"/>
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Y, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>
-            <TextBox Name="MElement_Z" Text="{Binding MElement.Z, Mode=OneWay}" Height="26">
+            <TextBox Name="MElement_Z" Height="26" local:SelectAllFocusBehavior.Enable="True">
+                <Binding Path="MElement.Z"  Mode="OneWay">
+                    <Binding.ValidationRules>
+                        <local:ValidateTextBox MinValue="-100000" MaxValue="2500000"/>
+                    </Binding.ValidationRules>
+                </Binding>
                 <Interactions:Interaction.Triggers>
                     <Interactions:EventTrigger EventName="PreviewKeyDown">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeWidthTextCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                     </Interactions:EventTrigger>
                     <Interactions:EventTrigger EventName="LostFocus">
-                        <Interactions:InvokeCommandAction Command="{Binding ChangeZElementCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=MElement_Z}"/>
+                        <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Z, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
             </TextBox>

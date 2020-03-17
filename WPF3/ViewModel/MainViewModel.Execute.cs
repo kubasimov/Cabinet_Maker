@@ -7,6 +7,8 @@ using WPF3.Enum;
 using WPF3.View;
 using System.Linq;
 using CoreS.Enum;
+using System.Reflection;
+using System.Windows.Input;
 
 namespace WPF3.ViewModel
 {
@@ -247,46 +249,77 @@ namespace WPF3.ViewModel
             }
         }
 
-        private void ChangeMElement(string parameter, EnumElementParameter enumElementParameter)
+        private void ExecuteChangeTextWhenLostFocusCommand(object obj)
         {
-            if (string.IsNullOrEmpty(parameter)) return;
-            
-            _cabinet.ChangeElemenet(MElement, enumElementParameter, parameter);
-            
-            _model3D = CreateCabinet();
-            
-            RaisePropertyChanged(MyModel3DPropertyName);
-            RaisePropertyChanged(MElementPropertyName);
-            
+            var TextBoxObject = (System.Windows.Controls.TextBox)obj;
+            var ParameterName = TextBoxObject.Name.Substring(TextBoxObject.Name.IndexOf('_') + 1);
+            EnumElementParameter enumElementParameter = (EnumElementParameter)System.Enum.Parse(typeof(EnumElementParameter), ParameterName);
+
+            _cabinet.ChangeElemenet(_mElement, enumElementParameter, TextBoxObject.Text);
+            Create3DCabinet();
         }
 
-        private void ExecuteChangeDescriptionMElementCommand(string parameter)
+        private void ExecuteChangeTextWhenKeyDownCommand(KeyEventArgs obj)
         {
-            ChangeMElement(parameter, EnumElementParameter.Description);
+            if (obj == null || _mElement == null || obj.Source == null) return;
+
+            var TextBoxObject = (System.Windows.Controls.TextBox)obj.Source;
+            var ParameterName = TextBoxObject.Name.Substring(TextBoxObject.Name.IndexOf('_') + 1);
+            EnumElementParameter enumElementParameter = (EnumElementParameter)System.Enum.Parse(typeof(EnumElementParameter), ParameterName);
+
+            string PropertyResult = GetPropertyFromClass(ParameterName);
+
+            switch (obj.Key)
+            {
+                case Key.Enter:
+
+                    if (int.TryParse(TextBoxObject.Text, out int result))
+                    {
+                        _cabinet.ChangeElemenet(_mElement, enumElementParameter, TextBoxObject.Text);
+                        Create3DCabinet();
+                    }
+                    break;
+
+                case Key.Up:
+                    _cabinet.ChangeElemenet(_mElement, enumElementParameter, (int.Parse(PropertyResult) + 1).ToString());
+                    Create3DCabinet();
+                    break;
+
+                case Key.Down:
+                    _cabinet.ChangeElemenet(_mElement, enumElementParameter, (int.Parse(PropertyResult) - 1).ToString());
+                    Create3DCabinet();
+                    break;
+
+                default:
+                    break;
+
+            }
+
         }
-        private void ExecuteChangeWidthMElementCommand(string parameter)
+
+        private void Create3DCabinet()
         {
-            ChangeMElement(parameter,EnumElementParameter.Width);
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
+            RaisePropertyChanged(MElementPropertyName);
         }
-        private void ExecuteChangeHeightMElementCommand(string parameter)
+
+        private string GetPropertyFromClass(string ParameterName)
         {
-            ChangeMElement(parameter, EnumElementParameter.Height);
-        }
-        private void ExecuteChangeDepthMElementCommand(string parameter)
-        {
-            ChangeMElement(parameter, EnumElementParameter.Depth);
-        }
-        private void ExecuteChangeXMelementCommand(string parameter)
-        {
-            ChangeMElement(parameter, EnumElementParameter.X);
-        }
-        private void ExecuteChangeYMElementCommand(string parameter)
-        {
-            ChangeMElement(parameter, EnumElementParameter.Y);
-        }
-        private void ExecuteChangeZElementCommand(string parameter)
-        {
-            ChangeMElement(parameter, EnumElementParameter.Z);
+            Type type = typeof(ElementModel);
+
+            PropertyInfo[] propertyInfo = type.GetProperties();
+            string PropertyResult = "";
+
+            foreach (var item in propertyInfo)
+            {
+                if (item.Name == ParameterName)
+                {
+                    PropertyResult = item.GetValue(_mElement).ToString();
+                }
+            }
+
+            return PropertyResult;
         }
 
         #endregion
