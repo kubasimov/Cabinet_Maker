@@ -53,7 +53,7 @@ namespace WPF3.ViewModel
                 Number=int.Parse(_tempFrontParameter.Number),
                 Slots =
                 {
-                    Top = int.Parse(_tempFrontParameter.Top),
+                    //Top = int.Parse(_tempFrontParameter.Top),
                     Bottom = int.Parse(_tempFrontParameter.Bottom),
                     Left = int.Parse(_tempFrontParameter.Left),
                     Right = int.Parse(_tempFrontParameter.Right),

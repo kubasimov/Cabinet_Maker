@@ -51,7 +51,7 @@ namespace CoreS.Factory
             {
                 if (element < 0)
                     throw new ArgumentException();
-                Number = Number + element;
+                Number += element;
                 
                 return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
             }
@@ -63,11 +63,48 @@ namespace CoreS.Factory
             
         }
 
+        public List<ElementModelDTO> AddEvery(int size)
+        {
+            try
+            {
+                if (size < 0)
+                    throw new ArgumentException();
+
+                var bok = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).Height;
+                var gora= _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).Width;
+                var dol = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width;
+
+                var wyswew = bok - gora - dol;
+
+                var IloscPrzestrzeni = wyswew / (size + _cabinet.SizeElement());
+
+                Height = new List<int>();
+
+                for (int i = 1; i <= IloscPrzestrzeni; i++)
+                {
+
+                    var t = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width;
+
+
+                    Height.Add( (t + size)*i);
+                }
+                Number = IloscPrzestrzeni;
+                                                          
+                var tt = Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
+                return tt;
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Error(e, "Minusowa ilosc polek"); ;
+                throw new ArgumentException();
+            }
+        }
+
         public List<ElementModelDTO> Delete(int delete)
         {
             try
             {
-                Number = Number - delete;
+                Number -= delete;
                 if (Number < 0)
                     Number = 0;
                 return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
@@ -97,9 +134,7 @@ namespace CoreS.Factory
         {
             return elements;
         }
-
-
-
+               
         private List<ElementModelDTO> Recalculate(List<int> barrier)
         {
             elements = new List<ElementModelDTO>();
@@ -125,8 +160,8 @@ namespace CoreS.Factory
                     {
                         tempWidth = TempWidth(i);
                         tempEx = i == 0
-                            ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).GetWidth()
-                            : _cabinet.VerticalBarrier[i - 1].GetX() + _cabinet.VerticalBarrier[i - 1].GetWidth();
+                            ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).Width
+                            : _cabinet.VerticalBarrier[i - 1].X + _cabinet.VerticalBarrier[i - 1].Width;
 
                         AddElement();
                         _elem.Add(i, elements);
@@ -137,8 +172,8 @@ namespace CoreS.Factory
                         {
                             tempWidth = TempWidth(i);
                             tempEx = i == 0
-                                ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).GetWidth()
-                                : _cabinet.VerticalBarrier[i - 1].GetX() + _cabinet.VerticalBarrier[i - 1].GetWidth();
+                                ? _cabinet.CabinetElements.First((x => x.GetEnumName() == EnumCabinetElement.Leftside)).Width
+                                : _cabinet.VerticalBarrier[i - 1].X + _cabinet.VerticalBarrier[i - 1].Width;
 
                             AddElement();
                             _elem.Add(i, elements);
@@ -161,7 +196,7 @@ namespace CoreS.Factory
             return elements;
         }
 
-        //Wylicanie szerokosci poziomu dla danej kolumny
+        //Wyliczanie szerokosci poziomu dla danej kolumny
         private int TempWidth(int column)
         {
             if (_cabinet.VerticalBarrier.Count > 0)
@@ -169,23 +204,23 @@ namespace CoreS.Factory
                 //skrajna lewa kolumna
                 if (column == 0)
                 {
-                    tempWidth = _cabinet.VerticalBarrier[column].GetX() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth();
+                    tempWidth = _cabinet.VerticalBarrier[column].X - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
                 }
                 //skrajna prawa kolumna
                 else if (column == _cabinet.VerticalBarrier.Count)
                 {
-                    tempWidth = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).GetX() - _cabinet.VerticalBarrier[column - 1].GetX() - _cabinet.VerticalBarrier[column - 1].GetWidth();
+                    tempWidth = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).X - _cabinet.VerticalBarrier[column - 1].X - _cabinet.VerticalBarrier[column - 1].Width;
                 }
                 //wewnetrzne kolumny
                 else
                 {
-                    tempWidth = _cabinet.VerticalBarrier[column].GetX() - _cabinet.VerticalBarrier[column - 1].GetX() - _cabinet.VerticalBarrier[column - 1].GetWidth();
+                    tempWidth = _cabinet.VerticalBarrier[column].X - _cabinet.VerticalBarrier[column - 1].X - _cabinet.VerticalBarrier[column - 1].Width;
                 }
             }
             //brak kolumn
             else
             {
-                tempWidth = _cabinet.Width() - 2 * _cabinet.SizeElement();
+                tempWidth = _cabinet.CabinetElements.Find(x=>x.GetEnumName()==EnumCabinetElement.Top).Height;
             }
 
             return tempWidth;
@@ -197,17 +232,7 @@ namespace CoreS.Factory
             for (var i = 0; i < Number; i++)
             {
                 var element = new ElementModelDTO("poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
-                //{
-                //    EHeight = tempWidth,
-                //    GetWidth() = tempHeight,
-                //    EDepth = tempDepth,
-                //    Ex = tempEx,
-                //    Ey = TempHeight[i],
-                //    GetEnumName() = EnumCabinetElement.HorizontalBarrier,
-                //    Description = "Poziom",
-                //    Horizontal=true
-                //};
-
+                
                 elements.Add(element);
             }
         }
@@ -217,23 +242,23 @@ namespace CoreS.Factory
         {
             var list = new List<int>();
 
-            if (Height != null && Height.Count > 0)
+            if (Height != null && Height.Count > 0) // zadane wysokosci polek
             {
                 if (Number<=Height.Count)
                 {
                     for (int i = 0; i < Number; i++)
                     {
-                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + Height[i]);
+                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width + Height[i]);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < Height.Count; i++)
                     {
-                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + Height[i]);
+                        list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width + Height[i]);
                     }
 
-                    var tempheight= _cabinet.Height() - list.Last() - _cabinet.SizeElement() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth();
+                    var tempheight= _cabinet.Height() - list.Last() - _cabinet.SizeElement() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).Width;
 
                     var z = (tempheight - (Number - Height.Count) * _cabinet.SizeElement()) / ((Number - Height.Count) + 1);
 
@@ -248,16 +273,16 @@ namespace CoreS.Factory
                 }
 
             }
-            else
+            else //podzial na równe czesci
             {
                 tempEy = (_cabinet.Height() -
-                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() -
-                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth()
+                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width -
+                          _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).Width
                           - Number * _cabinet.SizeElement()) / (Number + 1);
 
                 for (var i = 0; i < Number; i++)
                 {
-                    list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() + tempEy * (i + 1) + _cabinet.SizeElement() * i);
+                    list.Add(_cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width + tempEy * (i + 1) + _cabinet.SizeElement() * i);
                 }
             }
 

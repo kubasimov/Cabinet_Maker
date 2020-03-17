@@ -92,23 +92,23 @@ namespace XUnitTestCore
             Assert.Equal("Default", cabinet.Name());
         }
 
-        //[Theory]
-        //[InlineData(800,500,200,"lll")]
-        //[InlineData(1200,150,235,"zzz")]
-        //public void Serialize_Deserialize_of_a_modified_cabinet(int height,int width,int depth,string name)
-        //{
-        //    var cabinet = new Cabinet().Height(height).Width(width).Depth(depth).Name(name);
-        //    cabinet.Serialize();
+        [Theory]
+        [InlineData(800, 500, 200, "lll")]
+        [InlineData(1200, 150, 235, "zzz")]
+        public void Serialize_Deserialize_of_a_modified_cabinet(int height, int width, int depth, string name)
+        {
+            var cabinet = new Cabinet().Height(height).Width(width).Depth(depth).Name(name);
+            cabinet.Serialize();
 
-        //    cabinet.Deserialize();
+            cabinet.Deserialize();
 
-        //    Assert.NotNull(cabinet);
-        //    Assert.Equal(height, cabinet.Height());
-        //    Assert.Equal(width, cabinet.Width());
-        //    Assert.Equal(depth, cabinet.Depth());
-        //    Assert.Equal(18, cabinet.SizeElement());
-        //    Assert.Equal(name, cabinet.Name());
-        //}
+            Assert.NotNull(cabinet);
+            Assert.Equal(height, cabinet.Height());
+            Assert.Equal(width, cabinet.Width());
+            Assert.Equal(depth, cabinet.Depth());
+            Assert.Equal(18, cabinet.SizeElement());
+            Assert.Equal(name, cabinet.Name());
+        }
 
         [Fact]
         public void Utworzenie_szafki_gornej_z_domyslnymi_wartosciami()
@@ -131,6 +131,25 @@ namespace XUnitTestCore
         [Fact]
         public void Utworzenie_szafki_gornej_i_dodanie_plecow_nakladanych()
         {
+
+        }
+
+
+        [Fact]
+        public void Zmiana_grubosci_lewego_bok()
+        {
+            var cabinet = new Cabinet();
+
+            var width = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
+
+
+            cabinet.ChangeElemenet(cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside), EnumElementParameter.Width, "36");
+
+            var width1 = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
+
+            Assert.Equal(18, width);
+            Assert.Equal(36, width1);
+
 
         }
     }

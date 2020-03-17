@@ -18,11 +18,11 @@ namespace XUnitTestCore
             cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetWidth());
-            Assert.Equal(510, cabinet.VerticalBarrier[0].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[0].GetHeight());
-            Assert.Equal(291, cabinet.VerticalBarrier[0].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetY());
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Width);
+            Assert.Equal(510, cabinet.VerticalBarrier[0].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].Height);
+            Assert.Equal(291, cabinet.VerticalBarrier[0].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Y);
         }
 
         /// <summary>
@@ -39,16 +39,16 @@ namespace XUnitTestCore
 
             Assert.Equal(2,cabinet.VerticalBarrier.Count);
 
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetWidth());
-            Assert.Equal(510, cabinet.VerticalBarrier[0].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[0].GetHeight());
-            Assert.Equal(194, cabinet.VerticalBarrier[0].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetY());
-            Assert.Equal(18, cabinet.VerticalBarrier[1].GetWidth());
-            Assert.Equal(510, cabinet.VerticalBarrier[1].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[1].GetHeight());
-            Assert.Equal(388, cabinet.VerticalBarrier[1].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[1].GetY());
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Width);
+            Assert.Equal(510, cabinet.VerticalBarrier[0].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].Height);
+            Assert.Equal(194, cabinet.VerticalBarrier[0].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Y);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].Width);
+            Assert.Equal(510, cabinet.VerticalBarrier[1].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[1].Height);
+            Assert.Equal(388, cabinet.VerticalBarrier[1].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].Y);
         }
 
         /// <summary>
@@ -64,11 +64,11 @@ namespace XUnitTestCore
             cabinet.NewVerticalBarrier(barrierParameter);
 
             Assert.Single(cabinet.VerticalBarrier);
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetWidth());
-            Assert.Equal(505, cabinet.VerticalBarrier[0].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[0].GetHeight());
-            Assert.Equal(291, cabinet.VerticalBarrier[0].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetY());
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Width);
+            Assert.Equal(505, cabinet.VerticalBarrier[0].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].Height);
+            Assert.Equal(291, cabinet.VerticalBarrier[0].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Y);
 
         }
 
@@ -86,16 +86,16 @@ namespace XUnitTestCore
 
             Assert.Equal(2, cabinet.VerticalBarrier.Count);
 
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetWidth());
-            Assert.Equal(505, cabinet.VerticalBarrier[0].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[0].GetHeight());
-            Assert.Equal(194, cabinet.VerticalBarrier[0].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[0].GetY());
-            Assert.Equal(18, cabinet.VerticalBarrier[1].GetWidth());
-            Assert.Equal(505, cabinet.VerticalBarrier[1].GetDepth());
-            Assert.Equal(684, cabinet.VerticalBarrier[1].GetHeight());
-            Assert.Equal(388, cabinet.VerticalBarrier[1].GetX());
-            Assert.Equal(18, cabinet.VerticalBarrier[1].GetY());
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Width);
+            Assert.Equal(505, cabinet.VerticalBarrier[0].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[0].Height);
+            Assert.Equal(194, cabinet.VerticalBarrier[0].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[0].Y);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].Width);
+            Assert.Equal(505, cabinet.VerticalBarrier[1].Depth);
+            Assert.Equal(684, cabinet.VerticalBarrier[1].Height);
+            Assert.Equal(388, cabinet.VerticalBarrier[1].X);
+            Assert.Equal(18, cabinet.VerticalBarrier[1].Y);
         }
     }
 }

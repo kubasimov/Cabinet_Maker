@@ -65,16 +65,16 @@ namespace CoreS.Factory
         {
             elements = new List<ElementModelDTO>();
 
-            tempHeight = _cabinet.Height() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).GetWidth();
+            tempHeight = _cabinet.Height() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Top).Width;
 
             tempWidth = _cabinet.SizeElement();
 
             tempDepth = _cabinet.Depth() - back;
 
-            tempEy = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).GetWidth();
+            tempEy = _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Bottom).Width;
 
-            tempEx = (_cabinet.Width() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth() -
-                      _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).GetWidth() - Number * _cabinet.SizeElement()) / (Number + 1);
+            tempEx = (_cabinet.Width() - _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width -
+                      _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width - Number * _cabinet.SizeElement()) / (Number + 1);
 
             for (var i = 0; i < Number; i++)
             {
@@ -83,21 +83,12 @@ namespace CoreS.Factory
                     height: tempHeight,
                     width: tempWidth,
                     depth: tempDepth,
-                    x: _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).GetWidth() + tempEx * (i + 1) + _cabinet.SizeElement() * i,
+                    x: _cabinet.CabinetElements.First(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width + tempEx * (i + 1) + _cabinet.SizeElement() * i,
                     y: tempEy,
                     z: 0,
                     enumCabinet: EnumCabinetElement.VerticalBarrier,
                     horizontal: false);
-                //{
-                //    EHeight = tempHeight,
-                //    GetWidth() = tempWidth,
-                //    EDepth = tempDepth,
-                //    Ex = 
-                //    Ey = tempEy,
-                //    GetEnumName() = EnumCabinetElement.VerticalBarrier,
-                //    Description="Pion",
-                //    Horizontal=false
-                //};
+                
                 elements.Add(element);
             }
 

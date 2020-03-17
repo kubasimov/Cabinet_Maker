@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Config
 {
-    public class Config
+    public class Config:IConfig
     {
 
 
@@ -14,7 +14,8 @@ namespace Config
         }
 
 
-        //GetSettings<Slots>(string slots)
+        public T GetSlots<T>() => (T)Convert.ChangeType(new Slots(),typeof(T));
+
 
 
         private string _file;

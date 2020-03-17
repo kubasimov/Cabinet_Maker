@@ -1,4 +1,5 @@
 ﻿using Core.Model;
+using CoreS.Config;
 using CoreS.Enum;
 using CoreS.Model;
 using NLog;
@@ -23,16 +24,8 @@ namespace CoreS.Factory
         {
             _cabinet = cabinet;
             _frontList=new List<ElementModelDTO>();
-            slots = new SlotsModel
-            {
-                Top = 3,
-                Bottom = 3,
-                Left = 3,
-                Right = 3,
-                BetweenVertically = 3,
-                BetweenHorizontally = 3,
-                BetweenCabinet = 2
-            };
+            slots = new SlotsModel();
+
             enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
         }
 

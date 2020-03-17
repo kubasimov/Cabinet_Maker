@@ -12,10 +12,10 @@ namespace CoreS
 {
     public class Cabinet:CabinetModel
     {
-        private ElementModelDTO _leftSide;
-        private ElementModelDTO _rightSide;
-        private ElementModelDTO _bottom;
-        private ElementModelDTO _top;
+        private ElementModel _leftSide;
+        private ElementModel _rightSide;
+        private ElementModel _bottom;
+        private ElementModel _top;
         private MapperConfiguration _mapperConfiguration;
         private IMapper _mapper;
 
@@ -24,16 +24,19 @@ namespace CoreS
             _mapperConfiguration = new MapperConfiguration(cfg =>
              {
                  cfg.AddCollectionMappers();
-                 cfg.CreateMap<ElementModelDTO, ElementModel>().EqualityComparison((dto,o)=>dto.GetGuid()==o.GetGuid());
+                 cfg.ShouldMapProperty = pi =>pi.GetMethod != null && (pi.GetMethod.IsPublic || pi.GetMethod.IsPrivate);
+                 cfg.CreateMap<ElementModelDTO, ElementModel>().EqualityComparison((dto,o)=>dto.GetGuid()==o.GetGuid()) ;
+                 cfg.CreateMap<ElementModel, ElementModelDTO>().EqualityComparison((dto, o) => dto.GetGuid() == o.GetGuid());
+                 
              }) ;
             _mapperConfiguration.AssertConfigurationIsValid();
             _mapper = _mapperConfiguration.CreateMapper();
 
             
-            HorizontalBarrier = new List<ElementModelDTO>();
-            VerticalBarrier = new List<ElementModelDTO>();
-            CabinetElements = new List<ElementModelDTO>();
-            FrontList = new List<ElementModelDTO>();
+            HorizontalBarrier = new List<ElementModel>();
+            VerticalBarrier = new List<ElementModel>();
+            CabinetElements = new List<ElementModel>();
+            FrontList = new List<ElementModel>();
 
             //Default value
             _height =height;
@@ -102,7 +105,7 @@ namespace CoreS
                 return;
             
             VerticalBarrierParameter = barrierParameter;
-            VerticalBarrier = VerticalBarrierFactory.NewBarrier(VerticalBarrierParameter);
+            VerticalBarrier = _mapper.Map<List<ElementModel>>(VerticalBarrierFactory.NewBarrier(VerticalBarrierParameter));
             
             
             if(HorizontalBarrierParameter!=null)
@@ -112,14 +115,14 @@ namespace CoreS
         
         public void AddVerticalBarrier(int i)
         {
-            VerticalBarrier = VerticalBarrierFactory.Add(i);
+            VerticalBarrier = _mapper.Map <List<ElementModel>>(VerticalBarrierFactory.Add(i));
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
 
         public void DeleteVerticalBarrier()
         {
-            VerticalBarrier = VerticalBarrierFactory.Delete(1);
+            VerticalBarrier = _mapper.Map<List<ElementModel>>(VerticalBarrierFactory.Delete(1));
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
             Redraw();
@@ -127,15 +130,12 @@ namespace CoreS
 
         public void RemoveVerticalBarrier()
         {
-            VerticalBarrier = VerticalBarrierFactory.DeleteAll();
+            VerticalBarrier = _mapper.Map < List < ElementModel >> (VerticalBarrierFactory.DeleteAll());
             if (HorizontalBarrierParameter != null)
                 NewHorizontalBarrier(HorizontalBarrierParameter);
         }
 
-        public IEnumerable<ElementModelDTO> GetAllVerticalBarrier()
-        {
-            return VerticalBarrierFactory.GetAll();
-        }
+        public IEnumerable<ElementModel> GetAllVerticalBarrier()=>VerticalBarrier;
         
         #endregion
         
@@ -147,25 +147,30 @@ namespace CoreS
                 return;
 
             HorizontalBarrierParameter = barrierParameter;
-            HorizontalBarrier = HorizontalBarrierFactory.NewBarrier(HorizontalBarrierParameter);
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.NewBarrier(HorizontalBarrierParameter));
         }
 
         public void AddHorizontalBarrier(int i)
         {
-            HorizontalBarrier = HorizontalBarrierFactory.Add(i);
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.Add(i));
+        }
+
+        public void AddHorizontalBarrierByEvery(int size)
+        {
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.AddEvery(size));
         }
 
         public void DeleteHorizontalBarrier(int delete)
         {
-            HorizontalBarrier = HorizontalBarrierFactory.Delete(delete);
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.Delete(delete));
         }
 
         public void DeleteAllHorizontalBarrier()
         {
-            HorizontalBarrier = HorizontalBarrierFactory.DeleteAll();
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.DeleteAll());
         }
 
-        public List<ElementModelDTO> GetAllHorizontalBarrier() => HorizontalBarrierFactory.GetAll();
+        public List<ElementModel> GetAllHorizontalBarrier() => HorizontalBarrier;
         
         
         #endregion
@@ -176,7 +181,8 @@ namespace CoreS
             {
                 case EnumCabinetType.Standard:
 
-                    _leftSide = new ElementModelDTO(
+                                
+                    _leftSide = new ElementModel(
                         description: "Bok Lewy",
                         height: _height,
                         width: _sizeElement,
@@ -187,7 +193,7 @@ namespace CoreS
                         enumCabinet: EnumCabinetElement.Leftside,
                         horizontal: false);
                     
-                    _rightSide = new ElementModelDTO(
+                    _rightSide = new ElementModel(
                         description: "Bok Prawy",
                         height: _height,
                         width: _sizeElement,
@@ -198,7 +204,7 @@ namespace CoreS
                         enumCabinet: EnumCabinetElement.Rightside,
                         horizontal: false);
                     
-                    _bottom = new ElementModelDTO(
+                    _bottom = new ElementModel(
                         description: "Spód",
                         height: _width - 2 * _sizeElement,
                         width: _sizeElement,
@@ -209,7 +215,7 @@ namespace CoreS
                         enumCabinet: EnumCabinetElement.Bottom,
                         horizontal: true);
                     
-                    _top = new ElementModelDTO(
+                    _top = new ElementModel(
                         description: "Góra",
                         height: _width - 2 * _sizeElement,
                         width: _sizeElement,
@@ -231,7 +237,7 @@ namespace CoreS
 
                 default:
 
-                    _leftSide = new ElementModelDTO(
+                    _leftSide = new ElementModel(
                         description: "Bok Lewy",
                         height: _height,
                         width: _sizeElement,
@@ -241,7 +247,7 @@ namespace CoreS
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Leftside,
                         horizontal: false);
-                    _rightSide = new ElementModelDTO(
+                    _rightSide = new ElementModel(
                         description: "Bok Prawy",
                         height: _height,
                         width: _sizeElement,
@@ -251,7 +257,7 @@ namespace CoreS
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Rightside,
                         horizontal: false);
-                    _bottom = new ElementModelDTO(
+                    _bottom = new ElementModel(
                         description: "Spód",
                         height: _width - 2 * _sizeElement,
                         width: _sizeElement,
@@ -261,7 +267,7 @@ namespace CoreS
                         z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
                         enumCabinet: EnumCabinetElement.Bottom,
                         horizontal: true);
-                    _top = new ElementModelDTO(
+                    _top = new ElementModel(
                         description: "Góra",
                         height: _width - 2 * _sizeElement,
                         width: _sizeElement,
@@ -284,11 +290,11 @@ namespace CoreS
 
         private void ChangeBack()
         {
-            ElementModelDTO elementBack;
+            ElementModel elementBack;
 
             if (Back == EnumBack.Nakladane)
             {
-                elementBack = new ElementModelDTO(
+                elementBack = new ElementModel(
                         description: "Plecy",
                         height: _height,
                         width: _width,
@@ -315,7 +321,7 @@ namespace CoreS
             ChangeBack();
         }
 
-        private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, ElementModelDTO element)
+        private void ChangeCabinetElement(EnumCabinetElement enumCabinetElement, ElementModel element)
         {
             if (CabinetElements.Exists(c => c.GetEnumName() == enumCabinetElement))
             {
@@ -338,36 +344,33 @@ namespace CoreS
                 CabinetElements.Add(element);
             }
         }
-        
+
         #region Front command
 
         public void AddFront(int number, EnumFront enumFront)
         {
-            var slots = new SlotsModel { BetweenVertically = 3, BetweenHorizontally = 3 };
-            FrontList=_mapper.Map<List<ElementModelDTO>>( FrontFactory.NewFront(number, slots,enumFront));
+            var slots = new SlotsModel();
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(number, slots, enumFront));
         }
 
         public void AddFront(int number)
         {
-            //var slots = new SlotsModel {BetweenVertically = 3, BetweenHorizontally = 3 };
-
-            //AddFront(slots,numberVertically);
-            FrontList = _mapper.Map<List<ElementModelDTO>>(FrontFactory.Add(number));
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.Add(number));
         }
 
         public void AddFront(SlotsModel slots,int number=0 )
         {
-            FrontList = FrontFactory.NewFront(number, slots,EnumFront.Pionowo);
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(number, slots,EnumFront.Pionowo));
         }
 
         public void AddFront(SlotsModel slots, int number, EnumFront enumFront)
         {
-            FrontList = FrontFactory.NewFront(number,slots,enumFront);
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(number,slots,enumFront));
         }
 
         public void AddFront(List<ElementModelDTO> frontList)
         {
-            FrontList = FrontFactory.AddFront(frontList);
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.AddFront(frontList));
         }
 
         public void AddFront(FrontParameter frontParameter)
@@ -375,46 +378,49 @@ namespace CoreS
             FrontParameter = frontParameter;
             try
             {
-                FrontList = FrontFactory.NewFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront);
+                FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(frontParameter.Number, frontParameter.Slots, frontParameter.EnumFront));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                
+
             }
         }
-
-        public void UpdateFront(ElementModelDTO front)
+        // TODO: Przenieśc do fabryki
+        public void UpdateFront(ElementModel front)
         {
-            var result = FrontFactory.Update(front);
-             
-            if(result.IsValid)
-            {
-                FrontList = result.Value;
-            }
-            else
-            {
-                
-            }
+            var result = _mapper.Map<List<ElementModel>>(FrontFactory.Update(_mapper.Map<ElementModelDTO>(front)));
+
+            //if (result.IsValid)
+            //{
+            //    FrontList = result.Value;
+            //}
+            //else
+            //{
+
+            //}
+
+            FrontList = _mapper.Map<List<ElementModel>>(result);
         }
 
-        public ElementModelDTO GetFront(int number)
+        // TODO: Przenieśc do fabryki
+        public ElementModel GetFront(int number)
         {
             if(FrontList.Count >= number)return FrontList[number];
-            return new ElementModelDTO();
+            return new ElementModel();
+            
         }
 
+        // TODO: Przenieśc do fabryki
         public int GetFrontCount()
         {
             return FrontList.Count;
         }
 
-        public List<ElementModelDTO> GetFrontList()
-        {
-            return FrontList;
-        }
-
-        public void DeleteFront(ElementModelDTO front)
+        // TODO: Przenieśc do fabryki
+        public List<ElementModel> GetFrontList()=> FrontList;
+        // TODO: Przenieśc do fabryki
+        public void DeleteFront(ElementModel front)
         {
             if (!FrontList.Exists(x => x.GetGuid() == front.GetGuid())) return;
             {
@@ -424,12 +430,12 @@ namespace CoreS
 
         public void DeleteFront(int i)
         {
-            FrontList = _mapper.Map<List<ElementModelDTO>>(FrontFactory.Delete(i));
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.Delete(i));
         }
 
         public void DeleteAllFront()
         {
-            FrontList = _mapper.Map<List<ElementModelDTO>>(FrontFactory.DeleteAll());
+            FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.DeleteAll());
         }
         #endregion
 
@@ -459,8 +465,8 @@ namespace CoreS
         public void Redraw()
         {
             GlobalCabinetElement();
-            VerticalBarrier= VerticalBarrierFactory.ReCount();
-            HorizontalBarrier = HorizontalBarrierFactory.ReCount();
+            VerticalBarrier= _mapper.Map<List<ElementModel>>(VerticalBarrierFactory.ReCount());
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.ReCount());
             AddFront(FrontParameter);
         }
 
@@ -469,6 +475,110 @@ namespace CoreS
             var clip = new Core.Export.ClipboardExport();
             clip.Export(this);
         }
+
+        public void ChangeElemenet(ElementModel element, EnumElementParameter parameter, string text)
+        {
+            if (int.TryParse(text, out int result) || parameter == EnumElementParameter.Description)
+            {
+                bool find = false;
+                
+                foreach (var item in CabinetElements)
+                {
+                    if (item.GetGuid() == element.GetGuid())
+                    {
+                        find = true;
+                        SwitchChange(parameter, text, result, item);
+
+                        if (element.GetEnumName() == EnumCabinetElement.Leftside && parameter == EnumElementParameter.Width)
+                        {
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Top).SetHeight(_width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width);
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Bottom).SetHeight(_width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width);
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Top).SetX(CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width);
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Bottom).SetX(CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width);
+                        }
+                        if (element.GetEnumName() == EnumCabinetElement.Rightside && parameter == EnumElementParameter.Width)
+                        {
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Top).SetHeight(_width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width);
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Bottom).SetHeight(_width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width);
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).SetX(_width - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Rightside).Width);
+                        }
+                        if (element.GetEnumName() == EnumCabinetElement.Top && parameter == EnumElementParameter.Width)
+                        {
+                            CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Top).SetY(_height - CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Top).Width);
+                        }
+
+                        HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.ReCount());
+                        VerticalBarrier = _mapper.Map<List<ElementModel>>(VerticalBarrierFactory.ReCount());
+                        //FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.ReCount());
+
+                    }
+                    
+                    if (find) return;
+                }
+
+                foreach (var item in VerticalBarrier)
+                {
+                    if (item.GetGuid()==element.GetGuid())
+                    {
+                        find = true;
+                        SwitchChange(parameter, text, result, item);
+                    }
+                }
+
+                foreach (var item in HorizontalBarrier)
+                {
+                    if (item.GetGuid() == element.GetGuid())
+                    {
+                        find = true;
+                        SwitchChange(parameter, text, result, item);
+                    }
+                }
+
+                foreach (var item in FrontList)
+                {
+                    if (item.GetGuid() == element.GetGuid())
+                    {
+                        find = true;
+                        SwitchChange(parameter, text, result, item);
+                    }
+                }
+            }
+
+
+
+            //RedrawChange(element);
+        }
+
+        private static void SwitchChange(EnumElementParameter parameter, string text, int result, ElementModel item)
+        {
+            switch (parameter)
+            {
+                case EnumElementParameter.Width:
+                    item.SetWidth(result);
+                    break;
+                case EnumElementParameter.Height:
+                    item.SetHeight(result);
+                    break;
+                case EnumElementParameter.Depth:
+                    item.SetDepth(result);
+                    break;
+                case EnumElementParameter.Description:
+                    item.SetDescription(text);
+                    break;
+                case EnumElementParameter.X:
+                    item.SetX(result);
+                    break;
+                case EnumElementParameter.Y:
+                    item.SetY(result);
+                    break;
+                case EnumElementParameter.Z:
+                    item.SetZ(result);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }
      

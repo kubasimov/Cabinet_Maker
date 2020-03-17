@@ -23,7 +23,7 @@ namespace Cabinet_Maker_NanoCad
         }
 
 
-        public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModelDTO> cabinetElements, Point3d ptStart)
+        public static List<Polyline> GetPolylineListFromCabinetElements(List<ElementModel> cabinetElements, Point3d ptStart)
         {
             var leftSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Leftside);
             var rightSide = cabinetElements.FirstOrDefault(c => c.GetEnumName() == EnumCabinetElement.Rightside);
@@ -31,9 +31,9 @@ namespace Cabinet_Maker_NanoCad
 
             var poly = new List<Polyline>
             {
-                Get(ptStart.X, ptStart.Y, leftSide.GetWidth(), leftSide.GetDepth()),
-                Get(ptStart.X + rightSide.GetX(),ptStart.Y,rightSide.GetWidth(),rightSide.GetDepth()),
-                Get(ptStart.X + top.GetX(),ptStart.Y,top.GetWidth(),top.GetDepth())
+                Get(ptStart.X, ptStart.Y, leftSide.Width, leftSide.Depth),
+                Get(ptStart.X + rightSide.X,ptStart.Y,rightSide.Width,rightSide.Depth),
+                Get(ptStart.X + top.X,ptStart.Y,top.Width,top.Depth)
             };
             
             return poly;
@@ -41,14 +41,14 @@ namespace Cabinet_Maker_NanoCad
 
 
 
-        public static List<Polyline> GetPolylineListFromFrontList(List<ElementModelDTO> frontList, Point3d ptStart)
+        public static List<Polyline> GetPolylineListFromFrontList(List<ElementModel> frontList, Point3d ptStart)
         {
             var poly = new List<Polyline>();
 
             foreach (var elementModel in frontList)
             {
-                poly.Add(Get(ptStart.X + elementModel.GetX(), ptStart.Y - elementModel.GetY()-elementModel.GetDepth(), elementModel.GetWidth(),
-                    elementModel.GetDepth()));
+                poly.Add(Get(ptStart.X + elementModel.X, ptStart.Y - elementModel.Y-elementModel.Depth, elementModel.Width,
+                    elementModel.Depth));
             }
             
             return poly;

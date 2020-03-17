@@ -2,6 +2,8 @@ using CoreS;
 using CoreS.Model;
 using GalaSoft.MvvmLight;
 using NLog;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using WPF3.Interface;
@@ -30,7 +32,7 @@ namespace WPF3.ViewModel
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
-                _cabinetView = _cabinet;
+                //_cabinetView = _cabinet;
                 RaisePropertyChanged(CabinetViewPropertyName);
             }
             else
@@ -40,7 +42,7 @@ namespace WPF3.ViewModel
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
-                _cabinetView = _cabinet;
+                //_cabinetView = _cabinet;
                 RaisePropertyChanged(CabinetViewPropertyName);
             }
             
@@ -90,10 +92,47 @@ namespace WPF3.ViewModel
             DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
             //myMaterial.Color = Colors.Blue;
             myGeometryModel.Material = myMaterial;
+
+
+            GenerateCabinetView();
+            
+            
             
             return myGeometryModel;
         }
 
+        private void GenerateCabinetView()
+        {
+            var GeneralElement = new Elements("Elementy g³ówne");
+            foreach (ElementModel item in _cabinet.CabinetElements)
+            {
+                GeneralElement.ElementModels.Add(item);
+            }
+            var VerticalElement = new Elements("Elementy pionowe");
+            foreach (ElementModel element in _cabinet.GetAllVerticalBarrier())
+            {
+                VerticalElement.ElementModels.Add(element);
+            }
+
+            var HorizontalElement = new Elements("Elementy poziome");
+            foreach (ElementModel element in _cabinet.GetAllHorizontalBarrier())
+            {
+                HorizontalElement.ElementModels.Add(element);
+            }
+
+            var FrontElement = new Elements("Fronty");
+            foreach (ElementModel element in _cabinet.GetFrontList())
+            {
+                FrontElement.ElementModels.Add(element);
+            }
+
+            _cabinetView = new ObservableCollection<Elements> { GeneralElement,VerticalElement,HorizontalElement,FrontElement };
+
+            RaisePropertyChanged(CabinetViewPropertyName);
+
+
+        }
+                     
         private Point3DCollection CubeToPoint3DCollection(double wys, double szer, double gl, double x, double y,double z,bool hor)
         {
             if (hor)
@@ -184,122 +223,23 @@ namespace WPF3.ViewModel
             };
         }
 
-        private Element3D GetElement3DFromElementModel(ElementModelDTO element)
+        private Element3D GetElement3DFromElementModel(ElementModel element)
         {
             return new Element3D
             {
-                EWidth = (double)element.GetWidth() / 100,
-                EHeight = (double)element.GetHeight() / 100,
-                EDepth = (double)element.GetDepth() / 100,
+                EWidth = (double)element.Width / 100,
+                EHeight = (double)element.Height / 100,
+                EDepth = (double)element.Depth / 100,
                 EName = element.GetEnumName(),
-                Ex = (double)element.GetX() / 100,
-                Ey = (double)element.GetY() / 100,
-                Ez = (double)element.GetZ() / 100,
-                Description = element.GetDescription(),
-                Horizontal=element.GetHorizontal()
+                Ex = (double)element.X / 100,
+                Ey = (double)element.Y / 100,
+                Ez = (double)element.Z / 100,
+                Description = element.Description,
+                Horizontal=element.Horizontal
             };
         }
         
-        #region BindingProperty
-
-
-        public const string MyModel3DPropertyName = "MyModel3D";
-
-        private Model3D _model3D;
-
-        public Model3D MyModel3D
-        {
-            get { return _model3D; }
-
-            set
-            {
-                if (_model3D == value)
-                {
-                    return;
-                }
-
-                _model3D = value;
-                RaisePropertyChanged(MyModel3DPropertyName);
-            }
-        }
-
-
-
-        public const string MyLightPropertyName = "MyLight";
-
-        private Model3D _myLight;
-
-        public Model3D MyLight
-        {
-            get { return _myLight; }
-
-            set
-            {
-                if (_myLight == value)
-                {
-                    return;
-                }
-
-                _myLight = value;
-                RaisePropertyChanged(MyLightPropertyName);
-            }
-        }
-
-
-        public const string MyCabinetPropertyName = "MyCabinet";
-
-        private TempCabinet _myCabinet;
-
-        public TempCabinet MyCabinet
-        {
-            get { return _myCabinet; }
-
-            set
-            {
-                if (_myCabinet == value)
-                {
-                    return;
-                }
-
-                _myCabinet = value;
-                RaisePropertyChanged(MyCabinetPropertyName);
-            }
-        }
-
-        public const string CabinetViewPropertyName = "CabinetView";
-
-        private Cabinet _cabinetView;
-
-        public Cabinet CabinetView
-        {
-            get
-            {
-                return _cabinetView;
-            }
-
-            set
-            {
-                if (_cabinetView == value)
-                {
-                    return;
-                }
-
-                _cabinetView = value;
-                RaisePropertyChanged(CabinetViewPropertyName);
-            }
-        }
-        #endregion
-
-        public class TempCabinet
-        {
-            public string Name { get; set; }
-            public string height { get; set; }
-            public string width { get; set; }
-            public string depth { get; set; }
-            public string sizeElement { get; set; }
-            public string BackSize { get; set; }
-
-        }
+        
 
         //private Model3D CreateContent2()
         //{
@@ -417,14 +357,14 @@ namespace WPF3.ViewModel
         private void NewCabinet()
         {
             _myCabinet.Name = "Default";
-            _myCabinet.height = 720.ToString();
-            _myCabinet.width = 600.ToString();
-            _myCabinet.depth = 500.ToString();
-            _myCabinet.sizeElement = 18.ToString();
+            _myCabinet.Height = 720.ToString();
+            _myCabinet.Width = 600.ToString();
+            _myCabinet.Depth = 500.ToString();
+            _myCabinet.SizeElement = 18.ToString();
             _myCabinet.BackSize = 3.ToString();
 
 
-            _cabinet = new Cabinet().Height(int.Parse(_myCabinet.height)).Width(int.Parse(_myCabinet.width)).Depth(int.Parse(_myCabinet.depth)).Name(_myCabinet.Name);
+            _cabinet = new Cabinet().Height(int.Parse(_myCabinet.Height)).Width(int.Parse(_myCabinet.Width)).Depth(int.Parse(_myCabinet.Depth)).Name(_myCabinet.Name);
 
             
             _model3D = CreateCabinet();

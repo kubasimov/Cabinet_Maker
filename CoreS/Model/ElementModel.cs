@@ -9,24 +9,23 @@ namespace CoreS.Model
         [JsonProperty]
         private Guid _guid;
         [JsonProperty]
-        private int _height;
+        public int Height { get; private set; }
         [JsonProperty]
-        private int _width;
+        public int Width { get; private set; }
         [JsonProperty]
-        private int _depth;
+        public int Depth { get; private set; }
         [JsonProperty]
-        private string _description;
+        public string Description { get; private set; }
         [JsonProperty]
-        private int _x;
+        public int X { get; private set; }
         [JsonProperty]
-        private int _y;
+        public int Y { get; private set; }
         [JsonProperty]
-        private int _z;
+        public int Z { get; private set; }
         [JsonProperty]
-        private bool _horizontal;
+        public bool Horizontal { get; private set; }
         [JsonProperty]
-        private EnumCabinetElement _enumCabinet;
-
+        public EnumCabinetElement _enumCabinet { get; private set; }
 
         public Guid GetGuid() => _guid;
 
@@ -35,87 +34,78 @@ namespace CoreS.Model
             _enumCabinet = enumCabinet;
         }
         public EnumCabinetElement GetEnumName() => _enumCabinet;    //Wewnetrzna nazwa elementu
-
-
+        
         public void SetDescription(string value)
         {
-            if (value != _description)
+            if (value != Description)
             {
-                _description = value;
+                Description = value;
                 ChangeDescription = true;
             }
         }
-        public string GetDescription() => _description;
-
+        
         public void SetHeight(int value)
         {
-            if (value >= 0 && value != _height)
+            if (value >= 0 && value != Height)
             {
-                _height = value;
+                Height = value;
                 ChangeHeight = true;
             }
         }
-        public int GetHeight() => _height;
-
+        
         public void SetWidth(int value)
         {
-            if (value >= 0 && value != _width)
+            if (value >= 0 && value != Width)
             {
-                _width = value;
+                Width = value;
                 ChangeWidth = true;
             }
 
         }
-        public int GetWidth() => _width;
-
+        
         public void SetDepth(int value)
         {
-            if (value >= 0 && value != _depth)
+            if (value >= 0 && value != Depth)
             {
-                _depth = value;
+                Depth = value;
                 ChangeDepth = true;
             }
         }
-        public int GetDepth() => _depth;
-
-
+        
 
         public void SetX(int value)
         {
-            if (value >= 0 && value != _x)
+            if (value != X)
             {
-                _x = value;
+                X = value;
                 ChangeX = true;
             }
         }
-        public int GetX() => _x;
-
+        
         public void SetY(int value)
         {
-            if (value >= 0 && value != _y)
+            if (value != Y)
             {
-                _y = value;
+                Y = value;
                 ChangeY = true;
             }
         }
-        public int GetY() => _y;
-
+        
         public void SetZ(int value)
         {
-            if (value >= 0 && value != _z)
+            if (value != Z)
             {
-                _z = value;
+                Z = value;
                 ChangeZ = true;
             }
         }
-        public int GetZ() => _z;
-
+        
         
         public void SetHorizontal(bool value)
         {
-            _horizontal = value;
+            Horizontal = value;
         }
-        public bool GetHorizontal() => _horizontal;
+        
         
         public string Material;
 
@@ -131,22 +121,47 @@ namespace CoreS.Model
         public ElementModel()
         {
             _guid = Guid.NewGuid();
-            ChangeHeight = false;
+            //ChangeHeight = false;
 
         }
 
         public ElementModel(string description, int height, int width, int depth, int x, int y, int z, EnumCabinetElement enumCabinet, bool horizontal)
         {
             _guid = Guid.NewGuid();
-            _description = description;
-            _height = height;
-            _width = width;
-            _depth = depth;
-            _x = x;
-            _y = y;
-            _z = z;
+            Description = description;
+            Height = height;
+            Width = width;
+            Depth = depth;
+            X = x;
+            Y = y;
+            Z = z;
             _enumCabinet = enumCabinet;
-            _horizontal = horizontal;
+            Horizontal = horizontal;
+        }
+
+        public ElementModel CopyTo(ElementModel elementModel)
+        {
+            return new ElementModel
+            {
+                _guid = elementModel.GetGuid(),
+                Description = elementModel.Description,
+                Height = elementModel.Height,
+                Width=elementModel.Width,
+                Depth=elementModel.Depth,
+                X=elementModel.X,
+                Y=elementModel.Y,
+                Z=elementModel.Z,
+                _enumCabinet=elementModel._enumCabinet,
+                Horizontal=elementModel.Horizontal,
+                Material=elementModel.Material,
+                ChangeDepth=elementModel.ChangeDepth,
+                ChangeDescription=elementModel.ChangeDescription,
+                ChangeHeight=elementModel.ChangeHeight,
+                ChangeWidth=elementModel.ChangeWidth,
+                ChangeX=elementModel.ChangeX,
+                ChangeY=elementModel.ChangeY,
+                ChangeZ=elementModel.ChangeZ
+            };
         }
 
     }

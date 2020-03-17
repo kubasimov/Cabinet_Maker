@@ -7,26 +7,25 @@ namespace CoreS.Model
     public class ElementModelDTO
     {
         [JsonProperty]
-        private Guid _guid;
+        private Guid _guid { get; set; }
         [JsonProperty]
-        private int _height;
+        private int _height { get; set; }
         [JsonProperty]
-        private int _width;
+        private int _width { get; set; }
         [JsonProperty]
-        private int _depth;
+        private int _depth { get; set; }
         [JsonProperty]
-        private string _description;
+        private string _description { get; set; }
         [JsonProperty]
-        private int _x;
+        private int _x { get; set; }
         [JsonProperty]
-        private int _y;
+        private int _y { get; set; }
         [JsonProperty]
-        private int _z;
+        private int _z { get; set; }
         [JsonProperty]
-        private bool _horizontal;
+        private bool _horizontal { get; set; }
         [JsonProperty]
-        private EnumCabinetElement _enumCabinet;
-
+        private EnumCabinetElement _enumCabinet { get; set; }
 
         public Guid GetGuid() => _guid;
 
@@ -131,7 +130,7 @@ namespace CoreS.Model
         public ElementModelDTO()
         {
             _guid = Guid.NewGuid();
-            ChangeHeight = false;
+            //ChangeHeight = false;
 
         }
 

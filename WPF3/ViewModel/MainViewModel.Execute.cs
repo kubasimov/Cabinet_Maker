@@ -5,6 +5,8 @@ using System;
 using System.Windows;
 using WPF3.Enum;
 using WPF3.View;
+using System.Linq;
+using CoreS.Enum;
 
 namespace WPF3.ViewModel
 {
@@ -146,6 +148,13 @@ namespace WPF3.ViewModel
             RaisePropertyChanged(MyModel3DPropertyName);
         }
 
+        private void ExecuteAddHorizontalBarrierByEveryCommand()
+        {
+            _cabinet.AddHorizontalBarrierByEvery(int.Parse(_horizontaSize));
+            _model3D = CreateCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
+        }
+
         private void ExecuteDeleteHorizontalBarrierCommand()
         {
             _cabinet.DeleteHorizontalBarrier(1);
@@ -208,7 +217,7 @@ namespace WPF3.ViewModel
 
         private void ExecuteReDrawCabinetCommand()
         {
-            _cabinet.Height(int.Parse(_myCabinet.height)).Width(int.Parse(_myCabinet.width)).Depth(int.Parse(_myCabinet.depth)).SizeElement(int.Parse(_myCabinet.sizeElement)).Name(_myCabinet.Name);
+            _cabinet.Height(int.Parse(_myCabinet.Height)).Width(int.Parse(_myCabinet.Width)).Depth(int.Parse(_myCabinet.Depth)).SizeElement(int.Parse(_myCabinet.SizeElement)).Name(_myCabinet.Name);
 
             _cabinet.BackSize = int.Parse(_myCabinet.BackSize);
             
@@ -217,6 +226,67 @@ namespace WPF3.ViewModel
 
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
+        }
+
+        private void ExecuteMyElementTreeView(object parameter)
+        {
+
+            if (parameter.GetType() == typeof(ElementModel))
+            {
+                var tmp = (ElementModel)parameter;
+
+                foreach (var elements in CabinetView)
+                {
+                    if (elements.ElementModels.Any(p => p.GetGuid() == tmp.GetGuid()))
+                    {
+                        _mElement = elements.ElementModels.First(p => p.GetGuid() == tmp.GetGuid());
+                        RaisePropertyChanged(MElementPropertyName);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void ChangeMElement(string parameter, EnumElementParameter enumElementParameter)
+        {
+            if (string.IsNullOrEmpty(parameter)) return;
+            
+            _cabinet.ChangeElemenet(MElement, enumElementParameter, parameter);
+            
+            _model3D = CreateCabinet();
+            
+            RaisePropertyChanged(MyModel3DPropertyName);
+            RaisePropertyChanged(MElementPropertyName);
+            
+        }
+
+        private void ExecuteChangeDescriptionMElementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.Description);
+        }
+        private void ExecuteChangeWidthMElementCommand(string parameter)
+        {
+            ChangeMElement(parameter,EnumElementParameter.Width);
+        }
+        private void ExecuteChangeHeightMElementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.Height);
+        }
+        private void ExecuteChangeDepthMElementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.Depth);
+        }
+        private void ExecuteChangeXMelementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.X);
+        }
+        private void ExecuteChangeYMElementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.Y);
+        }
+        private void ExecuteChangeZElementCommand(string parameter)
+        {
+            ChangeMElement(parameter, EnumElementParameter.Z);
         }
 
         #endregion
