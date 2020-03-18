@@ -160,6 +160,7 @@
 
 
         <TreeView x:Name="treeView" Grid.Column="2" HorizontalAlignment="Center" Height="414" Margin="0,8,0,0" VerticalAlignment="Top" Width="168" ItemsSource="{Binding CabinetView}">
+            
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="SelectedItemChanged" >
                     <Interactions:InvokeCommandAction Command="{Binding MyElementTreeView, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
@@ -172,7 +173,9 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Type}" Value="menu">
                             <Setter Property="TreeViewItem.IsSelected" Value="True"/>
+                            
                         </DataTrigger>
+                        
                     </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
@@ -180,10 +183,13 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ElementModels}">
                     <TextBlock Text="{Binding Name}"/>
-
+                    
                     <HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Description, Mode=OneWay}"/>
+                            <TextBlock Text="{Binding Description, Mode=OneWay}">
+                                
+                            </TextBlock>
+
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
 
@@ -200,6 +206,7 @@
             <TextBlock Text="X" Height="26"/>
             <TextBlock Text="Y" Height="26"/>
             <TextBlock Text="Z" Height="26"/>
+            <Button x:Name="DeleteBarrier" Command="{Binding DeleteElementHorizontalBarrierCommand}" Height="26" Content="Usun" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="4" Margin="0,10,0,0">
             <TextBox Name="MElement_Description" Text="{Binding MElement.Description, Mode=OneWay}" Height="26" local:SelectAllFocusBehavior.Enable="True">

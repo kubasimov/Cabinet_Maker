@@ -120,7 +120,15 @@ namespace CoreS.Factory
 
         public List<ElementModelDTO> Delete(ElementModelDTO element)
         {
-            throw new System.NotImplementedException();
+            var findElement = elements.Find(x => x.GetGuid() == element.GetGuid());
+            if (findElement!=null)
+            {
+                elements.Remove(findElement);
+                Number -= 1;
+            }
+            
+
+            return elements;
         }
 
         public List<ElementModelDTO> DeleteAll()
@@ -231,7 +239,7 @@ namespace CoreS.Factory
         {
             for (var i = 0; i < Number; i++)
             {
-                var element = new ElementModelDTO("poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
+                var element = new ElementModelDTO("Poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
                 
                 elements.Add(element);
             }

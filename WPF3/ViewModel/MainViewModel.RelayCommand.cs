@@ -168,6 +168,50 @@ namespace WPF3.ViewModel
                                             ?? (_ChangeTextWhenLostFocusCommand = new RelayCommand<object>(ExecuteChangeTextWhenLostFocusCommand));
 
         #endregion
+
+
+
+        private RelayCommand<object> _deleteElementHorizontalBarrierCommand;
+
+        public RelayCommand<object> DeleteElementHorizontalBarrierCommand => _deleteElementHorizontalBarrierCommand
+                    ?? (_deleteElementHorizontalBarrierCommand = new RelayCommand<object>(ExecuteDeleteElementHorizontalBarrierCommand));
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        private RelayCommand _TreeViewContextMenuCommand;
+
+        public RelayCommand TreeViewContextMenuCommand => _TreeViewContextMenuCommand
+                                            ?? (_TreeViewContextMenuCommand = new RelayCommand(ExecuteTreeViewContextMenuCommand));
+
+        private void ExecuteTreeViewContextMenuCommand()
+        {
+           
+        }
+
+
     }
 }
 

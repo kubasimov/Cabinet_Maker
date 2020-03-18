@@ -323,5 +323,11 @@ namespace WPF3.ViewModel
         }
 
         #endregion
+
+        private void ExecuteDeleteElementHorizontalBarrierCommand(object parameter)
+        {
+            _cabinet.DeleteElementHorizontalBarrier((ElementModel)parameter);
+            Create3DCabinet();
+        }
     }
 }

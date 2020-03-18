@@ -7,7 +7,7 @@ namespace CoreS.Model
     public class ElementModelDTO
     {
         [JsonProperty]
-        private Guid _guid { get; set; }
+        public Guid _guid { get; set; }
         [JsonProperty]
         private int _height { get; set; }
         [JsonProperty]
@@ -129,7 +129,7 @@ namespace CoreS.Model
 
         public ElementModelDTO()
         {
-            _guid = Guid.NewGuid();
+            //_guid = Guid.NewGuid();
             //ChangeHeight = false;
 
         }

@@ -7,7 +7,7 @@ namespace CoreS.Model
     public class ElementModel
     {
         [JsonProperty]
-        private Guid _guid;
+        public Guid _guid { get; private set; }
         [JsonProperty]
         public int Height { get; private set; }
         [JsonProperty]
@@ -120,7 +120,7 @@ namespace CoreS.Model
 
         public ElementModel()
         {
-            _guid = Guid.NewGuid();
+            //_guid = Guid.NewGuid();
             //ChangeHeight = false;
 
         }
@@ -163,6 +163,8 @@ namespace CoreS.Model
                 ChangeZ=elementModel.ChangeZ
             };
         }
+
+        
 
     }
 

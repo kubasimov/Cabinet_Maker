@@ -172,6 +172,10 @@ namespace CoreS
 
         public List<ElementModel> GetAllHorizontalBarrier() => HorizontalBarrier;
         
+        public void DeleteElementHorizontalBarrier(ElementModel elementModel)
+        {
+            HorizontalBarrier = _mapper.Map<List<ElementModel>>(HorizontalBarrierFactory.Delete(_mapper.Map<ElementModelDTO>(elementModel)));
+        }
         
         #endregion
 
