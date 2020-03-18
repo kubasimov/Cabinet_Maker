@@ -4,10 +4,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>ec782c3e-1d84-41a3-b981-b1881f48abd0</ProjectGuid>
+    <ProjectGuid>8640cb81-226f-44c0-b198-af9cfc95b7ed</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>SetupProject</OutputName>
-    <OutputType>Package</OutputType>
+    <OutputName>Bootstrapper</OutputName>
+    <OutputType>Bundle</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -19,7 +19,13 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Product.wxs" />
+    <Compile Include="Bundle.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixBalExtension">
+      <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
+      <Name>WixBalExtension</Name>
+    </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
