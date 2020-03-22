@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Bundle Name="Bootstrapper" Version="1.0.0.0" Manufacturer="" UpgradeCode="8640cb81-226f-44c0-b198-af9cfc95b7ed">
+  
+	<Bundle Name="CabinetMaker" Version="1.0.0.0" Manufacturer="Savento" UpgradeCode="8640cb81-226f-44c0-b198-af9cfc95b7ed">
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
 
 		<Chain>
+      <MsiPackage SourceFile="D:\A_Projects\C#\Cabinet_Maker\SetupProject\bin\Debug\SetupProject.msi"/>
 			<!-- TODO: Define the list of chained packages. -->
 			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
 		</Chain>

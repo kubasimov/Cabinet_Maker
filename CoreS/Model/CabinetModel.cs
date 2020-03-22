@@ -18,20 +18,22 @@ namespace CoreS.Model
         public int BackSize;
         public EnumBack Back;
 
-        public List<ElementModel> CabinetElements;
-        public List<ElementModel> HorizontalBarrier;
-        public List<ElementModel> VerticalBarrier;
-        protected BarrierParameter HorizontalBarrierParameter;
-        protected BarrierParameter VerticalBarrierParameter;
-        public List<ElementModel> FrontList;
+        public List<ElementModel> CabinetElements = new List<ElementModel>();
+        public List<ElementModel> HorizontalBarrier = new List<ElementModel>();
+        public List<ElementModel> VerticalBarrier = new List<ElementModel>();
+        public List<ElementModel> FrontList = new List<ElementModel>();
+
         protected readonly Back SwitchBack = new Back();
 
         
         protected HorizontalBarrierFactory HorizontalBarrierFactory;
         protected VerticalBarrierFactory VerticalBarrierFactory;
-
         protected FrontFactory FrontFactory;
+
+        protected BarrierParameter HorizontalBarrierParameter;
+        protected BarrierParameter VerticalBarrierParameter;
         protected FrontParameter FrontParameter;
+
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
     }

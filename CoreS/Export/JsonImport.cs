@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CoreS.Export
 {
-    class JsonImport:IImport
+    public class JsonImport:IImport
     {
         public Cabinet Import(string path)
         {

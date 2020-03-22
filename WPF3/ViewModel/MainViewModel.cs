@@ -24,25 +24,25 @@ namespace WPF3.ViewModel
             _myCabinet = new TempCabinet();
 
             //Cabinet.AddBack();
-            Logger.Info("Start");
+            Logger.Trace("Main ViewModel");
             if (IsInDesignMode)
             {
+                Logger.Trace("InDesignMode");
                 NewCabinet();
 
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
-                //_cabinetView = _cabinet;
                 RaisePropertyChanged(CabinetViewPropertyName);
             }
             else
             {
+                Logger.Trace("! InDesignMode");
                 NewCabinet();
                 
                 _myLight = CreateLight();
                 RaisePropertyChanged(MyLightPropertyName);
 
-                //_cabinetView = _cabinet;
                 RaisePropertyChanged(CabinetViewPropertyName);
             }
             
@@ -50,6 +50,7 @@ namespace WPF3.ViewModel
         
         private Model3D CreateCabinet()
         {
+            Logger.Trace("Create Model3D Cabinet in MainViewModel");
             GeometryModel3D myGeometryModel = new GeometryModel3D();
 
             MeshGeometry3D myMeshGeometry3D = new MeshGeometry3D();
@@ -74,7 +75,7 @@ namespace WPF3.ViewModel
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
             }
             
-            foreach (var element in _cabinet.GetFrontList())
+            foreach (var element in _cabinet.FrontList)
             {
                 Element3D element1 = GetElement3DFromElementModel(element);
                 AddElementToModel3D(element1, ref myMeshGeometry3D, ref myTriangleIndicesCollection);
@@ -86,23 +87,23 @@ namespace WPF3.ViewModel
 
             myGeometryModel.Geometry = myMeshGeometry3D;
 
-            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Gray);
+            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Blue);
 
             // Define material that will use the gradient.
             DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
-            //myMaterial.Color = Colors.Blue;
+             
             myGeometryModel.Material = myMaterial;
 
-
+            Logger.Trace("Create CabinetView in Model3DCabinet/MainViewModel");
             GenerateCabinetView();
-            
-            
             
             return myGeometryModel;
         }
 
         private void GenerateCabinetView()
         {
+            Logger.Trace("Create CabinetView in MainViewModel");
+
             var GeneralElement = new Elements("Elementy g³ówne");
             foreach (ElementModel item in _cabinet.CabinetElements)
             {
@@ -121,7 +122,7 @@ namespace WPF3.ViewModel
             }
 
             var FrontElement = new Elements("Fronty");
-            foreach (ElementModel element in _cabinet.GetFrontList())
+            foreach (ElementModel element in _cabinet.GetAllFront())
             {
                 FrontElement.ElementModels.Add(element);
             }
@@ -217,6 +218,7 @@ namespace WPF3.ViewModel
         
         private Model3D CreateLight()
         {
+            Logger.Trace("Create Light in MainViewModel");
             return new DirectionalLight
             {
                 Color = Colors.White, Direction = new Vector3D(-5, -5, -5)
@@ -239,8 +241,6 @@ namespace WPF3.ViewModel
             };
         }
         
-        
-
         //private Model3D CreateContent2()
         //{
 
@@ -356,17 +356,18 @@ namespace WPF3.ViewModel
 
         private void NewCabinet()
         {
+            Logger.Trace("New Cabinet in MainViewModel");
             _myCabinet.Name = "Default";
             _myCabinet.Height = 720.ToString();
             _myCabinet.Width = 600.ToString();
-            _myCabinet.Depth = 500.ToString();
+            _myCabinet.Depth = 510.ToString();
             _myCabinet.SizeElement = 18.ToString();
             _myCabinet.BackSize = 3.ToString();
 
-
+            Logger.Trace("Create Cabinet in NewCabinet/MainViewModel");
             _cabinet = new Cabinet().Height(int.Parse(_myCabinet.Height)).Width(int.Parse(_myCabinet.Width)).Depth(int.Parse(_myCabinet.Depth)).Name(_myCabinet.Name);
 
-            
+            Logger.Trace("Create Model3D in NewCabinet/MainViewModel");
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }

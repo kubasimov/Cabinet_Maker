@@ -16,9 +16,9 @@ namespace XUnitTestCore
 
             cabinet.AddFront(1);
 
-            var front = cabinet.GetFront(0);
+            var front = cabinet.GetAllFront().First();
 
-            Assert.Single(cabinet.GetFrontList());
+            Assert.Single(cabinet.GetAllFront());
             Assert.Equal(594,front.Width);
             Assert.Equal(714,front.Height);
             Assert.Equal(18,front.Depth);
@@ -34,24 +34,24 @@ namespace XUnitTestCore
 
             cabinet.AddFront(2,EnumFront.Pionowo);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
 
-            Assert.Equal(2,cabinet.GetFrontList().Count);
+            Assert.Equal(2,cabinet.GetAllFront().Count);
 
-            Assert.Equal(298, front.Width);
-            Assert.Equal(720, front.Height);
+            Assert.Equal(295, front.Width);
+            Assert.Equal(714, front.Height);
             Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
+            Assert.Equal(3, front.X);
+            Assert.Equal(3, front.Y);
+            Assert.Equal(512, front.Z);
 
-            Assert.Equal(298, front1.Width);
-            Assert.Equal(720, front1.Height);
+            Assert.Equal(295, front1.Width);
+            Assert.Equal(714, front1.Height);
             Assert.Equal(18, front1.Depth);
             Assert.Equal(301, front1.X);
-            Assert.Equal(0, front1.Y);
-            Assert.Equal(510, front1.Z);
+            Assert.Equal(3, front1.Y);
+            Assert.Equal(512, front1.Z);
         }
 
         [Fact]
@@ -61,11 +61,11 @@ namespace XUnitTestCore
 
             cabinet.AddFront(3);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
-            var front2 = cabinet.GetFront(2);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
+            var front2 = cabinet.GetAllFront().ElementAt(2);
 
-            Assert.Equal(3, cabinet.GetFrontList().Count);
+            Assert.Equal(3, cabinet.GetAllFront().Count);
 
             Assert.Equal(196, front.Width);
             Assert.Equal(714, front.Height);
@@ -106,9 +106,9 @@ namespace XUnitTestCore
 
             cabinet.AddFront(slots,1);
 
-            var front = cabinet.GetFront(0);
+            var front = cabinet.GetAllFront().First();
 
-            Assert.Single(cabinet.GetFrontList());
+            Assert.Single(cabinet.GetAllFront());
             Assert.Equal(594, front.Width);
             Assert.Equal(714, front.Height);
             Assert.Equal(18, front.Depth);
@@ -134,11 +134,11 @@ namespace XUnitTestCore
 
             cabinet.AddFront(slots,3);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
-            var front2 = cabinet.GetFront(2);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
+            var front2 = cabinet.GetAllFront().ElementAt(2);
 
-            Assert.Equal(3, cabinet.GetFrontList().Count);
+            Assert.Equal(3, cabinet.GetAllFront().Count);
 
             Assert.Equal(196, front.Width);
             Assert.Equal(714, front.Height);
@@ -169,23 +169,24 @@ namespace XUnitTestCore
 
             cabinet.AddFront(2,EnumFront.Poziomo);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
-            
-            Assert.Equal(2,cabinet.GetFrontList().Count);
-            Assert.Equal(600, front.Width);
-            Assert.Equal(358, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
 
-            Assert.Equal(600, front1.Width);
-            Assert.Equal(358, front1.Height);
+            Assert.Equal(2,cabinet.GetAllFront().Count);
+            
+            Assert.Equal(594, front.Width);
+            Assert.Equal(355, front.Height);
+            Assert.Equal(18, front.Depth);
+            Assert.Equal(3, front.X);
+            Assert.Equal(3, front.Y);
+            Assert.Equal(512, front.Z);
+
+            Assert.Equal(594, front1.Width);
+            Assert.Equal(355, front1.Height);
             Assert.Equal(18, front1.Depth);
-            Assert.Equal(0, front1.X);
+            Assert.Equal(3, front1.X);
             Assert.Equal(361, front1.Y);
-            Assert.Equal(510, front1.Z);
+            Assert.Equal(512, front1.Z);
         }
 
         [Fact]
@@ -206,11 +207,11 @@ namespace XUnitTestCore
 
             cabinet.AddFront(slots, 3, EnumFront.Poziomo);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
-            var front2 = cabinet.GetFront(2);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
+            var front2 = cabinet.GetAllFront().ElementAt(2);
 
-            Assert.Equal(3, cabinet.GetFrontList().Count);
+            Assert.Equal(3, cabinet.GetAllFront().Count);
 
             Assert.Equal(594, front.Width);
             Assert.Equal(236, front.Height);
@@ -296,10 +297,10 @@ namespace XUnitTestCore
 
             cabinet.AddFront(frontList);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
-            
-            Assert.Equal(2,cabinet.GetFrontList().Count);
+            var front = cabinet.GetAllFront().First();
+            var front1 = cabinet.GetAllFront().ElementAt(1);
+
+            Assert.Equal(2,cabinet.GetAllFront().Count);
 
             Assert.Equal(300, front.Width);
             Assert.Equal(300, front.Height);
@@ -317,146 +318,144 @@ namespace XUnitTestCore
             Assert.Equal(513, front1.Z);
         }
 
-        [Fact]
-        public void Dodanie_1_frontu_i_jego_modyfikacja()
-        {
-            var cabinet = new Cabinet();
+        //[Fact]
+        //public void Dodanie_1_frontu_i_jego_modyfikacja()
+        //{
+        //    var cabinet = new Cabinet();
             
-            cabinet.AddFront(1);
+        //    cabinet.AddFront(1);
 
-            var front = cabinet.GetFront(0);
+        //    var front = cabinet.GetAllFront().First();
+
+        //    Assert.Single(cabinet.GetAllFront());
+        //    Assert.Equal(594, front.Width);
+        //    Assert.Equal(714, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
+
+        //    var frontT = cabinet.GetAllFront().First();
+
+        //    frontT.SetWidth(500);
+        //    frontT.SetHeight(620);
+
+        //    cabinet.UpdateFront(  frontT);
+
+        //    front = cabinet.GetAllFront().First();
+
+        //    Assert.Single(cabinet.GetAllFront());
+        //    Assert.Equal(500, front.Width);
+        //    Assert.Equal(620, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
+        //}
+
+        //[Fact]
+        //public void Dodanie_2_frontow_i_modyfikacja_1()
+        //{
             
-            Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594, front.Width);
-            Assert.Equal(714, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(3, front.X);
-            Assert.Equal(3, front.Y);
-            Assert.Equal(512, front.Z);
+        //    var cabinet = new Cabinet();
 
-            var frontT = cabinet.GetFront(0);
+        //    cabinet.AddFront(2, EnumFront.Pionowo);
 
-            frontT.SetWidth(500);
-            frontT.SetHeight(620);
+        //    var front = cabinet.GetAllFront().First();
+        //    var front1 = cabinet.GetAllFront().ElementAt(1);
 
-            cabinet.UpdateFront(frontT);
+        //    Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            front = cabinet.GetFront(0);
+        //    Assert.Equal(295, front.Width);
+        //    Assert.Equal(714, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
 
-            Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(500, front.Width);
-            Assert.Equal(620, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(3, front.X);
-            Assert.Equal(3, front.Y);
-            Assert.Equal(512, front.Z);
-        }
+        //    Assert.Equal(295, front1.Width);
+        //    Assert.Equal(714, front1.Height);
+        //    Assert.Equal(18, front1.Depth);
+        //    Assert.Equal(301, front1.X);
+        //    Assert.Equal(3, front1.Y);
+        //    Assert.Equal(512, front1.Z);
 
-        [Fact]
-        public void Dodanie_2_frontow_i_modyfikacja_1()
-        {
-            
-            var cabinet = new Cabinet();
+        //    var frontT = cabinet.GetAllFront().First();
 
-            cabinet.AddFront(2, EnumFront.Pionowo);
+        //    frontT.SetWidth(100);
+        //    frontT.SetHeight(620);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
+        //    cabinet.UpdateFront(frontT);
 
-            Assert.Equal(2, cabinet.GetFrontList().Count);
+        //    front = cabinet.GetAllFront().First();
+        //    front1 = cabinet.GetAllFront().ElementAt(1);
 
-            Assert.Equal(298, front.Width);
-            Assert.Equal(720, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
+        //    Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            Assert.Equal(298, front1.Width);
-            Assert.Equal(720, front1.Height);
-            Assert.Equal(18, front1.Depth);
-            Assert.Equal(301, front1.X);
-            Assert.Equal(0, front1.Y);
-            Assert.Equal(510, front1.Z);
+        //    Assert.Equal(100, front.Width);
+        //    Assert.Equal(620, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
 
-            var frontT = cabinet.GetFront(0);
+        //    Assert.Equal(295, front1.Width);
+        //    Assert.Equal(714, front1.Height);
+        //    Assert.Equal(18, front1.Depth);
+        //    Assert.Equal(301, front1.X);
+        //    Assert.Equal(3, front1.Y);
+        //    Assert.Equal(512, front1.Z);
+        //}
 
-            frontT.SetWidth(100);
-            frontT.SetHeight(620);
+        //[Fact]
+        //public void Dodanie_2_frontow_i_modyfikacja_2()
+        //{
+        //    var cabinet = new Cabinet();
 
-            cabinet.UpdateFront(frontT);
+        //    cabinet.AddFront(2, EnumFront.Pionowo);
 
-            front = cabinet.GetFront(0);
-            front1 = cabinet.GetFront(1);
+        //    var front = cabinet.GetAllFront().First();
+        //    var front1 = cabinet.GetAllFront().ElementAt(1);
 
-            Assert.Equal(2, cabinet.GetFrontList().Count);
+        //    Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            Assert.Equal(100, front.Width);
-            Assert.Equal(620, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
+        //    Assert.Equal(295, front.Width);
+        //    Assert.Equal(714, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
 
-            Assert.Equal(298, front1.Width);
-            Assert.Equal(720, front1.Height);
-            Assert.Equal(18, front1.Depth);
-            Assert.Equal(301, front1.X);
-            Assert.Equal(0, front1.Y);
-            Assert.Equal(510, front1.Z);
-        }
+        //    Assert.Equal(295, front1.Width);
+        //    Assert.Equal(714, front1.Height);
+        //    Assert.Equal(18, front1.Depth);
+        //    Assert.Equal(301, front1.X);
+        //    Assert.Equal(3, front1.Y);
+        //    Assert.Equal(512, front1.Z);
 
-        [Fact]
-        public void Dodanie_2_frontow_i_modyfikacja_2()
-        {
-            var cabinet = new Cabinet();
+        //    front1.SetWidth(100);
+        //    front1.SetHeight(620);
 
-            cabinet.AddFront(2, EnumFront.Pionowo);
+        //    cabinet.UpdateFront(front1);
 
-            var front = cabinet.GetFront(0);
-            var front1 = cabinet.GetFront(1);
+        //    front = cabinet.GetAllFront().First();
+        //    front1 = cabinet.GetAllFront().ElementAt(1);
+        //    Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            Assert.Equal(2, cabinet.GetFrontList().Count);
+        //    Assert.Equal(295, front.Width);
+        //    Assert.Equal(714, front.Height);
+        //    Assert.Equal(18, front.Depth);
+        //    Assert.Equal(3, front.X);
+        //    Assert.Equal(3, front.Y);
+        //    Assert.Equal(512, front.Z);
 
-            Assert.Equal(298, front.Width);
-            Assert.Equal(720, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
-
-            Assert.Equal(298, front1.Width);
-            Assert.Equal(720, front1.Height);
-            Assert.Equal(18, front1.Depth);
-            Assert.Equal(301, front1.X);
-            Assert.Equal(0, front1.Y);
-            Assert.Equal(510, front1.Z);
-
-            var frontT = cabinet.GetFront(1);
-
-            frontT.SetWidth(100);
-            frontT.SetHeight(620);
-
-            cabinet.UpdateFront(frontT);
-
-            front = cabinet.GetFront(0);
-            front1 = cabinet.GetFront(1);
-            Assert.Equal(2, cabinet.GetFrontList().Count);
-
-            Assert.Equal(298, front.Width);
-            Assert.Equal(720, front.Height);
-            Assert.Equal(18, front.Depth);
-            Assert.Equal(0, front.X);
-            Assert.Equal(0, front.Y);
-            Assert.Equal(510, front.Z);
-
-            Assert.Equal(100, front1.Width);
-            Assert.Equal(620, front1.Height);
-            Assert.Equal(18, front1.Depth);
-            Assert.Equal(301, front1.X);
-            Assert.Equal(0, front1.Y);
-            Assert.Equal(510, front1.Z);
-        }
+        //    Assert.Equal(100, front1.Width);
+        //    Assert.Equal(620, front1.Height);
+        //    Assert.Equal(18, front1.Depth);
+        //    Assert.Equal(301, front1.X);
+        //    Assert.Equal(3, front1.Y);
+        //    Assert.Equal(512, front1.Z);
+        //}
 
         [Fact]
         public void Dodanie_1_frontu_i_jego_usuniecie()
@@ -465,12 +464,12 @@ namespace XUnitTestCore
 
             cabinet.AddFront(1);
 
-            Assert.Single(cabinet.GetFrontList());
+            Assert.Single(cabinet.GetAllFront());
 
-            var front = cabinet.GetFront(0);
+            var front = cabinet.GetAllFront().First();
 
             cabinet.DeleteFront(front);
-            Assert.Empty(cabinet.GetFrontList());
+            Assert.Empty(cabinet.GetAllFront());
         }
 
         [Fact]
@@ -480,18 +479,18 @@ namespace XUnitTestCore
 
             cabinet.AddFront(3);
 
-            var frontList = cabinet.GetFrontList().ToList();
+            var frontList = cabinet.GetAllFront().ToList();
 
             Assert.Equal(3,frontList.Count);
 
 
-            var front = cabinet.GetFront(0);
+            var front = cabinet.GetAllFront().First();
 
             cabinet.DeleteFront(front);
 
-            Assert.Equal(2,cabinet.GetFrontList().Count);
+            Assert.Equal(2,cabinet.GetAllFront().Count);
 
-            Assert.NotEqual(cabinet.GetFrontList(),frontList);
+            Assert.NotEqual(cabinet.GetAllFront(),frontList);
 
         }
 
@@ -502,19 +501,19 @@ namespace XUnitTestCore
 
             cabinet.AddFront(3);
 
-            var frontList = cabinet.GetFrontList().ToList();
+            var frontList = cabinet.GetAllFront().ToList();
 
             Assert.Equal(3, frontList.Count);
 
 
-            var front = cabinet.GetFront(1);
+            var front = cabinet.GetAllFront().ElementAt(1);
 
             cabinet.DeleteFront(front);
 
             
-            Assert.Equal(2, cabinet.GetFrontList().Count);
+            Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            Assert.NotEqual(cabinet.GetFrontList(), frontList);
+            Assert.NotEqual(cabinet.GetAllFront(), frontList);
         }
 
         [Fact]
@@ -524,52 +523,52 @@ namespace XUnitTestCore
 
             cabinet.AddFront(3);
 
-            var frontList = cabinet.GetFrontList().ToList();
+            var frontList = cabinet.GetAllFront().ToList();
 
             Assert.Equal(3, frontList.Count);
 
 
-            var front = cabinet.GetFront(2);
+            var front = cabinet.GetAllFront().ElementAt(2);
 
             cabinet.DeleteFront(front);
 
 
-            Assert.Equal(2, cabinet.GetFrontList().Count);
+            Assert.Equal(2, cabinet.GetAllFront().Count);
 
-            Assert.NotEqual(cabinet.GetFrontList(), frontList);
+            Assert.NotEqual(cabinet.GetAllFront(), frontList);
         }
 
-        [Fact]
-        public void Dodanie_1_frontu_potem_jego_modyfikacja_i_dodanie_kolejnego()
-        {
-            var cabinet = new Cabinet();
+        //[Fact]
+        //public void Dodanie_1_frontu_potem_jego_modyfikacja_i_dodanie_kolejnego()
+        //{
+        //    var cabinet = new Cabinet();
 
-            cabinet.AddFront(1);
+        //    cabinet.AddFront(1);
 
-            var frontlist = cabinet.GetFrontList();
+        //    var frontlist = cabinet.GetAllFront();
 
-            Assert.Single(cabinet.GetFrontList());
-            Assert.Equal(594, frontlist[0].Width);
-            Assert.Equal(714, frontlist[0].Height);
-            Assert.Equal(18, frontlist[0].Depth);
-            Assert.Equal(3, frontlist[0].X);
-            Assert.Equal(3, frontlist[0].Y);
-            Assert.Equal(512, frontlist[0].Z);
+        //    Assert.Single(cabinet.GetAllFront());
+        //    Assert.Equal(594, frontlist[0].Width);
+        //    Assert.Equal(714, frontlist[0].Height);
+        //    Assert.Equal(18, frontlist[0].Depth);
+        //    Assert.Equal(3, frontlist[0].X);
+        //    Assert.Equal(3, frontlist[0].Y);
+        //    Assert.Equal(512, frontlist[0].Z);
 
-            var front = cabinet.GetFront(0);
+        //    var front = cabinet.GetAllFront().First();
 
-            front.SetWidth(200);
-            cabinet.UpdateFront(front);
+        //    front.SetWidth(200);
+        //    cabinet.UpdateFront(front);
 
-            cabinet.AddFront(1);
+        //    cabinet.AddFront(1);
 
-            Assert.Equal(2, cabinet.GetFrontCount());
-            Assert.Equal(200, cabinet.GetFrontList()[0].Width);
-            Assert.Equal(714, cabinet.GetFrontList()[0].Height);
-            Assert.Equal(18, cabinet.GetFrontList()[0].Depth);
-            Assert.Equal(3, cabinet.GetFrontList()[0].X);
-            Assert.Equal(3, cabinet.GetFrontList()[0].Y);
-            Assert.Equal(512, cabinet.GetFrontList()[0].Z);
-        }
+        //    Assert.Equal(2, cabinet.GetFrontCount());
+        //    Assert.Equal(200, cabinet.GetAllFront()[0].Width);
+        //    Assert.Equal(714, cabinet.GetAllFront()[0].Height);
+        //    Assert.Equal(18, cabinet.GetAllFront()[0].Depth);
+        //    Assert.Equal(3, cabinet.GetAllFront()[0].X);
+        //    Assert.Equal(3, cabinet.GetAllFront()[0].Y);
+        //    Assert.Equal(512, cabinet.GetAllFront()[0].Z);
+        //}
     }
 }

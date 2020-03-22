@@ -11,7 +11,7 @@ namespace CoreS.Interface
         List<ElementModelDTO> Delete(int delete);
         List<ElementModelDTO> Delete(ElementModelDTO element);
         //List<ElementModel> Delete(Guid guid);
-        List<ElementModelDTO> DeleteAll();
+        List<ElementModelDTO> Remove();
         
         List<ElementModelDTO> GetAll();
         //ElementModel Get(Guid guid);

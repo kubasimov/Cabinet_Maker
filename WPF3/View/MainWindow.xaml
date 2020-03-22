@@ -43,9 +43,6 @@
                 <ModelVisual3D Content="{Binding MyLight}"/>
                 <ModelVisual3D Content="{Binding MyModel3D}"/>
 
-                <!--<ModelVisual3D Content="{Binding MyLight}"/>
-
-                <ModelVisual3D Content="{Binding MyModel3D}"/>-->
 
             </Viewport3D>
 
@@ -60,14 +57,20 @@
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,8,0,0" Grid.Column="1" Text="{Binding MyCabinet.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
         </TextBox>
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,39,0,0" Grid.Column="1" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
             <Binding Path="MyCabinet.Height"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -79,7 +82,10 @@
         <TextBox HorizontalAlignment="Left" Height="26"  VerticalAlignment="Top" Width="120" Margin="154,70,0,0" Grid.Column="1" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus" >
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
             <Binding Path="MyCabinet.Width"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -91,7 +97,10 @@
         <TextBox HorizontalAlignment="Left" Height="26" Margin="154,101,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
             <Binding Path="MyCabinet.Depth"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -103,7 +112,10 @@
         <TextBox HorizontalAlignment="Left" Height="26" Margin="154,132,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
             <Binding Path="MyCabinet.SizeElement"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -115,7 +127,10 @@
         <TextBox HorizontalAlignment="Left" Height="26" Margin="154,163,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1" local:SelectAllFocusBehavior.Enable="True">
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="LostFocus">
-                    <Interactions:InvokeCommandAction Command="{Binding ReDrawCabinetCommand, Mode=OneWay}"/>
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenLostFocusCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+                <Interactions:EventTrigger EventName="PreviewKeyDown">
+                    <Interactions:InvokeCommandAction Command="{Binding ChangeCabinetWhenKeyDownCommand, Mode=OneWay}" PassEventArgsToCommand="True" />
                 </Interactions:EventTrigger>
             </Interactions:Interaction.Triggers>
             <Binding Path="MyCabinet.BackSize"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -129,7 +144,7 @@
         <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewFrontCommand, Mode=OneWay}" Height="20"/>
 
         <Button Content="Nowy" Grid.Column="1" HorizontalAlignment="Left" Margin="50,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}" Height="20" CommandParameter="{Binding ElementName=Viewport3D, Mode=OneWay}"/>
         <Button Content="Zakończ" Grid.Column="1" HorizontalAlignment="Left" Margin="150,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}" Height="20"/>
         <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,210,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
         <Button Content="Export" Grid.Column="1" HorizontalAlignment="Left" Margin="150,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ExportCommand, Mode=OneWay}" Height="20"/>
@@ -207,6 +222,7 @@
             <TextBlock Text="Y" Height="26"/>
             <TextBlock Text="Z" Height="26"/>
             <Button x:Name="DeleteBarrier" Command="{Binding DeleteElementHorizontalBarrierCommand}" Height="26" Content="Usun" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
+            <Button Content="RecalFront" Height="26" Command="{Binding RecalFrontCommand, Mode=OneWay}"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="4" Margin="0,10,0,0">
             <TextBox Name="MElement_Description" Text="{Binding MElement.Description, Mode=OneWay}" Height="26" local:SelectAllFocusBehavior.Enable="True">

@@ -1,9 +1,10 @@
-﻿using CoreS.Model;
+﻿using CoreS.Helpers;
+using CoreS.Model;
 using System.Collections.Generic;
 
 namespace CoreS.Factory
 {
-    public abstract class BarrierFactory
+    public abstract class BarrierFactory : MyLogger
     {
         protected Cabinet _cabinet;
         protected List<ElementModelDTO> elements;

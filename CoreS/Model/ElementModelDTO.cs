@@ -129,9 +129,7 @@ namespace CoreS.Model
 
         public ElementModelDTO()
         {
-            //_guid = Guid.NewGuid();
-            //ChangeHeight = false;
-
+            
         }
 
         public ElementModelDTO(string description, int height, int width, int depth, int x, int y, int z, EnumCabinetElement enumCabinet, bool horizontal)

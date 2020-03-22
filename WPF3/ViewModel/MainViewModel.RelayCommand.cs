@@ -17,11 +17,11 @@ namespace WPF3.ViewModel
                                           ?? (_myNewCommand =
                                               new RelayCommand(ExecuteNewCommand));
 
-        private RelayCommand _mySaveCommand;
+        private RelayCommand<object> _mySaveCommand;
 
-        public RelayCommand SaveCommand => _mySaveCommand
+        public RelayCommand<object> SaveCommand => _mySaveCommand
                                            ?? (_mySaveCommand =
-                                               new RelayCommand(ExecuteSaveCommand));
+                                               new RelayCommand<object>(ExecuteSaveCommand));
 
         private RelayCommand _myEndCommand;
 
@@ -119,14 +119,12 @@ namespace WPF3.ViewModel
 
         public RelayCommand AddFrontCommand => _myAddFrontCommand
             ?? (_myAddFrontCommand = new RelayCommand(ExecuteAddFrontCommand));
-
-
+        
         private RelayCommand _mydeleteFrontCommand;
 
         public RelayCommand DeleteFrontCommand => _mydeleteFrontCommand
             ?? (_mydeleteFrontCommand = new RelayCommand(ExecuteDeleteFrontCommand));
-
-
+        
         private RelayCommand _myremoveFrontCommand;
 
         public RelayCommand RemoveFrontCommand => _myremoveFrontCommand
@@ -136,22 +134,21 @@ namespace WPF3.ViewModel
 
         #region Declare RelayCommand
 
-        private RelayCommand _myReDrawCabinetCommand;
+        private RelayCommand _changeCabinetWhenLostFocusCommand;
 
-        public RelayCommand ReDrawCabinetCommand => _myReDrawCabinetCommand ??
-                                                    (_myReDrawCabinetCommand =
-                                                        new RelayCommand(ExecuteReDrawCabinetCommand));
+        public RelayCommand ChangeCabinetWhenLostFocusCommand => _changeCabinetWhenLostFocusCommand 
+                    ?? (_changeCabinetWhenLostFocusCommand = new RelayCommand(ExecutechangeCabinetWhenLostFocusCommand));
+                
+        private RelayCommand<KeyEventArgs> _changeCabinetWhenKeyDownCommand;
 
+        public RelayCommand<KeyEventArgs> ChangeCabinetWhenKeyDownCommand => _changeCabinetWhenKeyDownCommand
+                    ?? (_changeCabinetWhenKeyDownCommand = new RelayCommand<KeyEventArgs>(ExecuteChangeCabinetWhenKeyDownCommand));
+                
         private RelayCommand<object> _myElementTreeView;
 
-        public RelayCommand<object> MyElementTreeView
-        {
-            get
-            {
-                return _myElementTreeView
+        public RelayCommand<object> MyElementTreeView => _myElementTreeView
                     ?? (_myElementTreeView = new RelayCommand<object>(ExecuteMyElementTreeView));
-            }
-        }
+            
 
         #endregion
 
@@ -176,31 +173,35 @@ namespace WPF3.ViewModel
         public RelayCommand<object> DeleteElementHorizontalBarrierCommand => _deleteElementHorizontalBarrierCommand
                     ?? (_deleteElementHorizontalBarrierCommand = new RelayCommand<object>(ExecuteDeleteElementHorizontalBarrierCommand));
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        private RelayCommand _RecalFrontCommand;
+
+        public RelayCommand RecalFrontCommand => _RecalFrontCommand
+                                            ?? (_RecalFrontCommand = new RelayCommand(ExecuteRecalFrontCommand));
+
+        private void ExecuteRecalFrontCommand()
+        {
+            _cabinet.FrontRecall();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private RelayCommand _TreeViewContextMenuCommand;
 
         public RelayCommand TreeViewContextMenuCommand => _TreeViewContextMenuCommand

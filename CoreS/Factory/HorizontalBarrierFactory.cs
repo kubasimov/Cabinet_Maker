@@ -11,30 +11,37 @@ namespace CoreS.Factory
 {
     public class HorizontalBarrierFactory:BarrierFactory, IElementRepository
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         private Dictionary<int, List< ElementModelDTO>> _elem;  //tablica poziomow - Dictionary<poziom,elementy_na_danym_poziomie>
-       
+
         public HorizontalBarrierFactory(Cabinet cabinet)
         {
+            Logger.Info("HorizontalBarrierFactory Constructor");
             _cabinet = cabinet;
             elements=new List<ElementModelDTO>();
             _elem = new Dictionary<int, List<ElementModelDTO>>();
                        
         }
-        
+
         public List<ElementModelDTO> NewBarrier(BarrierParameter barrierParameter)
         {
+            Logger.Info("NewBarrier(BarrierParameter barrierParameter) in HorizontalBarrierFactory");
+            Logger.Debug("barrierParameter: {0} ", barrierParameter);
             Number = barrierParameter.Number;
 
             back = barrierParameter.Back;
-
             Height = barrierParameter.Height;
 
-            if (Height!=null && Height.Count>0)
+            try
             {
-                if(Height.Last() - Number * _cabinet.SizeElement() < 0)
-                    throw new ArgumentOutOfRangeException();
+                if (Height != null && Height.Count > 0)
+                {
+                    if (Height.Last() - Number * _cabinet.SizeElement() < 0)
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error NewBarrier");
             }
             
             return Recalculate(barrierParameter.GetBarrier());
@@ -42,11 +49,14 @@ namespace CoreS.Factory
 
         public List<ElementModelDTO> ReCount()
         {
+            Logger.Info("ReCount() in HorizontalBarrierFactory");
             return Recalculate(Permutation.Get(_cabinet.VerticalBarrier.Count));
         }
 
         public List<ElementModelDTO> Add(int element)
         {
+            Logger.Info("Add(int element) in HorizontalBarrierFactory");
+            Logger.Debug("element: {0} ", element); 
             try
             {
                 if (element < 0)
@@ -65,6 +75,8 @@ namespace CoreS.Factory
 
         public List<ElementModelDTO> AddEvery(int size)
         {
+            Logger.Info("AddEvery(int size) in HorizontalBarrierFactory");
+            Logger.Debug("size: {0} ", size);
             try
             {
                 if (size < 0)
@@ -100,8 +112,22 @@ namespace CoreS.Factory
             }
         }
 
+        public List<ElementModelDTO> Add(List<ElementModelDTO> list)
+        {
+            Logger.Info("Add(List<ElementModelDTO> list) in HorizontalBarrierFactory");
+            Logger.Debug("list: {0} ", list);
+            elements = new List<ElementModelDTO>();
+            foreach (var item in list)
+            {
+                elements.Add(item);
+            }
+            return elements;
+        }
+
         public List<ElementModelDTO> Delete(int delete)
         {
+            Logger.Info("Delete(int delete) in HorizontalBarrierFactory");
+            Logger.Debug("delete: {0} ", delete);
             try
             {
                 Number -= delete;
@@ -120,19 +146,21 @@ namespace CoreS.Factory
 
         public List<ElementModelDTO> Delete(ElementModelDTO element)
         {
+            Logger.Info("Delete(ElementModelDTO element) in HorizontalBarrierFactory");
+            Logger.Debug("element: {0} ", element);
             var findElement = elements.Find(x => x.GetGuid() == element.GetGuid());
             if (findElement!=null)
             {
                 elements.Remove(findElement);
                 Number -= 1;
             }
-            
 
             return elements;
         }
 
-        public List<ElementModelDTO> DeleteAll()
+        public List<ElementModelDTO> Remove()
         {
+            Logger.Info("Remove() in HorizontalBarrierFactory");
             Number = 0;
             elements = new List<ElementModelDTO>();
             return elements;
@@ -140,11 +168,52 @@ namespace CoreS.Factory
 
         public List<ElementModelDTO> GetAll()
         {
+            Logger.Info("GetAll() in HorizontalBarrierFactory");
             return elements;
         }
-               
+
+        public List<ElementModelDTO> Update(EnumElementParameter parameter, string text, int result, ElementModelDTO elementModelDTO)
+        {
+            Logger.Info("Update(EnumElementParameter parameter, string text, int result, ElementModelDTO elementModelDTO) in HorizontalBarrierFactory");
+            Logger.Debug("Parameter: {0}, Text:, {1}, Result: {2}, ElemenModelDTO: {3}", parameter, text, result, elementModelDTO);
+            if (!elements.Exists(x => x.GetGuid() == elementModelDTO.GetGuid())) return elements;
+
+            var item = elements.Find(x => x.GetGuid() == elementModelDTO.GetGuid());
+
+            switch (parameter)
+            {
+                case EnumElementParameter.Width:
+                    item.SetWidth(result);
+                    break;
+                case EnumElementParameter.Height:
+                    item.SetHeight(result);
+                    break;
+                case EnumElementParameter.Depth:
+                    item.SetDepth(result);
+                    break;
+                case EnumElementParameter.Description:
+                    item.SetDescription(text);
+                    break;
+                case EnumElementParameter.X:
+                    item.SetX(result);
+                    break;
+                case EnumElementParameter.Y:
+                    item.SetY(result);
+                    break;
+                case EnumElementParameter.Z:
+                    item.SetZ(result);
+                    break;
+                default:
+                    break;
+            }
+
+            return elements;
+        }
+
         private List<ElementModelDTO> Recalculate(List<int> barrier)
         {
+            Logger.Info("Recalculate(List<int> barrier) in HorizontalBarrierFactory");
+            Logger.Debug("barrier: {0} ", barrier);
             elements = new List<ElementModelDTO>();
             
             _elem = new Dictionary<int, List<ElementModelDTO>>();
@@ -207,6 +276,8 @@ namespace CoreS.Factory
         //Wyliczanie szerokosci poziomu dla danej kolumny
         private int TempWidth(int column)
         {
+            Logger.Info("TempWidth(int column) in HorizontalBarrierFactory");
+            Logger.Debug("column: {0} ", column);
             if (_cabinet.VerticalBarrier.Count > 0)
             {
                 //skrajna lewa kolumna
@@ -237,6 +308,7 @@ namespace CoreS.Factory
         //Dodawanie elementów w danej kolumnie
         private void AddElement()
         {
+            Logger.Info("AddElement() in HorizontalBarrierFactory"); 
             for (var i = 0; i < Number; i++)
             {
                 var element = new ElementModelDTO("Poziom", tempWidth, tempHeight, tempDepth, tempEx, TempHeight[i], 0, EnumCabinetElement.HorizontalBarrier, true);
@@ -248,6 +320,7 @@ namespace CoreS.Factory
         //Wyliczanie wysokosci poziomów
         private List<int> List_of_Horizontal_Height()
         {
+            Logger.Info("List_of_Horizontal_Height() in HorizontalBarrierFactory");
             var list = new List<int>();
 
             if (Height != null && Height.Count > 0) // zadane wysokosci polek
@@ -296,5 +369,6 @@ namespace CoreS.Factory
 
             return list;
         }
+
     }
 }

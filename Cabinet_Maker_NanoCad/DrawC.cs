@@ -12,7 +12,7 @@ namespace Cabinet_Maker_NanoCad
             var polylinesKorpus = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.CabinetElements, ptStart);
             var polylinesVertcalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.VerticalBarrier, ptStart);
             var polylinesHorizontalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.HorizontalBarrier, ptStart);
-            var polylinesFront = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.GetFrontList(), ptStart);
+            var polylinesFront = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.GetAllFront(), ptStart);
                        
             draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
             draw.DrawObjectsFromPolylineList(polylinesVertcalBarrier, "Korpus");
@@ -26,7 +26,7 @@ namespace Cabinet_Maker_NanoCad
             var draw = new Draw();
 
             var polylinesKorpus = MyRectangleOnTop.GetPolylineListFromCabinetElements(cabinet.CabinetElements, ptStart);
-            var polylinesFront = MyRectangleOnTop.GetPolylineListFromFrontList(cabinet.GetFrontList(), ptStart);
+            var polylinesFront = MyRectangleOnTop.GetPolylineListFromFrontList(cabinet.GetAllFront(), ptStart);
             
             draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
             draw.DrawObjectsFromPolylineList(polylinesFront, "Fronty");

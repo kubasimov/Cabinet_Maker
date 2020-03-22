@@ -137,16 +137,17 @@ namespace XUnitTestCore
 
         }
 
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(-2)]
-        [InlineData(-6)]
-        [InlineData(-1000)]
-        public void szybkie_dodanie_blednej_ilosci_przegrod(int i)
-        {
-            var cabinet = new Cabinet();
-            Assert.Throws<ArgumentException>(()=>cabinet.AddHorizontalBarrier(i));
-        }
+        // TODO tymczasowe zalozenie - niemozliwosc podania blednej ilosc
+        //[Theory]
+        //[InlineData(-1)]
+        //[InlineData(-2)]
+        //[InlineData(-6)]
+        //[InlineData(-1000)]
+        //public void szybkie_dodanie_blednej_ilosci_przegrod(int i)
+        //{
+        //    var cabinet = new Cabinet();
+        //    Assert.Throws<ArgumentException>(()=>cabinet.AddHorizontalBarrier(i));
+        //}
 
         [Theory]
         [InlineData(2, 1, 1)]
@@ -176,7 +177,7 @@ namespace XUnitTestCore
             cabinet.AddHorizontalBarrier(start);
             cabinet.GetAllHorizontalBarrier().Count.Should().Be(start);
 
-            cabinet.DeleteAllHorizontalBarrier();
+            cabinet.RemoveHorizontalBarrier();
             cabinet.GetAllHorizontalBarrier().Count.Should().Be(end);
         }
 
@@ -616,14 +617,6 @@ namespace XUnitTestCore
 
         }
 
-        [Fact]
-        public void CheckMapperAddBarier()
-        {
-            var cabinet = new Cabinet();
-            cabinet.AddHorizontalBarrier(1);
-
-            var z = cabinet.GetAllHorizontalBarrier();
-
-        }
+        
     }
 }

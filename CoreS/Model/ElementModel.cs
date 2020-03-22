@@ -1,6 +1,7 @@
 ﻿using CoreS.Enum;
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 namespace CoreS.Model
 {
@@ -35,73 +36,73 @@ namespace CoreS.Model
         }
         public EnumCabinetElement GetEnumName() => _enumCabinet;    //Wewnetrzna nazwa elementu
         
-        public void SetDescription(string value)
+        public void SetDescription(string value,bool change=true)
         {
             if (value != Description)
             {
                 Description = value;
-                ChangeDescription = true;
+                if(change) ChangeDescription = true;
             }
         }
         
-        public void SetHeight(int value)
+        public void SetHeight(int value, bool change = true)
         {
             if (value >= 0 && value != Height)
             {
                 Height = value;
-                ChangeHeight = true;
+                if (change) ChangeHeight = true;
             }
         }
         
-        public void SetWidth(int value)
+        public void SetWidth(int value, bool change = true)
         {
             if (value >= 0 && value != Width)
             {
                 Width = value;
-                ChangeWidth = true;
+                if (change) ChangeWidth = true;
             }
 
         }
         
-        public void SetDepth(int value)
+        public void SetDepth(int value, bool change = true)
         {
             if (value >= 0 && value != Depth)
             {
                 Depth = value;
-                ChangeDepth = true;
+                if (change) ChangeDepth = true;
             }
         }
         
 
-        public void SetX(int value)
+        public void SetX(int value, bool change = true)
         {
             if (value != X)
             {
                 X = value;
-                ChangeX = true;
+                if (change) ChangeX = true;
             }
         }
         
-        public void SetY(int value)
+        public void SetY(int value, bool change = true)
         {
             if (value != Y)
             {
                 Y = value;
-                ChangeY = true;
+                if (change) ChangeY = true;
             }
         }
         
-        public void SetZ(int value)
+        public void SetZ(int value, bool change = true)
         {
             if (value != Z)
             {
                 Z = value;
-                ChangeZ = true;
+                if (change) ChangeZ = true;
             }
         }
         
         
-        public void SetHorizontal(bool value)
+        public void SetHorizontal(bool value, bool change = true)
         {
             Horizontal = value;
         }
@@ -120,9 +121,7 @@ namespace CoreS.Model
 
         public ElementModel()
         {
-            //_guid = Guid.NewGuid();
-            //ChangeHeight = false;
-
+            
         }
 
         public ElementModel(string description, int height, int width, int depth, int x, int y, int z, EnumCabinetElement enumCabinet, bool horizontal)
@@ -164,7 +163,21 @@ namespace CoreS.Model
             };
         }
 
-        
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendFormat("Description: {0}{1}", Description, Environment.NewLine);
+            
+            stringBuilder.AppendFormat("Height: {0}, Width: {1}, Depth: {2}{3}", Height, Width, Depth, Environment.NewLine);
+            
+            stringBuilder.AppendFormat("x: {0},y: {1}, z: {2}{3}", X, Y, Z, Environment.NewLine);
+            
+            stringBuilder.AppendFormat("EnumCabinet: {0}{1}", _enumCabinet.ToString(), Environment.NewLine);
+
+            stringBuilder.AppendFormat("Horizontal: {0}", Horizontal);
+
+            return stringBuilder.ToString();
+        }
 
     }
 

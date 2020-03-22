@@ -50,7 +50,7 @@ namespace Cabinet_Maker_NanoCad
                 var polylinesKorpus = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.CabinetElements, ptStart);
                 var polylinesVertcalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.VerticalBarrier, ptStart);
                 var polylinesHorizontalBarrier = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.HorizontalBarrier, ptStart);
-                var polylinesFront = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.GetFrontList(), ptStart);
+                var polylinesFront = MyRectangleOnFront.GetPolylineListFromElementModelList(cabinet.GetAllFront(), ptStart);
 
                 
                 draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
@@ -63,7 +63,7 @@ namespace Cabinet_Maker_NanoCad
                     var alignedCabinetDimensions = MyDimension.CabinetDimension(cabinet.CabinetElements, ptStart);
                     var alignedVerticalBarrierDimension = MyDimension.VerticalBarrier(cabinet.VerticalBarrier, ptStart);
                     var alignedHorizontalBarrierDimension = MyDimension.HorizontalBarrier(cabinet.HorizontalBarrier, ptStart);
-                    var alignedFrontDimension = MyDimension.Front(cabinet.GetFrontList(), ptStart);
+                    var alignedFrontDimension = MyDimension.Front(cabinet.GetAllFront(), ptStart);
 
                     draw.DrawDimensionList(alignedCabinetDimensions, "Wymiary_korpusu");
                     draw.DrawDimensionList(alignedVerticalBarrierDimension, "Wymiary_korpusu");
@@ -74,7 +74,7 @@ namespace Cabinet_Maker_NanoCad
             else if (_orientationDraw == 1)
             {
                 var polylinesKorpus = MyRectangleOnTop.GetPolylineListFromCabinetElements(cabinet.CabinetElements, ptStart);
-                var polylinesFront = MyRectangleOnTop.GetPolylineListFromFrontList(cabinet.GetFrontList(), ptStart);
+                var polylinesFront = MyRectangleOnTop.GetPolylineListFromFrontList(cabinet.GetAllFront(), ptStart);
 
 
                 draw.DrawObjectsFromPolylineList(polylinesKorpus, "Korpus");
