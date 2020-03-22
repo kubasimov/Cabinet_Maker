@@ -733,7 +733,6 @@ namespace CoreS
 
             RedrawCabinetElements();
         }
-
         
         public void Redraw()
         {

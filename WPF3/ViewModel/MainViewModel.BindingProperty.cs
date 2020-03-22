@@ -145,7 +145,30 @@ namespace WPF3.ViewModel
             }
         }
 
+        
+        
+        public const string FilenameListPropertyName = "FilenameList";
 
+        private List<string> _filenameList;
+
+        public List<string> FilenameList
+        {
+            get
+            {
+                return _filenameList;
+            }
+
+            set
+            {
+                if (_filenameList == value)
+                {
+                    return;
+                }
+
+                _filenameList = value;
+                RaisePropertyChanged(FilenameListPropertyName);
+            }
+        }
 
 
         public class TempCabinet

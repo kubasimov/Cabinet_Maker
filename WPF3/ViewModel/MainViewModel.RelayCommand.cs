@@ -185,6 +185,13 @@ namespace WPF3.ViewModel
         }
 
 
+        private RelayCommand<string> _loadFileFromListViewCommand;
+
+        public RelayCommand<string> LoadFileFromListViewCommand => _loadFileFromListViewCommand
+                                            ?? (_loadFileFromListViewCommand = new RelayCommand<string>(ExecuteLoadFileFromListViewCommand));
+
+        
+
 
 
 

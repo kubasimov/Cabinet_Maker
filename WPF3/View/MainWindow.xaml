@@ -10,9 +10,9 @@
 
         x:Class="WPF3.View.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1218"
+        Title="MainWindow" Height="484" Width="1218"
         DataContext="{Binding MainView, Source={StaticResource Locator}}" >
-    
+
     <Grid x:Name="Grid" RenderTransformOrigin="0.5,0.5">
 
         <Grid.ColumnDefinitions>
@@ -139,26 +139,26 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <Button Content="Nowe przegrody pionowe" Grid.Column="1" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Nowe przegrody poziome" Grid.Column="1" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Nowe przegrody pionowe" Grid.Column="1" HorizontalAlignment="Left" Margin="4,200,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Nowe przegrody poziome" Grid.Column="1" HorizontalAlignment="Left" Margin="4,225,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Dodaj front" Grid.Column="1" HorizontalAlignment="Left" Margin="4,250,0,0" VerticalAlignment="Top" Width="153" Command="{Binding NewFrontCommand, Mode=OneWay}" Height="20"/>
 
-        <Button Content="Nowy" Grid.Column="1" HorizontalAlignment="Left" Margin="50,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Zapisz" Grid.Column="1" HorizontalAlignment="Left" Margin="50,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}" Height="20" CommandParameter="{Binding ElementName=Viewport3D, Mode=OneWay}"/>
-        <Button Content="Zakończ" Grid.Column="1" HorizontalAlignment="Left" Margin="150,372,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,210,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Export" Grid.Column="1" HorizontalAlignment="Left" Margin="150,347,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ExportCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,235,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="193,210,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="193,235,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="216,210,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="216,235,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Wczytaj" Grid.Column="1" HorizontalAlignment="Left" Margin="50,322,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ReadCabinetCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="Schowek" Grid.Column="1" HorizontalAlignment="Left" Margin="150,322,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ClipboardCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="170,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddFrontCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="193,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteFrontCommand, Mode=OneWay}" Height="20"/>
-        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="216,260,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveFrontCommand, Mode=OneWay}" Height="20"/>
-        <TextBox x:Name="textBoxHorizontalSize" local:SelectAllFocusBehavior.Enable="True" Grid.Column="1" HorizontalAlignment="Left" Margin="239,235,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="20">
+        <Button Content="Nowy" Grid.Column="3" HorizontalAlignment="Left" Margin="6,351,0,0" VerticalAlignment="Top" Width="95" Command="{Binding NewCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Zapisz" Grid.Column="3" HorizontalAlignment="Left" Margin="6,401,0,0" VerticalAlignment="Top" Width="95" Command="{Binding SaveCommand, Mode=OneWay}" Height="20" CommandParameter="{Binding ElementName=Viewport3D, Mode=OneWay}"/>
+        <Button Content="Zakończ" Grid.Column="3" HorizontalAlignment="Left" Margin="105,401,0,0" VerticalAlignment="Top" Width="95" Command="{Binding EndCommand, Mode=OneWay}" Height="20" Grid.ColumnSpan="2"/>
+        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="164,200,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Excel Export" Grid.Column="3" HorizontalAlignment="Left" Margin="105,376,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ExportCommand, Mode=OneWay}" Height="20" Grid.ColumnSpan="2"/>
+        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="164,225,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="187,200,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="187,225,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="210,200,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveVerticalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="210,225,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveHorizontalBarrierCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Wczytaj" Grid.Column="3" HorizontalAlignment="Left" Margin="6,376,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ReadCabinetCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="Schowek" Grid.Column="3" HorizontalAlignment="Left" Margin="105,351,0,0" VerticalAlignment="Top" Width="95" Command="{Binding ClipboardCommand, Mode=OneWay}" Height="20" Grid.ColumnSpan="2"/>
+        <Button Content="+" Grid.Column="1" HorizontalAlignment="Left" Margin="164,250,0,0" VerticalAlignment="Top" Width="18" Command="{Binding AddFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="187,250,0,0" VerticalAlignment="Top" Width="18" Command="{Binding DeleteFrontCommand, Mode=OneWay}" Height="20"/>
+        <Button Content="x" Grid.Column="1" HorizontalAlignment="Left" Margin="210,250,0,0" VerticalAlignment="Top" Width="18" Command="{Binding RemoveFrontCommand, Mode=OneWay}" Height="20"/>
+        <TextBox x:Name="textBoxHorizontalSize" local:SelectAllFocusBehavior.Enable="True" Grid.Column="1" HorizontalAlignment="Left" Margin="233,225,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="20">
             <Binding Path="HorizontalSize"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                 <Binding.ValidationRules>
                     <local:ValidateTextBox MinValue="0" MaxValue="2500000"/>
@@ -174,8 +174,8 @@
         </TextBox>
 
 
-        <TreeView x:Name="treeView" Grid.Column="2" HorizontalAlignment="Center" Height="414" Margin="0,8,0,0" VerticalAlignment="Top" Width="168" ItemsSource="{Binding CabinetView}">
-            
+        <TreeView x:Name="treeView" Grid.Column="2" HorizontalAlignment="Center" Height="237" Margin="0,8,0,0" VerticalAlignment="Top" Width="168" ItemsSource="{Binding CabinetView}">
+
             <Interactions:Interaction.Triggers>
                 <Interactions:EventTrigger EventName="SelectedItemChanged" >
                     <Interactions:InvokeCommandAction Command="{Binding MyElementTreeView, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
@@ -188,9 +188,9 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Type}" Value="menu">
                             <Setter Property="TreeViewItem.IsSelected" Value="True"/>
-                            
+
                         </DataTrigger>
-                        
+
                     </Style.Triggers>
                 </Style>
             </TreeView.ItemContainerStyle>
@@ -198,11 +198,11 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ElementModels}">
                     <TextBlock Text="{Binding Name}"/>
-                    
+
                     <HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Description, Mode=OneWay}">
-                                
+
                             </TextBlock>
 
                         </DataTemplate>
@@ -213,7 +213,7 @@
             </TreeView.ItemTemplate>
 
         </TreeView>
-        <StackPanel Orientation="Vertical" Grid.Column="3" Margin="0,10,0,0">
+        <StackPanel Orientation="Vertical" Grid.Column="3" Margin="0,10,0,235">
             <TextBlock Text="Nazwa" Height="26" />
             <TextBlock Text="Dlugosc" Height="26"/>
             <TextBlock Text="Szerokosc" Height="26"/>
@@ -221,13 +221,11 @@
             <TextBlock Text="X" Height="26"/>
             <TextBlock Text="Y" Height="26"/>
             <TextBlock Text="Z" Height="26"/>
-            <Button x:Name="DeleteBarrier" Command="{Binding DeleteElementHorizontalBarrierCommand}" Height="26" Content="Usun" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}"/>
-            <Button Content="RecalFront" Height="26" Command="{Binding RecalFrontCommand, Mode=OneWay}"/>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="4" Margin="0,10,0,0">
+        <StackPanel Orientation="Vertical" Grid.Column="4" Margin="0,10,0,235">
             <TextBox Name="MElement_Description" Text="{Binding MElement.Description, Mode=OneWay}" Height="26" local:SelectAllFocusBehavior.Enable="True">
                 <Interactions:Interaction.Triggers>
-                     <Interactions:EventTrigger EventName="LostFocus">
+                    <Interactions:EventTrigger EventName="LostFocus">
                         <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Description, Mode=OneWay}"/>
                     </Interactions:EventTrigger>
                 </Interactions:Interaction.Triggers>
@@ -245,7 +243,7 @@
                     <Interactions:EventTrigger EventName="LostFocus">
                         <Interactions:InvokeCommandAction Command="{Binding ChangeTextWhenLostFocusCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=MElement_Height, Mode=OneWay}" />
                     </Interactions:EventTrigger>
-                    
+
 
                 </Interactions:Interaction.Triggers>
             </TextBox>
@@ -325,6 +323,20 @@
                 </Interactions:Interaction.Triggers>
             </TextBox>
         </StackPanel>
+        <Button x:Name="DeleteBarrier" Command="{Binding DeleteElementHorizontalBarrierCommand}" Content="Usun" CommandParameter="{Binding SelectedItem, ElementName=treeView, Mode=OneWay}" Grid.Column="2" Margin="10,255,83,193" Width="95" Height="20"/>
+        <Button Content="RecalFront" Command="{Binding RecalFrontCommand, Mode=OneWay}" Grid.Column="3" Margin="108,284,10,164" Grid.ColumnSpan="2" Width="95" Height="20"/>
+        <ListView x:Name="listView" Grid.Column="1" Margin="10,283,10,10" ItemsSource="{Binding FilenameList}">
+            <Interactions:Interaction.Triggers>
+                <Interactions:EventTrigger EventName="MouseDoubleClick">
+                    <Interactions:InvokeCommandAction CommandParameter="{Binding SelectedItem, ElementName=listView}" Command="{Binding LoadFileFromListViewCommand, Mode=OneWay}"/>
+                </Interactions:EventTrigger>
+            </Interactions:Interaction.Triggers>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
 
     </Grid>

@@ -63,6 +63,18 @@ namespace WPF3.ViewModel
             }
         }
 
+        private void ExecuteLoadFileFromListViewCommand(string str)
+        {
+            Logger.Info("ExecuteLoadFileFromListViewCommand(string str) in MainViewModel");
+            Logger.Debug("str: {0}", str);
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", str + ".json");
+            _cabinet.Deserialize(path);
+            _model3D = CreateCabinet();
+            ReloadMyCabinet();
+            RaisePropertyChanged(MyModel3DPropertyName);
+        }
+
+
         private void ExecuteEndCommand()
         {
             Logger.Info("ExecuteEndCommand in MainViewModel");

@@ -3,7 +3,9 @@ using CoreS.Model;
 using GalaSoft.MvvmLight;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using WPF3.Interface;
@@ -23,6 +25,8 @@ namespace WPF3.ViewModel
 
             _myCabinet = new TempCabinet();
 
+            _filenameList = new List<string>();
+
             //Cabinet.AddBack();
             Logger.Trace("Main ViewModel");
             if (IsInDesignMode)
@@ -34,6 +38,8 @@ namespace WPF3.ViewModel
                 RaisePropertyChanged(MyLightPropertyName);
 
                 RaisePropertyChanged(CabinetViewPropertyName);
+
+                ReadCabinetMakerDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
             }
             else
             {
@@ -44,10 +50,22 @@ namespace WPF3.ViewModel
                 RaisePropertyChanged(MyLightPropertyName);
 
                 RaisePropertyChanged(CabinetViewPropertyName);
+
+                ReadCabinetMakerDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
             }
             
         }
-        
+
+        private void ReadCabinetMakerDirectory(string targetDirectory)
+        {
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            foreach (string fileName in fileEntries)
+            {
+                _filenameList.Add(Path.GetFileNameWithoutExtension(fileName));
+            }
+            RaisePropertyChanged(FilenameListPropertyName);
+        }
+
         private Model3D CreateCabinet()
         {
             Logger.Trace("Create Model3D Cabinet in MainViewModel");
