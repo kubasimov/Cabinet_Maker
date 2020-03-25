@@ -13,9 +13,12 @@ namespace WPF3.ViewModel
 
         private RelayCommand _myNewCommand;
 
-        public RelayCommand NewCommand => _myNewCommand
-                                          ?? (_myNewCommand =
-                                              new RelayCommand(ExecuteNewCommand));
+        public RelayCommand GetNewCommand()
+        {
+            return _myNewCommand
+            ?? (_myNewCommand =
+                new RelayCommand(ExecuteNewCommand));
+        }
 
         private RelayCommand<object> _mySaveCommand;
 

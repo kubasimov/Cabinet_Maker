@@ -1,5 +1,6 @@
 using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using NLog;
 using WPF3.Implement;
 using WPF3.Interface;
 
@@ -11,11 +12,13 @@ namespace WPF3.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
+            Logger.Info("ViewModelLocator initialize constructor");
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             
@@ -28,20 +31,55 @@ namespace WPF3.ViewModel
             SimpleIoc.Default.Register<TreeViewTestViewModel>();
             
         }
+        public MainViewModel MainView
+        {
+            get
+            {
+                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<MainViewModel>");
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
 
-        public MainViewModel MainView => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public HorizontalBarrierViewModel HorizontalBarrierView
+        {
+            get
+            {
+                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>");
+                return ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>();
+            }
+        }
 
-        public HorizontalBarrierViewModel HorizontalBarrierView => ServiceLocator.Current.GetInstance<HorizontalBarrierViewModel>();
+        public VerticalBarrierViewModel VerticalBarrierView
+        {
+            get
+            {
+                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<VerticalBarrierViewModel>");
+                return ServiceLocator.Current.GetInstance<VerticalBarrierViewModel>();
+            }
+        }
 
-        public VerticalBarrierViewModel VerticalBarrierView => ServiceLocator.Current.GetInstance<VerticalBarrierViewModel>();
+        public FrontViewModel FrontView
+        {
+            get
+            {
+                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<FrontViewModel>");
+                return ServiceLocator.Current.GetInstance<FrontViewModel>();
+            }
+        }
 
-        public FrontViewModel FrontView => ServiceLocator.Current.GetInstance<FrontViewModel>();
-
-        public TreeViewTestViewModel TreeViewTestModel => ServiceLocator.Current.GetInstance<TreeViewTestViewModel>();
+        public TreeViewTestViewModel TreeViewTestModel
+        {
+            get
+            {
+                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<TreeViewTestViewModel>");
+                return ServiceLocator.Current.GetInstance<TreeViewTestViewModel>();
+            }
+        }
 
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            Logger.Info("ViewModelLocator Cleanup()");
+
         }
     }
 }

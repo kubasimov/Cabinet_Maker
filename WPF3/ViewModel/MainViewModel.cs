@@ -31,19 +31,19 @@ namespace WPF3.ViewModel
             Logger.Trace("Main ViewModel");
             if (IsInDesignMode)
             {
-                Logger.Trace("InDesignMode");
-                NewCabinet();
+                //Logger.Trace("InDesignMode");
+                //NewCabinet();
 
-                _myLight = CreateLight();
-                RaisePropertyChanged(MyLightPropertyName);
+                //_myLight = CreateLight();
+                //RaisePropertyChanged(MyLightPropertyName);
 
-                RaisePropertyChanged(CabinetViewPropertyName);
+                //RaisePropertyChanged(CabinetViewPropertyName);
 
-                ReadCabinetMakerDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
+                //ReadCabinetMakerDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
             }
             else
             {
-                Logger.Trace("! InDesignMode");
+                Logger.Info("! InDesignMode");
                 NewCabinet();
                 
                 _myLight = CreateLight();
@@ -58,6 +58,8 @@ namespace WPF3.ViewModel
 
         private void ReadCabinetMakerDirectory(string targetDirectory)
         {
+            Logger.Info("ReadCabinetMakerDirectory(string targetDirectory)");
+            Logger.Debug("targetDirectory: {0}", targetDirectory);
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             foreach (string fileName in fileEntries)
             {
@@ -68,7 +70,7 @@ namespace WPF3.ViewModel
 
         private Model3D CreateCabinet()
         {
-            Logger.Trace("Create Model3D Cabinet in MainViewModel");
+            Logger.Info("Create Model3D Cabinet in MainViewModel");
             GeometryModel3D myGeometryModel = new GeometryModel3D();
 
             MeshGeometry3D myMeshGeometry3D = new MeshGeometry3D();
@@ -112,7 +114,7 @@ namespace WPF3.ViewModel
              
             myGeometryModel.Material = myMaterial;
 
-            Logger.Trace("Create CabinetView in Model3DCabinet/MainViewModel");
+            Logger.Info("Create CabinetView in Model3DCabinet/MainViewModel");
             GenerateCabinetView();
             
             return myGeometryModel;
@@ -120,7 +122,7 @@ namespace WPF3.ViewModel
 
         private void GenerateCabinetView()
         {
-            Logger.Trace("Create CabinetView in MainViewModel");
+            Logger.Info("Create CabinetView in MainViewModel");
 
             var GeneralElement = new Elements("Elementy g³ówne");
             foreach (ElementModel item in _cabinet.CabinetElements)
@@ -236,7 +238,7 @@ namespace WPF3.ViewModel
         
         private Model3D CreateLight()
         {
-            Logger.Trace("Create Light in MainViewModel");
+            Logger.Info("Create Light in MainViewModel");
             return new DirectionalLight
             {
                 Color = Colors.White, Direction = new Vector3D(-5, -5, -5)
@@ -374,7 +376,7 @@ namespace WPF3.ViewModel
 
         private void NewCabinet()
         {
-            Logger.Trace("New Cabinet in MainViewModel");
+            Logger.Info("New Cabinet in MainViewModel");
             _myCabinet.Name = "Default";
             _myCabinet.Height = 720.ToString();
             _myCabinet.Width = 600.ToString();
@@ -382,10 +384,10 @@ namespace WPF3.ViewModel
             _myCabinet.SizeElement = 18.ToString();
             _myCabinet.BackSize = 3.ToString();
 
-            Logger.Trace("Create Cabinet in NewCabinet/MainViewModel");
+            Logger.Info("Create Cabinet in NewCabinet/MainViewModel");
             _cabinet = new Cabinet().Height(int.Parse(_myCabinet.Height)).Width(int.Parse(_myCabinet.Width)).Depth(int.Parse(_myCabinet.Depth)).Name(_myCabinet.Name);
 
-            Logger.Trace("Create Model3D in NewCabinet/MainViewModel");
+            Logger.Info("Create Model3D in NewCabinet/MainViewModel");
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
         }
