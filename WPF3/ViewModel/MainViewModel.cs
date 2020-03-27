@@ -60,6 +60,7 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ReadCabinetMakerDirectory(string targetDirectory)");
             Logger.Debug("targetDirectory: {0}", targetDirectory);
+            //TODO: dodanie sprawdzenia istnienia katalogu
             string[] fileEntries = Directory.GetFiles(targetDirectory);
             foreach (string fileName in fileEntries)
             {
