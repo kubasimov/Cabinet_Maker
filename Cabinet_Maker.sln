@@ -17,6 +17,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Bootstrapper", "Bootstrappe
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupProject", "SetupProject\SetupProject.wixproj", "{EC782C3E-1D84-41A3-B981-B1881F48ABD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{B60E531D-861A-4153-84D7-458A4239F93A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,14 +79,22 @@ Global
 		{EC782C3E-1D84-41A3-B981-B1881F48ABD0}.Release|Any CPU.ActiveCfg = Release|x86
 		{EC782C3E-1D84-41A3-B981-B1881F48ABD0}.Release|x86.ActiveCfg = Release|x86
 		{EC782C3E-1D84-41A3-B981-B1881F48ABD0}.Release|x86.Build.0 = Release|x86
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Debug|x86.Build.0 = Debug|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Release|x86.ActiveCfg = Release|Any CPU
+		{B60E531D-861A-4153-84D7-458A4239F93A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
-		RESX_NeutralResourcesLanguage = pl-PL
-		RESX_AutoCreateNewLanguageFiles = True
 		RESX_ConfirmAddLanguageFile = True
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_NeutralResourcesLanguage = pl-PL
+		SolutionGuid = {724DFE55-8436-40BE-BB6B-497EDFED15A1}
 	EndGlobalSection
 EndGlobal
