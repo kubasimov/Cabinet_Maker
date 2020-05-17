@@ -1,6 +1,4 @@
 ﻿using Xunit;
-using CoreS;
-using CoreS.Config;
 
 namespace XUnitTestCore
 {
@@ -9,7 +7,7 @@ namespace XUnitTestCore
         [Fact]
         public void GetSlots()
         {
-            var t = Settings.Instance.GetSlots();
+            
         }
     }
 }

@@ -33,8 +33,7 @@ namespace CoreS.Factory
 
         public int ValueAxisZbyBackTypeAndSize(Cabinet cabinet)
         {
-            var value = 0;
-
+            int value;
             switch (cabinet.Back)
             {
                 case EnumBack.Brak:

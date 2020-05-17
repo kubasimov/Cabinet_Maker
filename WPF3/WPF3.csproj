@@ -14,13 +14,14 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="MvvmLight" Version="5.4.1.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
-    <PackageReference Include="NLog" Version="4.6.8" />
-    <PackageReference Include="NLog.Config" Version="4.6.8" />
-    <PackageReference Include="NLog.Schema" Version="4.6.8" />
+    <PackageReference Include="NLog" Version="4.7.0" />
+    <PackageReference Include="NLog.Config" Version="4.7.0" />
+    <PackageReference Include="NLog.Schema" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\3DTools\3DTools.csproj" />
+    <ProjectReference Include="..\Config\Config.csproj" />
     <ProjectReference Include="..\CoreS\CoreS.csproj" />
   </ItemGroup>
 
@@ -35,9 +36,6 @@
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\treeViewTest.xaml.cs">
-      <DependentUpon>treeViewTest.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\VerticalBarrierWindow.xaml.cs">
       <DependentUpon>VerticalBarrierWindow.xaml</DependentUpon>
     </Compile>
@@ -51,9 +49,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\treeViewTest.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\VerticalBarrierWindow.xaml">

@@ -1,4 +1,5 @@
 using CommonServiceLocator;
+using Config;
 using GalaSoft.MvvmLight.Ioc;
 using NLog;
 using WPF3.Implement;
@@ -23,13 +24,13 @@ namespace WPF3.ViewModel
 
             
             SimpleIoc.Default.Register<IDataExchangeViewModel, DataExchangeViewModel>(true);
+            SimpleIoc.Default.Register<IConfig, Config.Config>(true);
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HorizontalBarrierViewModel>();
             SimpleIoc.Default.Register<VerticalBarrierViewModel>();
             SimpleIoc.Default.Register<FrontViewModel>();
-            SimpleIoc.Default.Register<TreeViewTestViewModel>();
-            
+                        
         }
         public MainViewModel MainView
         {
@@ -66,16 +67,7 @@ namespace WPF3.ViewModel
                 return ServiceLocator.Current.GetInstance<FrontViewModel>();
             }
         }
-
-        public TreeViewTestViewModel TreeViewTestModel
-        {
-            get
-            {
-                Logger.Info("ViewModelLocator ServiceLocator.Current.GetInstance<TreeViewTestViewModel>");
-                return ServiceLocator.Current.GetInstance<TreeViewTestViewModel>();
-            }
-        }
-
+                
         public static void Cleanup()
         {
             Logger.Info("ViewModelLocator Cleanup()");

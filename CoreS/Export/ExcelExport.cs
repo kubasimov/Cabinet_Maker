@@ -1,4 +1,5 @@
-﻿using CoreS.Enum;
+﻿using Config;
+using CoreS.Enum;
 using OfficeOpenXml;
 using System.Diagnostics;
 using System.IO;
@@ -7,6 +8,13 @@ namespace CoreS.Export
 {
     public class ExcelExport:IExport
     {
+        private IConfig _config;
+
+        public ExcelExport(IConfig config)
+        {
+            _config = config;
+        }
+
         public void Export(Cabinet cabinet)
         {
             using (var p = new ExcelPackage())
@@ -79,11 +87,9 @@ namespace CoreS.Export
                 sheet.Cells[row, 10].Value = elementV.Description;
                 ++row;
 
-                p.SaveAs(new FileInfo(@"C:\test\1.xlsx"));
+                p.SaveAs(new FileInfo(_config.GetExcelExportDirectory()));
 
             }
-
-            Debug.WriteLine("Zakończono zapis excel");
         }
     }
 }

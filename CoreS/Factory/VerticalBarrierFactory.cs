@@ -52,6 +52,7 @@ namespace CoreS.Factory
             {
                 elements.Add(item);
             }
+            Number = elements.Count();
             return elements;
         }
 

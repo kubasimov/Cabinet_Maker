@@ -1,4 +1,4 @@
-﻿using CoreS.Config;
+﻿using Config;
 
 namespace CoreS.Model
 {
@@ -14,14 +14,17 @@ namespace CoreS.Model
 
         public SlotsModel()
         {
-            var t = Settings.Instance.GetSlots();
-            Top = t.Top;
-            Bottom = t.Bottom;
-            Left = t.Left;
-            Right = t.Right;
-            BetweenVertically = t.BetweenVertically;
-            BetweenHorizontally=t.BetweenHorizontally;
-            BetweenCabinet = t.BetweenCabinet;
+        }
+
+        public SlotsModel(IConfig conf)
+        {
+            Top = conf.SlotsTop();
+            Bottom = conf.SlotsBottom();
+            Left = conf.SlotsLeft();
+            Right = conf.SlotsRight();
+            BetweenVertically = conf.SlotsBetweenVertically();
+            BetweenHorizontally= conf.SlotsBetweenHorizontally();
+            BetweenCabinet = conf.SlotsBetweenCabinet();
         }
     }
 

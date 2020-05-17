@@ -10,8 +10,6 @@ using CoreS.Enum;
 using System.Reflection;
 using System.Windows.Input;
 using Microsoft.Win32;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using System.IO;
 
 namespace WPF3.ViewModel
@@ -60,6 +58,7 @@ namespace WPF3.ViewModel
             {
                 _cabinet.Serialize();
                 MessageBox.Show("Zapisano", "Zapis", MessageBoxButton.OK);
+                ReadCabinetMakerDirectory();
             }
         }
 
@@ -67,13 +66,11 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ExecuteLoadFileFromListViewCommand(string str) in MainViewModel");
             Logger.Debug("str: {0}", str);
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", str + ".json");
+            var path = Path.Combine(_config.CabinetFilesDirectory(), str + ".json");
             _cabinet.Deserialize(path);
-            _model3D = CreateCabinet();
+            Create3DCabinet();
             ReloadMyCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
         }
-
 
         private void ExecuteEndCommand()
         {
@@ -84,7 +81,7 @@ namespace WPF3.ViewModel
         private void ExecuteExportCommand()
         {
             Logger.Info("ExecuteExportCommand in MainViewModel"); 
-            var export = new CoreS.Export.ExcelExport();
+            var export = new CoreS.Export.ExcelExport(_config);
             export.Export(_cabinet);
         }
 
@@ -92,15 +89,16 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ExecuteReadCabinetCommand in MainViewModel");
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = _config.CabinetFilesDirectory();
+            openFileDialog.Title = "Otworz plik z szafk¹";
+            
             if (openFileDialog.ShowDialog() == true)
             {
                 _cabinet.Deserialize(openFileDialog.FileName);
-                _model3D = CreateCabinet();
+                Create3DCabinet();
             }
             
-            ReloadMyCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
-            
+            ReloadMyCabinet();   
         }
 
         private void ReloadMyCabinet()
@@ -142,8 +140,7 @@ namespace WPF3.ViewModel
                 var t = (BarrierParameter)_dataExchangeViewModel.Item(EnumExchangeViewmodel.verticalBarrierWindow);
 
                 _cabinet.NewVerticalBarrier(t);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
+                Create3DCabinet();
             }
         }
 
@@ -151,24 +148,21 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ExecuteAddVerticalBarrierCommand in MainViewModel");
             _cabinet.AddVerticalBarrier(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteDeleteVerticalBarrierCommand()
         {
             Logger.Info("ExecuteDeleteVerticalBarrierCommand in MainViewModel");
             _cabinet.DeleteVerticalBarrier(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteRemoveVerticalBarrierCommand()
         {
             Logger.Info("ExecuteRemoveVerticalBarrierCommand in MainViewModel");
             _cabinet.RemoveVerticalBarrier();
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         #endregion
@@ -186,8 +180,7 @@ namespace WPF3.ViewModel
                 var t = (BarrierParameter)_dataExchangeViewModel.Item(EnumExchangeViewmodel.HorizontalBarrierWindow);
 
                 _cabinet.NewHorizontalBarrier(t);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
+                Create3DCabinet();
             }
         }
 
@@ -195,32 +188,28 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ExecuteAddHorizontalBarrierCommand in MainViewModel");
             _cabinet.AddHorizontalBarrier(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteAddHorizontalBarrierByEveryCommand()
         {
             Logger.Info("ExecuteAddHorizontalBarrierByEveryCommand in MainViewModel");
             _cabinet.AddHorizontalBarrierByEvery(int.Parse(_horizontaSize));
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteDeleteHorizontalBarrierCommand()
         {
             Logger.Info("ExecuteDeleteHorizontalBarrierCommand in MainViewModel");
             _cabinet.DeleteHorizontalBarrier(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteRemoveHorizontalBarrierCommand()
         {
             Logger.Info("ExecuteRemoveHorizontalBarrierCommand in MainViewModel");
             _cabinet.RemoveHorizontalBarrier();
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         #endregion
@@ -237,10 +226,8 @@ namespace WPF3.ViewModel
             {
                 var frontParameter = (FrontParameter) _dataExchangeViewModel.Item(EnumExchangeViewmodel.FrontWindow);
                 
-
                 _cabinet.AddFront(frontParameter);
-                _model3D = CreateCabinet();
-                RaisePropertyChanged(MyModel3DPropertyName);
+                Create3DCabinet();
             }
         }
 
@@ -248,16 +235,14 @@ namespace WPF3.ViewModel
         {
             Logger.Info("ExecuteAddFrontCommand in MainViewModel");
             _cabinet.AddFront(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteDeleteFrontCommand()
         {
             Logger.Info("ExecuteDeleteFrontCommand in MainViewModel");
             _cabinet.DeleteLast_x_Front(1);
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         private void ExecuteRemoveFrontCommand()
@@ -265,8 +250,7 @@ namespace WPF3.ViewModel
 
             Logger.Info("ExecuteRemoveFrontCommand in MainViewModel");
             _cabinet.RemoveFront();
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
 
         #endregion
@@ -280,12 +264,11 @@ namespace WPF3.ViewModel
 
             _cabinet.BackSize = int.Parse(_myCabinet.BackSize);
             
-
             _cabinet.Redraw();
 
-            _model3D = CreateCabinet();
-            RaisePropertyChanged(MyModel3DPropertyName);
+            Create3DCabinet();
         }
+
         private void ExecuteChangeCabinetWhenKeyDownCommand(KeyEventArgs parameter)
         {
             Logger.Info("ExecuteChangeCabinetWhenKeyDownCommand(KeyEventArgs parameter) in MainViewModel");
@@ -294,9 +277,9 @@ namespace WPF3.ViewModel
                 ExecutechangeCabinetWhenLostFocusCommand();
             }
         }
+
         private void ExecuteMyElementTreeView(object parameter)
         {
-
             Logger.Info("ExecuteMyElementTreeView(object parameter) in MainViewModel");
             if (parameter.GetType() == typeof(ElementModel))
             {
@@ -400,11 +383,7 @@ namespace WPF3.ViewModel
 
 
             var element = (ElementModel)parameter;
-            //foreach (var item in _cabinet.CabinetElements)
-            //{
-            //    if (item.GetGuid() == element.GetGuid());
-            //}
-
+            
             foreach (var item in _cabinet.HorizontalBarrier)
             {
                 if(item.GetGuid()==element.GetGuid()) _cabinet.DeleteElementHorizontalBarrier(element);
@@ -426,5 +405,6 @@ namespace WPF3.ViewModel
 
             Create3DCabinet();
         }
+
     }
 }

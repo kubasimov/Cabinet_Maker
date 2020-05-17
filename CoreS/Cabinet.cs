@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Config;
 using CoreS.Enum;
 using CoreS.Export;
 using CoreS.Factory;
@@ -19,7 +20,11 @@ namespace CoreS
         private MapperConfiguration _mapperConfiguration;
         private IMapper _mapper;
 
-        public Cabinet(int height = 720, int width = 600, int depth = 510, int sizeElement = 18, int backSize = 3, string name = "Default")
+        private IConfig _config;
+
+        public Cabinet() : this(720, 600, 510, 18, 3, "Default", new Config.Config()) { }
+
+        public Cabinet(int height, int width, int depth, int sizeElement, int backSize, string name,IConfig config)
         {
             Logger.Info("Start cabinet constructor");
             Logger.Trace("Start Automapper created");
@@ -33,6 +38,8 @@ namespace CoreS
             _mapperConfiguration.AssertConfigurationIsValid();
             _mapper = _mapperConfiguration.CreateMapper();
             Logger.Trace("Stop AutoMapper created");
+
+            _config = config;
 
             _height = height;
             _width = width;
@@ -48,9 +55,10 @@ namespace CoreS
 
             HorizontalBarrierFactory = new HorizontalBarrierFactory(this);
             VerticalBarrierFactory = new VerticalBarrierFactory(this);
-            FrontFactory = new FrontFactory(this);
+            FrontFactory = new FrontFactory(this,_config);
         }
 
+        
         public Cabinet Height(int h)
         {
             Logger.Debug("Change cabinet height from: {0} to: {1}", _height, h);
@@ -525,7 +533,7 @@ namespace CoreS
             Logger.Info("Add Front (int number, EnumFront enumFront) in Cabinet");
             Logger.Debug("Number: {0}, EnumFront: {1}", number, enumFront);
 
-            var slots = new SlotsModel();
+            var slots = new SlotsModel(_config);
             try
             {
                 FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(number, slots, enumFront));
@@ -708,7 +716,7 @@ namespace CoreS
         public void Serialize()
         {
             Logger.Info("Serialize in Cabinet");
-            var serialize = new JsonExport();
+            var serialize = new JsonExport(_config);
             serialize.Export(this);
         }
 
@@ -719,6 +727,9 @@ namespace CoreS
             var deserialize = new JsonImport();
             //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", "Default" + ".json");
             var cab = deserialize.Import(fileName);
+            if (cab == null) return;
+
+
             Height(cab.Height()).Width(cab.Width()).Depth(cab.Depth()).SizeElement(cab.SizeElement())
                 .Name(cab.Name());
 

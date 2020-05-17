@@ -1,4 +1,5 @@
-﻿using CoreS;
+﻿using Config;
+using CoreS;
 using CoreS.Enum;
 using CoreS.Model;
 using System.Collections.Generic;
@@ -9,6 +10,12 @@ namespace XUnitTestCore
 {
     public class FrontTests
     {
+        private IConfig _config;
+        public FrontTests()
+        {
+            _config = new Config.Config();
+        }
+        
         [Fact]
         public void Dodanie_1_forntu()
         {
@@ -94,7 +101,7 @@ namespace XUnitTestCore
         {
             var cabinet = new Cabinet();
 
-            var slots = new SlotsModel
+            var slots = new SlotsModel(_config)
             {
                 Top = 3,
                 Bottom = 3,
@@ -122,7 +129,7 @@ namespace XUnitTestCore
         {
             var cabinet = new Cabinet();
 
-            var slots = new SlotsModel
+            var slots = new SlotsModel(_config)
             {
                 Top = 3,
                 Bottom = 3,
@@ -194,7 +201,7 @@ namespace XUnitTestCore
         {
             var cabinet = new Cabinet();
 
-            var slots = new SlotsModel
+            var slots = new SlotsModel(_config)
             {
                 Top = 3,
                 Bottom = 3,

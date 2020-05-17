@@ -1,5 +1,7 @@
-﻿using Core.Model;
+﻿using Config;
+using Core.Model;
 using CoreS.Enum;
+using CoreS.Helpers;
 using CoreS.Model;
 using NLog;
 using System;
@@ -9,22 +11,22 @@ using System.Reflection;
 
 namespace CoreS.Factory
 {
-    public class FrontFactory
+    public class FrontFactory:MyLogger
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         private readonly Cabinet _cabinet;
         private List<ElementModelDTO> _frontList;
         private int number;
         private EnumFront enumFront;
         private SlotsModel slots;
+        private IConfig _config;
 
-        public FrontFactory(Cabinet cabinet)
+        public FrontFactory(Cabinet cabinet,IConfig config)
         {
             Logger.Info("FrontFactory Constructor");
+            _config = config;
             _cabinet = cabinet;
             _frontList = new List<ElementModelDTO>();
-            slots = new SlotsModel();
+            slots = new SlotsModel(_config);
 
             enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
         }
@@ -68,6 +70,7 @@ namespace CoreS.Factory
             {
                 _frontList.Add(item);
             }
+            number = _frontList.Count();
             return _frontList;
         }
 

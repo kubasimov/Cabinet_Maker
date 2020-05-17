@@ -1,19 +1,23 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using Config;
+using CoreS.Helpers;
+using Newtonsoft.Json;
 using System.IO;
 
 namespace CoreS.Export
 {
-    public class JsonExport : IExport
+    public class JsonExport : MyLogger, IExport
     {
+        IConfig _config;
+        public JsonExport(IConfig config)
+        {
+            _config = config;
+        }
+
         public void Export(Cabinet cabinet)
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", cabinet.Name() + ".json");
+            Logger.Debug("JsonExport");
 
-            if (!Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"Cabinet_Maker")))
-            {
-                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
-            }
+            var path = Path.Combine(_config.CabinetFilesDirectory(), cabinet.Name() + ".json");
 
             File.WriteAllText(path, JsonConvert.SerializeObject(cabinet, Formatting.Indented));
         }

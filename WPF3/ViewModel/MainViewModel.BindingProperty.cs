@@ -149,9 +149,9 @@ namespace WPF3.ViewModel
         
         public const string FilenameListPropertyName = "FilenameList";
 
-        private List<string> _filenameList;
+        private ObservableCollection<string> _filenameList;
 
-        public List<string> FilenameList
+        public ObservableCollection<string> FilenameList
         {
             get
             {

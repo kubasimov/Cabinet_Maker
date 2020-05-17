@@ -8,6 +8,8 @@ namespace Cabinet_Maker_NanoCad
 {
     public partial class Start : Form
     {
+        private Cabinet cabinet;
+
         public Start()
         {
             InitializeComponent();
@@ -39,8 +41,15 @@ namespace Cabinet_Maker_NanoCad
             
             var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", name.ToString()+".json");
 
-            var cabinet = File.Exists(filename) ? JsonConvert.DeserializeObject<Cabinet>(File.ReadAllText(filename)) : new Cabinet();
-
+            if(File.Exists(filename))
+            {
+                cabinet = JsonConvert.DeserializeObject<Cabinet>(File.ReadAllText(filename));
+            }
+            else
+            {
+                return;
+            }
+            
             var ptStart = GetFromNanoCad.GetCoordinates();
 
             var draw = new Draw();
