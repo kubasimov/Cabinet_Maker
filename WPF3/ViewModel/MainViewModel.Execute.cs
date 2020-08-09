@@ -80,9 +80,9 @@ namespace WPF3.ViewModel
 
         private void ExecuteExportCommand()
         {
-            Logger.Info("ExecuteExportCommand in MainViewModel"); 
-            var export = new CoreS.Export.ExcelExport(_config);
-            export.Export(_cabinet);
+            Logger.Info("ExecuteExportCommand in MainViewModel");
+            _cabinet.ExcelExport();
+            
         }
 
         private void ExecuteReadCabinetCommand()

@@ -1,22 +1,26 @@
 ﻿using Config;
 using CoreS.Enum;
+using CoreS.Model;
 using OfficeOpenXml;
-using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CoreS.Export
 {
     public class ExcelExport:IExport
     {
         private IConfig _config;
-
+        
         public ExcelExport(IConfig config)
         {
             _config = config;
         }
 
-        public void Export(Cabinet cabinet)
+        public async Task ExportAsync(CabinetModelDTO cabinet)
+
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (var p = new ExcelPackage())
             {
                 var sheet = p.Workbook.Worksheets.Add("New");
@@ -35,7 +39,7 @@ namespace CoreS.Export
 
                 foreach (var element in cabinet.CabinetElements)
                 {
-                    sheet.Cells[row, 1].Value = row-1;
+                    sheet.Cells[row, 1].Value = row - 1;
 
                     switch (element.GetEnumName())
                     {
@@ -56,40 +60,43 @@ namespace CoreS.Export
                         case EnumCabinetElement.Front:
                             break;
                         default:
-                            sheet.Cells[row, 2].Value = element.Width;
+                            sheet.Cells[row, 2].Value = element.Height;
                             sheet.Cells[row, 3].Value = element.Depth;
                             sheet.Cells[row, 5].Value = "x";
                             break;
                     }
 
                     sheet.Cells[row, 4].Value = 1;
-                    
+
                     sheet.Cells[row, 10].Value = element.Description;
                     ++row;
                 }
 
-                var elementH = cabinet.HorizontalBarrier[0];
+                //var elementH = cabinet.HorizontalBarrier[0];
 
-                sheet.Cells[row, 1].Value = row - 1;
-                sheet.Cells[row, 2].Value = elementH.Width;
-                sheet.Cells[row, 3].Value = elementH.Depth;
-                sheet.Cells[row, 4].Value = cabinet.HorizontalBarrier.Count;
-                sheet.Cells[row, 5].Value = "x";
-                sheet.Cells[row, 10].Value = elementH.Description;
-                ++row;
+                //sheet.Cells[row, 1].Value = row - 1;
+                //sheet.Cells[row, 2].Value = elementH.Width;
+                //sheet.Cells[row, 3].Value = elementH.Depth;
+                //sheet.Cells[row, 4].Value = cabinet.HorizontalBarrier.Count;
+                //sheet.Cells[row, 5].Value = "x";
+                //sheet.Cells[row, 10].Value = elementH.Description;
+                //++row;
 
-                var elementV = cabinet.VerticalBarrier[0];
-                sheet.Cells[row, 1].Value = row - 1;
-                sheet.Cells[row, 2].Value = elementV.Height;
-                sheet.Cells[row, 3].Value = elementV.Depth;
-                sheet.Cells[row, 4].Value = cabinet.VerticalBarrier.Count;
-                sheet.Cells[row, 5].Value = "x";
-                sheet.Cells[row, 10].Value = elementV.Description;
-                ++row;
+                //var elementV = cabinet.VerticalBarrier[0];
+                //sheet.Cells[row, 1].Value = row - 1;
+                //sheet.Cells[row, 2].Value = elementV.Height;
+                //sheet.Cells[row, 3].Value = elementV.Depth;
+                //sheet.Cells[row, 4].Value = cabinet.VerticalBarrier.Count;
+                //sheet.Cells[row, 5].Value = "x";
+                //sheet.Cells[row, 10].Value = elementV.Description;
+                //++row;
 
-                p.SaveAs(new FileInfo(_config.GetExcelExportDirectory()));
+                var filename = new FileInfo(Path.Combine(_config.GetExcelExportDirectory(),cabinet._name+".xlsx"));
+                //p.SaveAs(filename);
+                await p.SaveAsAsync(filename);
 
             }
+
         }
     }
 }

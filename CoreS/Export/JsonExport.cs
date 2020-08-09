@@ -1,7 +1,9 @@
 ﻿using Config;
 using CoreS.Helpers;
+using CoreS.Model;
 using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CoreS.Export
 {
@@ -13,13 +15,17 @@ namespace CoreS.Export
             _config = config;
         }
 
-        public void Export(Cabinet cabinet)
+        public async Task ExportAsync(CabinetModelDTO cabinet)
         {
             Logger.Debug("JsonExport");
 
-            var path = Path.Combine(_config.CabinetFilesDirectory(), cabinet.Name() + ".json");
+            var path = Path.Combine(_config.CabinetFilesDirectory(), cabinet._name + ".json");
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(cabinet, Formatting.Indented));
+            using (StreamWriter writer = File.CreateText(path))     
+            {
+                await writer.WriteAsync(JsonConvert.SerializeObject(cabinet, Formatting.Indented));
+            }
+            //File.WriteAllText(path, JsonConvert.SerializeObject(cabinet, Formatting.Indented));
         }
     }
 }

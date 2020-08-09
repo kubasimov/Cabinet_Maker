@@ -33,7 +33,7 @@ namespace Cabinet_Maker_NanoCad
             {
                 Get(ptStart.X, ptStart.Y, leftSide.Width, leftSide.Depth),
                 Get(ptStart.X + rightSide.X,ptStart.Y,rightSide.Width,rightSide.Depth),
-                Get(ptStart.X + top.X,ptStart.Y,top.Width,top.Depth)
+                Get(ptStart.X + top.X,ptStart.Y,top.Height,top.Depth)
             };
             
             return poly;

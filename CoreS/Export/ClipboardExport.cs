@@ -1,18 +1,19 @@
 ﻿using CoreS;
 using CoreS.Export;
 using CoreS.Helpers;
+using CoreS.Model;
 using Newtonsoft.Json;
-
+using System.Threading.Tasks;
 
 namespace Core.Export
 {
     internal class ClipboardExport: MyLogger, IExport
     {
-        public void Export(Cabinet cabinet)
+        public async Task ExportAsync(CabinetModelDTO cabinet)
         {
             Logger.Info("ClipboardExport");
-            TextCopy.Clipboard.SetText(JsonConvert.SerializeObject(cabinet));
-            //SetData("nano", JsonConvert.SerializeObject(cabinet, Formatting.Indented));
+            await TextCopy.ClipboardService.SetTextAsync(JsonConvert.SerializeObject(cabinet));
+            
         }
     }
 }

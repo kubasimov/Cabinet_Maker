@@ -27,11 +27,11 @@ namespace Cabinet_Maker_NanoCad
             return acPoly;
         }
 
-        public static List<Polyline> GetPolylineListFromElementModelList(List<ElementModel> cabinet, Point3d start)
+        public static List<Polyline> GetPolylineListFromElementModelList(List<ElementModel> elements, Point3d start)
         {
             List<Polyline> poly = new List<Polyline>();
 
-            foreach (var t in cabinet)
+            foreach (var t in elements)
             {
                 poly.Add(Get(t.X + start.X, t.Y + start.Y, t.Width, t.Height,t.Horizontal));
             }

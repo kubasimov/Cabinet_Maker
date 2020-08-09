@@ -15,7 +15,7 @@ namespace Cabinet_Maker_NanoCad
             InitializeComponent();
 
             var names = Directory.GetFiles(
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker"));
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CabinetMaker"));
 
             foreach (var name in names)
             {
@@ -39,7 +39,7 @@ namespace Cabinet_Maker_NanoCad
 
             var _orientationDraw = orientationDraw();
             
-            var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", name.ToString()+".json");
+            var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CabinetMaker", name.ToString()+".json");
 
             if(File.Exists(filename))
             {

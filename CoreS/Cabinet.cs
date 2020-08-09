@@ -34,6 +34,7 @@ namespace CoreS
                  cfg.ShouldMapProperty = pi => pi.GetMethod != null && (pi.GetMethod.IsPublic || pi.GetMethod.IsPrivate);
                  cfg.CreateMap<ElementModelDTO, ElementModel>().EqualityComparison((dto, o) => dto.GetGuid() == o.GetGuid());
                  cfg.CreateMap<ElementModel, ElementModelDTO>().EqualityComparison((dto, o) => dto.GetGuid() == o.GetGuid());
+                 cfg.CreateMap<CabinetModel, CabinetModelDTO>();
              });
             _mapperConfiguration.AssertConfigurationIsValid();
             _mapper = _mapperConfiguration.CreateMapper();
@@ -75,6 +76,12 @@ namespace CoreS
             _width = w;
             Redraw();
             return this;
+        }
+
+        public async void ExcelExport()
+        {
+            var export = new ExcelExport(_config);
+            await export.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
         }
 
         public int Width() => _width;
@@ -717,7 +724,7 @@ namespace CoreS
         {
             Logger.Info("Serialize in Cabinet");
             var serialize = new JsonExport(_config);
-            serialize.Export(this);
+            serialize.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
         }
 
         // TODO sprawdzanie bledow, dokonczenie implementacji
@@ -760,7 +767,7 @@ namespace CoreS
         {
             Logger.Info("ClipboardExport in Cabinet");
             var clip = new Core.Export.ClipboardExport();
-            clip.Export(this);
+            clip.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
         }
 
         // TODO dodac dodatkowe logowanie i prawidłowe - w fabryce zmiany elementow

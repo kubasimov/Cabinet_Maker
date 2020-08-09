@@ -1,4 +1,5 @@
 ﻿using CoreS;
+using CoreS.Model;
 using Newtonsoft.Json;
 using NLog;
 using System.Windows;
@@ -13,13 +14,6 @@ namespace Cabinet_Maker_NanoCad
         [CommandMethod("Szafka")]
         public static void Szafka()
         {
-            //rysowanie szafki z pliku
-
-            //var filename = @"D:\Hasla\settings.json";
-            //_settings = File.Exists(filename)
-            //    ? JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(filename))
-            //: new Dictionary<string, string>();
-
             var frm = new Start();
             frm.Show();
         }
@@ -30,7 +24,7 @@ namespace Cabinet_Maker_NanoCad
             
             var clipboardText = Clipboard.GetText();
             
-            var deserializeText = JsonConvert.DeserializeObject<Cabinet>(clipboardText.ToString());
+            var deserializeText = JsonConvert.DeserializeObject<CabinetModelDTO>(clipboardText.ToString());
             
             DrawC.DrawFront(deserializeText);
 
@@ -42,9 +36,9 @@ namespace Cabinet_Maker_NanoCad
         {
             var clipboardText = Clipboard.GetText();
 
-            var deserializeText = JsonConvert.DeserializeObject<Cabinet>(clipboardText.ToString());
+            var deserializeText = JsonConvert.DeserializeObject<CabinetModelDTO>(clipboardText.ToString());
 
-            DrawC.DrawFront(deserializeText);
+            DrawC.DrawTop(deserializeText);
         }
     }
 }

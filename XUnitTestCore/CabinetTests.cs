@@ -76,40 +76,6 @@ namespace XUnitTestCore
             Assert.Equal(EnumBack.Wpuszczane, cabinet.Back);
         }
 
-        //[Fact]
-        //public void Utworzenie_szafki_serializacja_i_deserjalizacja()
-        //{
-        //    var cabinet = new Cabinet();
-        //    cabinet.Serialize();
-
-        //    cabinet.Deserialize();
-
-        //    Assert.NotNull(cabinet);
-        //    Assert.Equal(720, cabinet.Height());
-        //    Assert.Equal(600, cabinet.Width());
-        //    Assert.Equal(510, cabinet.Depth());
-        //    Assert.Equal(18, cabinet.SizeElement());
-        //    Assert.Equal("Default", cabinet.Name());
-        //}
-
-        //[Theory]
-        //[InlineData(800, 500, 200, "lll")]
-        //[InlineData(1200, 150, 235, "zzz")]
-        //public void Serialize_Deserialize_of_a_modified_cabinet(int height, int width, int depth, string name)
-        //{
-        //    var cabinet = new Cabinet().Height(height).Width(width).Depth(depth).Name(name);
-        //    cabinet.Serialize();
-
-        //    cabinet.Deserialize();
-
-        //    Assert.NotNull(cabinet);
-        //    Assert.Equal(height, cabinet.Height());
-        //    Assert.Equal(width, cabinet.Width());
-        //    Assert.Equal(depth, cabinet.Depth());
-        //    Assert.Equal(18, cabinet.SizeElement());
-        //    Assert.Equal(name, cabinet.Name());
-        //}
-
         [Fact]
         public void Utworzenie_szafki_gornej_z_domyslnymi_wartosciami()
         {
@@ -134,15 +100,13 @@ namespace XUnitTestCore
 
         }
 
-
         [Fact]
         public void Zmiana_grubosci_lewego_bok()
         {
             var cabinet = new Cabinet();
 
             var width = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
-
-
+            
             cabinet.ChangeElemenet(cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside), EnumElementParameter.Width, "36");
 
             var width1 = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;

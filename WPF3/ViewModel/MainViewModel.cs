@@ -127,6 +127,8 @@ namespace WPF3.ViewModel
             Logger.Info("Create Model3D in NewCabinet/MainViewModel");
             _model3D = CreateCabinet();
             RaisePropertyChanged(MyModel3DPropertyName);
+            RaisePropertyChanged(MyCabinetPropertyName);
+            RaisePropertyChanged(MElementPropertyName);
         }
     }
 }
