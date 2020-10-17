@@ -22,9 +22,12 @@ namespace WPF3.ViewModel
 
         private void ExecuteNewCommand()
         {
-            Logger.Info("ExecuteNewCommand in MainViewModel"); 
-            NewCabinet();
-            RaisePropertyChanged(MyCabinetPropertyName);
+            Logger.Info("ExecuteNewCommand in MainViewModel");
+            //NewCabinet();
+            _cabinet.NewCabinet();
+            _cabinet.Redraw();
+            Create3DCabinet();
+
         }
 
         private void ExecuteSaveCommand(object obj)

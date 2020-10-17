@@ -732,7 +732,6 @@ namespace CoreS
         {
             Logger.Info("Deserialize in Cabinet");
             var deserialize = new JsonImport();
-            //var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Cabinet_Maker", "Default" + ".json");
             var cab = deserialize.Import(fileName);
             if (cab == null) return;
 
@@ -752,6 +751,17 @@ namespace CoreS
             RedrawCabinetElements();
         }
         
+        public void NewCabinet()
+        {
+            Height(_config.CabinetHeight()).Width(_config.CabinetWidth()).Depth(_config.CabinetDepth()).SizeElement(_config.CabinetSizeElement())
+                .Name(_config.CabinetName());
+            HorizontalBarrierFactory = new HorizontalBarrierFactory(this);
+            VerticalBarrierFactory = new VerticalBarrierFactory(this);
+            FrontFactory = new FrontFactory(this, _config);
+
+            Redraw();
+
+        }
         public void Redraw()
         {
             Logger.Info("Redraw in Cabinet");

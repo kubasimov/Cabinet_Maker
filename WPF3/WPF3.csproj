@@ -14,9 +14,9 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="MvvmLight" Version="5.4.1.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
-    <PackageReference Include="NLog" Version="4.7.3" />
-    <PackageReference Include="NLog.Config" Version="4.7.3" />
-    <PackageReference Include="NLog.Schema" Version="4.7.3" />
+    <PackageReference Include="NLog" Version="4.7.5" />
+    <PackageReference Include="NLog.Config" Version="4.7.5" />
+    <PackageReference Include="NLog.Schema" Version="4.7.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Model\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

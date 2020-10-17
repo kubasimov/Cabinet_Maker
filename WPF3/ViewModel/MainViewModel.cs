@@ -129,6 +129,8 @@ namespace WPF3.ViewModel
             RaisePropertyChanged(MyModel3DPropertyName);
             RaisePropertyChanged(MyCabinetPropertyName);
             RaisePropertyChanged(MElementPropertyName);
+
+            ReloadMyCabinet();
         }
     }
 }

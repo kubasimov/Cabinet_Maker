@@ -48,7 +48,7 @@ namespace WPF3.ViewModel
 
             myGeometryModel.Geometry = myMeshGeometry3D;
 
-            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Blue);
+            SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Green);
 
             // Define material that will use the gradient.
             DiffuseMaterial myMaterial = new DiffuseMaterial(solidColorBrush);
