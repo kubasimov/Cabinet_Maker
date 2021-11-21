@@ -8,6 +8,7 @@ using CoreS.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace CoreS
 {
@@ -23,6 +24,7 @@ namespace CoreS
         private IConfig _config;
 
         public Cabinet() : this(720, 600, 510, 18, 3, "Default", new Config.Config()) { }
+        public Cabinet(int height, int width, int depth, string name) : this(height,width,depth,18,3,name,new Config.Config()) { }
 
         public Cabinet(int height, int width, int depth, int sizeElement, int backSize, string name,IConfig config)
         {
@@ -112,6 +114,11 @@ namespace CoreS
             _name = s;
             Redraw();
             return this;
+        }
+
+        public ElementModel GetElements(EnumCabinetElement enumCabinetElement)
+        {
+            return CabinetElements.Find(x => x.GetEnumName() == enumCabinetElement);
         }
 
         public string Name() => _name;
@@ -530,9 +537,23 @@ namespace CoreS
 
         #region Front command
         // TODO: Logger
-        public void FrontRecall()
+        //public void FrontRecall()
+        //{
+        //    FrontFactory.Recal();
+        //}
+
+        public void FrontReCount(EnumFront enumFront)
         {
-            FrontFactory.Recal();
+            Logger.Info("FrontReCount (EnumFront enum) in Cabinet");
+            Logger.Debug("EnumFront: {0}", enumFront);
+            try
+            {
+                FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.ReCount(enumFront));
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error FrontReCount in Cabinet");
+            }
         }
 
         public void AddFront(int number, EnumFront enumFront)
@@ -543,7 +564,7 @@ namespace CoreS
             var slots = new SlotsModel(_config);
             try
             {
-                FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.NewFront(number, slots, enumFront));
+                FrontList = _mapper.Map<List<ElementModel>>(FrontFactory.Add(number, enumFront));
             }
             catch (Exception ex)
             {
@@ -720,11 +741,11 @@ namespace CoreS
         #endregion Front command
 
         // TODO sprawdzanie bledow, dokonczenie implementacji
-        public void Serialize()
+        public async System.Threading.Tasks.Task SerializeAsync()
         {
             Logger.Info("Serialize in Cabinet");
             var serialize = new JsonExport(_config);
-            serialize.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
+            await serialize.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
         }
 
         // TODO sprawdzanie bledow, dokonczenie implementacji
@@ -773,11 +794,11 @@ namespace CoreS
             
         }
 
-        public void ClipboardExport()
+        public async System.Threading.Tasks.Task ClipboardExportAsync()
         {
             Logger.Info("ClipboardExport in Cabinet");
             var clip = new Core.Export.ClipboardExport();
-            clip.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
+            await clip.ExportAsync(_mapper.Map<CabinetModelDTO>(this));
         }
 
         // TODO dodac dodatkowe logowanie i prawidłowe - w fabryce zmiany elementow

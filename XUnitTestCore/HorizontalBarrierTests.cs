@@ -16,7 +16,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter {Number = 1};
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(564, cabinet.HorizontalBarrier[0].Height);
@@ -34,7 +34,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 2 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
             Assert.Equal(564, cabinet.HorizontalBarrier[0].Height);
@@ -58,7 +58,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 4 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(4, cabinet.HorizontalBarrier.Count);
 
@@ -106,7 +106,7 @@ namespace XUnitTestCore
             barrierParameter = new BarrierParameter { Number = 2 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
             Assert.Equal(564, cabinet.HorizontalBarrier[0].Height);
@@ -189,7 +189,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 1,Back=5 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
 
@@ -208,7 +208,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 2,Back=10 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
 
@@ -345,7 +345,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 1 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(2, cabinet.HorizontalBarrier.Count);
             Assert.Equal(273, cabinet.HorizontalBarrier[0].Height);
@@ -376,7 +376,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(1);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(273, cabinet.HorizontalBarrier[0].Height);
@@ -400,7 +400,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 1 };
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(3, cabinet.HorizontalBarrier.Count);
             Assert.Equal(176, cabinet.HorizontalBarrier[0].Height);
@@ -431,7 +431,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(2);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
 
             Assert.Single(cabinet.HorizontalBarrier);
@@ -457,7 +457,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(1);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(176, cabinet.HorizontalBarrier[0].Height);
@@ -481,7 +481,7 @@ namespace XUnitTestCore
             var barrierParameter = new BarrierParameter { Number = 1 };
             
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Equal(4,cabinet.HorizontalBarrier.Count);
             Assert.Equal(127, cabinet.HorizontalBarrier[0].Height);
@@ -506,7 +506,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(3);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(129, cabinet.HorizontalBarrier[0].Height);
@@ -531,7 +531,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(1);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(127, cabinet.HorizontalBarrier[0].Height);
@@ -556,7 +556,7 @@ namespace XUnitTestCore
             barrierParameter.AddBarrier(2);
 
             cabinet.NewHorizontalBarrier(barrierParameter);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
             Assert.Single(cabinet.HorizontalBarrier);
             Assert.Equal(127, cabinet.HorizontalBarrier[0].Height);
@@ -589,7 +589,7 @@ namespace XUnitTestCore
             Assert.Equal(2,cabinet.VerticalBarrier.Count);
 
             Assert.Equal(3, cabinet.HorizontalBarrier.Count);
-            cabinet.Serialize();
+            cabinet.SerializeAsync();
 
         }
 

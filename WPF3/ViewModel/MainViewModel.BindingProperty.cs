@@ -145,8 +145,32 @@ namespace WPF3.ViewModel
             }
         }
 
-        
-        
+
+        public const string MyTypPropertyName = "MyTyp";
+
+        private Typ _typ;
+
+        public Typ MyTyp
+        {
+            get
+            {
+                return _typ;
+            }
+
+            set
+            {
+                if (_typ == value)
+                {
+                    return;
+                }
+
+                _typ = value;
+                RaisePropertyChanged(MyTypPropertyName);
+            }
+        }
+
+
+
         public const string FilenameListPropertyName = "FilenameList";
 
         private ObservableCollection<string> _filenameList;
@@ -192,6 +216,13 @@ namespace WPF3.ViewModel
                 Name = name;
                 ElementModels = new ObservableCollection<ElementModel>();
             }
+        }
+
+        public enum Typ
+        {
+            Pionowo,
+            Poziomo
+
         }
     }
 }

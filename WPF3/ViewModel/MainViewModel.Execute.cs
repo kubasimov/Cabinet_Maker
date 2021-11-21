@@ -59,7 +59,7 @@ namespace WPF3.ViewModel
             }
             else
             {
-                _cabinet.Serialize();
+                _cabinet.SerializeAsync();
                 MessageBox.Show("Zapisano", "Zapis", MessageBoxButton.OK);
                 ReadCabinetMakerDirectory();
             }
@@ -123,7 +123,7 @@ namespace WPF3.ViewModel
             }
             else
             {
-                _cabinet.ClipboardExport();
+                _cabinet.ClipboardExportAsync();
             }
                         
         }
@@ -222,8 +222,8 @@ namespace WPF3.ViewModel
         private void ExecuteNewFrontCommand()
         {
             Logger.Info("ExecuteNewFrontCommand in MainViewModel");
-            _dataExchangeViewModel.Add(EnumExchangeViewmodel.Front, new FrontParameter());
-            new FrontWindow().ShowDialog();
+
+            _ = new FrontWindow().ShowDialog();
 
             if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.FrontWindow))
             {
@@ -234,10 +234,26 @@ namespace WPF3.ViewModel
             }
         }
 
+        private EnumFront GetEnumFront()
+        {
+            switch (_typ.ToString())
+            {
+                case "Pionowo":
+                    return EnumFront.Pionowo;
+
+                case "Poziomo":
+                    return EnumFront.Poziomo;
+
+                default:
+                    return EnumFront.Pionowo;
+            }
+        }
+
         private void ExecuteAddFrontCommand()
         {
             Logger.Info("ExecuteAddFrontCommand in MainViewModel");
-            _cabinet.AddFront(1);
+             
+            _cabinet.AddFront(1,GetEnumFront());
             Create3DCabinet();
         }
 
@@ -409,5 +425,10 @@ namespace WPF3.ViewModel
             Create3DCabinet();
         }
 
+        private void ExecuteFrontReCountCommand()
+        {
+            _cabinet.FrontReCount(GetEnumFront());
+            Create3DCabinet();
+        }
     }
 }

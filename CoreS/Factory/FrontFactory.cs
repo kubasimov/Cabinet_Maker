@@ -11,12 +11,12 @@ using System.Reflection;
 
 namespace CoreS.Factory
 {
-    public class FrontFactory:MyLogger
+    public class FrontFactory : MyLogger
     {
         private readonly Cabinet _cabinet;
         private List<ElementModelDTO> _frontList;
         private int number;
-        private EnumFront enumFront;
+        private EnumFront _enumFront;
         private SlotsModel slots;
         private IConfig _config;
 
@@ -28,7 +28,7 @@ namespace CoreS.Factory
             _frontList = new List<ElementModelDTO>();
             slots = new SlotsModel(_config);
 
-            enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
+            _enumFront = EnumFront.Nakladany | EnumFront.Pionowo;
         }
 
         public List<ElementModelDTO> NewFront(int Number, SlotsModel Slots, EnumFront EnumFront)
@@ -37,7 +37,7 @@ namespace CoreS.Factory
             Logger.Debug("Number: {0} Slots: {1} EnumFront: {2}", Number,Slots,EnumFront);
             number = Number;
             slots = Slots;
-            enumFront = EnumFront;
+            _enumFront = EnumFront;
 
             return Recalculate();
         }
@@ -46,6 +46,27 @@ namespace CoreS.Factory
         {
             Logger.Info("Add(int element) in FrontFactory");
             Logger.Debug("Element: {0}", element);
+            try
+            {
+                if (element < 0)
+                    throw new ArgumentException();
+                number += element;
+
+                return Recalculate();
+            }
+            catch (ArgumentException e)
+            {
+                Logger.Error(e, "Error Add"); ;
+                throw new ArgumentException();
+            }
+        }
+
+        internal List<ElementModelDTO> Add(int element, EnumFront enumFront)
+        {
+            Logger.Info("Add(int element) in FrontFactory");
+            Logger.Debug("Element: {0}", element);
+            _enumFront = enumFront;
+
             try
             {
                 if (element < 0)
@@ -129,9 +150,16 @@ namespace CoreS.Factory
             return Recalculate();
         }
 
+        internal List<ElementModelDTO> ReCount(EnumFront enumFront)
+        {
+            Logger.Info("ReCount() FrontFactory");
+            _enumFront = enumFront;
+            return Recalculate();
+        }
+
         // TDOD to modification Result<List<ElementModelDTO>> 
         // TODO new Result<List<ElementModelDTO>> { Value = _frontList, IsValid = false, Errors = new List<Error> { new Error { ErrorMessage = "Obiekt nie znaleziomy" } } };
-        
+
         //public List<ElementModelDTO> Update(ElementModelDTO front) 
         //{
         //    Logger.Info("Update(ElementModelDTO front) in FrontFactory");
@@ -163,11 +191,11 @@ namespace CoreS.Factory
 
             _frontList = new List<ElementModelDTO>();
 
-            var width = enumFront.HasFlag(EnumFront.Pionowo) ?
+            var width = _enumFront.HasFlag(EnumFront.Pionowo) ?
                 (_cabinet.Width() - slots.Left - slots.Right - slots.BetweenVertically * (number - 1)) / number :
                 _cabinet.Width() - slots.Left - slots.Right;
 
-            var height = enumFront.HasFlag(EnumFront.Poziomo) ?
+            var height = _enumFront.HasFlag(EnumFront.Poziomo) ?
                 (_cabinet.Height() - slots.Top - slots.Bottom - slots.BetweenHorizontally * (number - 1)) / number
                 : _cabinet.Height() - slots.Top - slots.Bottom;
 
@@ -179,8 +207,8 @@ namespace CoreS.Factory
                     height: height,
                     width: width,
                     depth: _cabinet.SizeElement(),
-                    x: enumFront.HasFlag(EnumFront.Pionowo) ? slots.Left + (width + slots.BetweenVertically) * i : slots.Left,
-                    y: enumFront.HasFlag(EnumFront.Poziomo) ? slots.Bottom + (height + slots.BetweenHorizontally) * i : slots.Right,
+                    x: _enumFront.HasFlag(EnumFront.Pionowo) ? slots.Left + (width + slots.BetweenVertically) * i : slots.Left,
+                    y: _enumFront.HasFlag(EnumFront.Poziomo) ? slots.Bottom + (height + slots.BetweenHorizontally) * i : slots.Right,
                     z: _cabinet.Depth() + slots.BetweenCabinet,
                     enumCabinet: EnumCabinetElement.Front,
                     horizontal: false);
@@ -190,6 +218,8 @@ namespace CoreS.Factory
 
             return _frontList;
         }
+
+        
 
         public void Recal()
         {
@@ -362,5 +392,6 @@ namespace CoreS.Factory
 
             return _frontList;
         }
+
     }
 }

@@ -174,15 +174,12 @@ namespace WPF3.ViewModel
                     ?? (_deleteElementHorizontalBarrierCommand = new RelayCommand<object>(ExecuteDeleteElementHorizontalBarrierCommand));
 
 
-        private RelayCommand _RecalFrontCommand;
+        private RelayCommand _FrontReCountCommand;
 
-        public RelayCommand RecalFrontCommand => _RecalFrontCommand
-                                            ?? (_RecalFrontCommand = new RelayCommand(ExecuteRecalFrontCommand));
+        public RelayCommand FrontRecounCommand => _FrontReCountCommand
+                                            ?? (_FrontReCountCommand = new RelayCommand(ExecuteFrontReCountCommand));
 
-        private void ExecuteRecalFrontCommand()
-        {
-            _cabinet.FrontRecall();
-        }
+        
 
 
         private RelayCommand<string> _loadFileFromListViewCommand;

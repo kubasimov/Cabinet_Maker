@@ -21,6 +21,7 @@ namespace Config
         int SlotsBetweenVertically();
         int SlotsBetweenHorizontally();
         int SlotsBetweenCabinet();
+        int EnumFront();
         string GetExcelExportDirectory();
     }
 }

@@ -1,4 +1,5 @@
-﻿using CoreS.Enum;
+﻿using Config;
+using CoreS.Enum;
 using CoreS.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -8,14 +9,15 @@ using WPF3.Interface;
 
 namespace WPF3.ViewModel
 {
-    public class FrontViewModel:ViewModelBase
+    public class FrontViewModel: ViewModelBase
     {
         private readonly IDataExchangeViewModel _dataExchangeViewModel;
-        
-        public FrontViewModel(IDataExchangeViewModel dataExchangeViewModel)
+        private readonly IConfig _config;
+
+        public FrontViewModel(IDataExchangeViewModel dataExchangeViewModel, IConfig config)
         {
             _dataExchangeViewModel = dataExchangeViewModel;
-
+            _config = config;
 
             if (_dataExchangeViewModel.ContainsKey(EnumExchangeViewmodel.Front))
             {
@@ -24,10 +26,19 @@ namespace WPF3.ViewModel
             }
             else
             {
-                _tempFrontParameter = new TempFrontParameter();
+                _tempFrontParameter = new TempFrontParameter
+                {
+                    BetweenCabinet = _config.SlotsBetweenCabinet().ToString(),
+                    BetweenHorizontally = _config.SlotsBetweenHorizontally().ToString(),
+                    BetweenVertically = _config.SlotsBetweenVertically().ToString(),
+                    Bottom = _config.SlotsBottom().ToString(),
+                    Top = _config.SlotsTop().ToString(),
+                    Left = _config.SlotsLeft().ToString(),
+                    Right = _config.SlotsRight().ToString(),
+                    Number = 2.ToString()
+                };
             }
 
-            
             RaisePropertyChanged(frontParameterPropertyName);
         }
 
@@ -38,11 +49,11 @@ namespace WPF3.ViewModel
                 Number = frontParameter.Number.ToString(),
                 Top = frontParameter.Slots.Top.ToString(),
                 Bottom = frontParameter.Slots.Bottom.ToString(),
-                Left=frontParameter.Slots.Left.ToString(),
-                Right=frontParameter.Slots.Right.ToString(),
-                BetweenHorizontally=frontParameter.Slots.BetweenHorizontally.ToString(),
-                BetweenVertically=frontParameter.Slots.BetweenVertically.ToString(),
-                BetweenCabinet=frontParameter.Slots.BetweenCabinet.ToString()
+                Left = frontParameter.Slots.Left.ToString(),
+                Right = frontParameter.Slots.Right.ToString(),
+                BetweenHorizontally = frontParameter.Slots.BetweenHorizontally.ToString(),
+                BetweenVertically = frontParameter.Slots.BetweenVertically.ToString(),
+                BetweenCabinet = frontParameter.Slots.BetweenCabinet.ToString()
             };
         }
 
@@ -50,10 +61,10 @@ namespace WPF3.ViewModel
         {
             return new FrontParameter
             {
-                Number=int.Parse(_tempFrontParameter.Number),
+                Number = int.Parse(_tempFrontParameter.Number),
                 Slots =
                 {
-                    //Top = int.Parse(_tempFrontParameter.Top),
+                    Top = int.Parse(_tempFrontParameter.Top),
                     Bottom = int.Parse(_tempFrontParameter.Bottom),
                     Left = int.Parse(_tempFrontParameter.Left),
                     Right = int.Parse(_tempFrontParameter.Right),
@@ -67,9 +78,17 @@ namespace WPF3.ViewModel
 
         private EnumFront GetEnumFront()
         {
-            if (_typ.ToString() == "Pionowo") return EnumFront.Pionowo;
-            if (_typ.ToString() == "Poziomo") return EnumFront.Poziomo;
-            return EnumFront.Pionowo;
+            switch (_typ.ToString())
+            {
+                case "Pionowo":
+                    return EnumFront.Pionowo;
+                    
+                case "Poziomo":
+                    return EnumFront.Poziomo;
+                
+                default:
+                    return EnumFront.Pionowo;
+            }
         }
 
         private void ExecuteOkCommand()
@@ -113,9 +132,9 @@ namespace WPF3.ViewModel
 
         public const string MyTypPropertyName = "MyTyp";
 
-        private typ _typ ;
+        private Typ _typ ;
 
-        public typ MyTyp
+        public Typ MyTyp
         {
             get
             {
@@ -162,20 +181,9 @@ namespace WPF3.ViewModel
             public string BetweenHorizontally { get; set; }
             public string BetweenCabinet { get; set; }
 
-            public TempFrontParameter()
-            {
-                Number = "0";
-                Top = "0";
-                Bottom = "0";
-                Left = "0";
-                Right = "0";
-                BetweenVertically = "0";
-                BetweenHorizontally = "0";
-                BetweenCabinet = "0";
-            }
         }
 
-        public enum typ
+        public enum Typ
         {
             Pionowo,
             Poziomo

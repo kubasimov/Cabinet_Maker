@@ -46,7 +46,8 @@ namespace Config
         public int SlotsBetweenHorizontally() => _cabinetModel.Slots.BetweenHorizontally;
 
         public int SlotsBetweenCabinet() => _cabinetModel.Slots.BetweenCabinet;
-        
+
+        public int EnumFront() => _cabinetModel.enumFront;
         
         public void FirstRun()
         {
@@ -85,7 +86,7 @@ namespace Config
                     depth = 510,
                     sizeElement = 18,
                     back = 3,
-                    enumFront=9,
+                    enumFront = 9,
                     Slots = new Slots
                     {
                         Left = 3,

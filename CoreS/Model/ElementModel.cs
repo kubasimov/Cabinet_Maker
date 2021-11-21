@@ -163,6 +163,21 @@ namespace CoreS.Model
             };
         }
 
+        public int GetElementParameter(EnumElementParameter enumElementParameter)
+        {
+            switch (enumElementParameter)
+            {
+                case EnumElementParameter.Width: return Width;
+                case EnumElementParameter.Height: return Height;
+                case EnumElementParameter.Depth: return Depth;
+                case EnumElementParameter.X: return X;
+                case EnumElementParameter.Y: return Y;
+                case EnumElementParameter.Z: return Z;
+                default: return -1;
+
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
