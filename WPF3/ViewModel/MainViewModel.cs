@@ -118,7 +118,7 @@ namespace WPF3.ViewModel
             _myCabinet.BackSize = _config.CabinetBack().ToString();
 
             Logger.Info("Create Cabinet in NewCabinet/MainViewModel");
-            _cabinet = new Cabinet(int.Parse(_myCabinet.Height), int.Parse(_myCabinet.Width), int.Parse(_myCabinet.Depth),int.Parse(_myCabinet.SizeElement), int.Parse(_myCabinet.BackSize),_myCabinet.Name,_config);
+            _cabinet = new Cabinet(int.Parse(_myCabinet.Height), int.Parse(_myCabinet.Width), int.Parse(_myCabinet.Depth),int.Parse(_myCabinet.SizeElement), int.Parse(_myCabinet.BackSize),_myCabinet.Name,_config,CoreS.Enum.EnumCabinetType.gorna);
 
             Logger.Info("Create Model3D in NewCabinet/MainViewModel");
             _model3D = CreateCabinet();

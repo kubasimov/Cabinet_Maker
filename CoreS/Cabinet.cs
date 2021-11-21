@@ -23,10 +23,10 @@ namespace CoreS
 
         private IConfig _config;
 
-        public Cabinet() : this(720, 600, 510, 18, 3, "Default", new Config.Config()) { }
-        public Cabinet(int height, int width, int depth, string name) : this(height,width,depth,18,3,name,new Config.Config()) { }
+        public Cabinet(EnumCabinetType enumCabinetType = EnumCabinetType.Standard) : this(720, 600, 510, 18, 3, "Default", new Config.Config(),enumCabinetType) { }
+        public Cabinet(int height, int width, int depth, string name = "Default", EnumCabinetType enumCabinetType = EnumCabinetType.Standard) : this(height,width,depth,18,3,name,new Config.Config(),enumCabinetType) { }
 
-        public Cabinet(int height, int width, int depth, int sizeElement, int backSize, string name,IConfig config)
+        public Cabinet(int height, int width, int depth, int sizeElement, int backSize, string name,IConfig config,EnumCabinetType enumCabinetType = EnumCabinetType.Standard)
         {
             Logger.Info("Start cabinet constructor");
             Logger.Trace("Start Automapper created");
@@ -51,7 +51,7 @@ namespace CoreS
             BackSize = backSize;
             Back = EnumBack.Brak;
             _name = name;
-            CabinetType = EnumCabinetType.Standard;
+            CabinetType = enumCabinetType;
 
             Logger.Trace("Start GlobalCabinetElemen in cabinet constructor");
             GlobalCabinetElement();
@@ -61,7 +61,11 @@ namespace CoreS
             FrontFactory = new FrontFactory(this,_config);
         }
 
-        
+        public EnumCabinetType Type()
+        {
+            return CabinetType;
+        }
+
         public Cabinet Height(int h)
         {
             Logger.Debug("Change cabinet height from: {0} to: {1}", _height, h);
@@ -183,6 +187,98 @@ namespace CoreS
                     break;
 
                 case EnumCabinetType.duza_gora:
+                    break;
+                case EnumCabinetType.gorna:
+
+                    _leftSide = new ElementModel(
+                        description: "Bok Lewy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: 0,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Leftside,
+                        horizontal: false);
+
+                    _rightSide = new ElementModel(
+                        description: "Bok Prawy",
+                        height: _height,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _width - _sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Rightside,
+                        horizontal: false);
+
+                    _bottom = new ElementModel(
+                        description: "Spód",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth-20,
+                        x: _sizeElement,
+                        y: 0,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this)+20,
+                        enumCabinet: EnumCabinetElement.Bottom,
+                        horizontal: true);
+
+                    _top = new ElementModel(
+                        description: "Góra",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth-20,
+                        x: _sizeElement,
+                        y: _height - _sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this)+20,
+                        enumCabinet: EnumCabinetElement.Top,
+                        horizontal: true);
+                    break;
+
+                case EnumCabinetType.gorna_do_spodu:
+                    _leftSide = new ElementModel(
+                        description: "Bok Lewy",
+                        height: _height-_sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: 0,
+                        y: 0+_sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Leftside,
+                        horizontal: false);
+
+                    _rightSide = new ElementModel(
+                        description: "Bok Prawy",
+                        height: _height-_sizeElement,
+                        width: _sizeElement,
+                        depth: _depth,
+                        x: _width - _sizeElement,
+                        y: 0+_sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
+                        enumCabinet: EnumCabinetElement.Rightside,
+                        horizontal: false);
+
+                    _bottom = new ElementModel(
+                        description: "Spód",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth - 20,
+                        x: _sizeElement,
+                        y: 0+_sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this) + 20,
+                        enumCabinet: EnumCabinetElement.Bottom,
+                        horizontal: true);
+
+                    _top = new ElementModel(
+                        description: "Góra",
+                        height: _width - 2 * _sizeElement,
+                        width: _sizeElement,
+                        depth: _depth - 20,
+                        x: _sizeElement,
+                        y: _height - _sizeElement,
+                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this) + 20,
+                        enumCabinet: EnumCabinetElement.Top,
+                        horizontal: true);
                     break;
 
                 default:

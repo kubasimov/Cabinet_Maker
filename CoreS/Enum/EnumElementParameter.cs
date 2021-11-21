@@ -8,6 +8,7 @@
         Description,
         X,
         Y,
-        Z
+        Z,
+        Horizontal
     }
 }

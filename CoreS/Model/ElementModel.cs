@@ -117,7 +117,7 @@ namespace CoreS.Model
         public bool ChangeX { get; private set; }
         public bool ChangeY { get; private set; }
         public bool ChangeZ { get; private set; }
-
+        public bool ChangeHorizontal { get; private set; }
 
         public ElementModel()
         {
@@ -163,7 +163,79 @@ namespace CoreS.Model
             };
         }
 
-        public int GetElementParameter(EnumElementParameter enumElementParameter)
+        public void SetParameter(EnumElementParameter enumElementParameter, object value, bool change = true)
+        {
+            switch (enumElementParameter)
+            {
+                case EnumElementParameter.Width:
+
+                    if ((int)value >= 0 && (int)value != Width)
+                    {
+                        Width = (int)value;
+                        if (change) ChangeWidth = true;
+                    }
+                    break;
+
+                case EnumElementParameter.Height:
+                    if ((int)value >= 0 && (int)value != Height)
+                    {
+                        Height = (int)value;
+                        if (change) ChangeHeight = true;
+                    }
+                    break;
+
+                case EnumElementParameter.Depth:
+                    if ((int)value >= 0 && (int)value != Depth)
+                    {
+                        Depth = (int)value;
+                        if (change) ChangeDepth = true;
+                    }
+                    break;
+
+                case EnumElementParameter.Description:
+                    if ((string)value != Description)
+                    {
+                        Description = (string)value;
+                        if (change) ChangeDescription = true;
+                    }
+                    break;
+
+                case EnumElementParameter.X:
+                    if ((int)value != X)
+                    {
+                        X = (int)value;
+                        if (change) ChangeX = true;
+                    }
+                    break;
+
+                case EnumElementParameter.Y:
+                    if ((int)value != Y)
+                    {
+                        Y = (int)value;
+                        if (change) ChangeY = true;
+                    }
+                    break;
+
+                case EnumElementParameter.Z:
+                    if ((int)value != Z)
+                    {
+                        Z = (int)value;
+                        if (change) ChangeZ = true;
+                    }
+                    break;
+                case EnumElementParameter.Horizontal:
+                    if ((bool)value != Horizontal)
+                    {
+                        Horizontal = (bool)value;
+                        if (change) ChangeHorizontal = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public object GetParameter(EnumElementParameter enumElementParameter)
         {
             switch (enumElementParameter)
             {
@@ -173,6 +245,8 @@ namespace CoreS.Model
                 case EnumElementParameter.X: return X;
                 case EnumElementParameter.Y: return Y;
                 case EnumElementParameter.Z: return Z;
+                case EnumElementParameter.Description: return Description;
+                case EnumElementParameter.Horizontal: return Horizontal;
                 default: return -1;
 
             }

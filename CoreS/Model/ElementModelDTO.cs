@@ -126,6 +126,7 @@ namespace CoreS.Model
         public bool ChangeY { get; private set; }
         public bool ChangeZ { get; private set; }
 
+        public bool ChangeHorizontal { get; private set; }
 
         public ElementModelDTO()
         {

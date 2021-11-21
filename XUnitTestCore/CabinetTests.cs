@@ -58,6 +58,109 @@ namespace XUnitTestCore
             cabinet.Depth().Should().Be(depth);
         }
 
+       
+
+        [Fact]
+        public void Utworzenie_szafki_gornej_z_domyslnymi_wartosciami()
+        {
+            var cabinet = new Cabinet(EnumCabinetType.gorna);
+            cabinet.Should().NotBeNull();
+            cabinet.Type().Should().Be(EnumCabinetType.gorna);
+            cabinet.GetElements(EnumCabinetElement.Leftside).GetParameter(EnumElementParameter.Depth).Should().Be(510);
+            cabinet.GetElements(EnumCabinetElement.Top).GetParameter(EnumElementParameter.Depth).Should().Be(490);
+        }
+
+        [Fact]
+        public void Utworzenie_szafki_gornej_o_zadanych_wartosciach()
+        {
+            var cabinet = new Cabinet(1200,450,350,"XXX",EnumCabinetType.gorna);
+            cabinet.Should().NotBeNull();
+            cabinet.Type().Should().Be(EnumCabinetType.gorna);
+            cabinet.GetElements(EnumCabinetElement.Leftside).GetParameter(EnumElementParameter.Depth).Should().Be(350);
+            cabinet.GetElements(EnumCabinetElement.Top).GetParameter(EnumElementParameter.Depth).Should().Be(330);
+            cabinet.GetElements(EnumCabinetElement.Bottom).GetParameter(EnumElementParameter.Height).Should().Be(414);
+        }
+
+        [Fact]
+        public void Utworzenie_szafki_gornej_i_dodanie_plecow_wrebowych()
+        {
+
+        }
+
+        [Fact]
+        public void Utworzenie_szafki_gornej_i_dodanie_plecow_nakladanych()
+        {
+
+        }
+
+        [Theory]
+        [InlineData(EnumCabinetElement.Leftside,EnumElementParameter.Width,18,36 )]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Height, 720, 900)]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Depth, 510, 600)]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.X, 0, 12)]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Y, 0, 12)]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Z, 0, 12)]
+        [InlineData(EnumCabinetElement.Rightside, EnumElementParameter.Width, 18, 36)]
+        [InlineData(EnumCabinetElement.Rightside, EnumElementParameter.Height, 720, 900)]
+        [InlineData(EnumCabinetElement.Rightside, EnumElementParameter.Depth, 510, 600)]
+
+        [InlineData(EnumCabinetElement.Top, EnumElementParameter.Width, 18, 36)]
+        [InlineData(EnumCabinetElement.Top, EnumElementParameter.Height, 564, 900)]
+        [InlineData(EnumCabinetElement.Top, EnumElementParameter.Depth, 510, 600)]
+
+        [InlineData(EnumCabinetElement.Bottom, EnumElementParameter.Width, 18, 36)]
+        [InlineData(EnumCabinetElement.Bottom, EnumElementParameter.Height, 564, 900)]
+        [InlineData(EnumCabinetElement.Bottom, EnumElementParameter.Depth, 510, 600)]
+        public void Zmaian_parametrow_elementu_szafki_int(EnumCabinetElement enumCabinetElement,EnumElementParameter enumElementParameter, int value,int newValue)
+        {
+            var cabinet =new Cabinet();
+
+            cabinet.Should().NotBeNull();
+
+            var elem = cabinet.GetElements(enumCabinetElement);
+            
+            elem.GetParameter(enumElementParameter).Should().Be(value);
+
+            elem.SetParameter(enumElementParameter, newValue,true);
+
+            elem.GetParameter(enumElementParameter).Should().Be(newValue);
+        }
+
+        [Theory]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Description, "Bok Lewy", "XXX")]
+        public void Zmaian_parametrow_elementu_szafki_Description(EnumCabinetElement enumCabinetElement, EnumElementParameter enumElementParameter, string value, string newValue)
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.Should().NotBeNull();
+
+            var elem = cabinet.GetElements(enumCabinetElement);
+
+            elem.GetParameter(enumElementParameter).Should().Be(value);
+
+            elem.SetParameter(enumElementParameter, newValue, true);
+
+            elem.GetParameter(enumElementParameter).Should().Be(newValue);
+        }
+
+        [Theory]
+        [InlineData(EnumCabinetElement.Leftside, EnumElementParameter.Horizontal, false, true)]
+        [InlineData(EnumCabinetElement.Top, EnumElementParameter.Horizontal, true, false)]
+        public void Zmaian_parametrow_elementu_szafki_Horizontal(EnumCabinetElement enumCabinetElement, EnumElementParameter enumElementParameter, bool value, bool newValue)
+        {
+            var cabinet = new Cabinet();
+
+            cabinet.Should().NotBeNull();
+
+            var elem = cabinet.GetElements(enumCabinetElement);
+
+            elem.GetParameter(enumElementParameter).Should().Be(value);
+
+            elem.SetParameter(enumElementParameter, newValue, true);
+
+            elem.GetParameter(enumElementParameter).Should().Be(newValue);
+        }
+
         [Fact]
         public void Utworzenie_szafki_i_dodanie_plecow_nakladanych()
         {
@@ -82,64 +185,7 @@ namespace XUnitTestCore
             cabinet.Back.Should().Be(EnumBack.Wpuszczane);
         }
 
-        [Fact]
-        public void Utworzenie_szafki_gornej_z_domyslnymi_wartosciami()
-        {
 
-        }
-
-        [Fact]
-        public void Utworzenie_szafki_gornej_o_zadanych_wartosciach()
-        {
-
-        }
-
-        [Fact]
-        public void Utworzenie_szafki_gornej_i_dodanie_plecow_wrebowych()
-        {
-
-        }
-
-        [Fact]
-        public void Utworzenie_szafki_gornej_i_dodanie_plecow_nakladanych()
-        {
-
-        }
-
-        [Fact]
-        public void Zmiana_grubosci_lewego_bok()
-        {
-            var cabinet = new Cabinet();
-
-            var width = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
-
-            cabinet.ChangeElemenet(cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside), EnumElementParameter.Width, "36");
-
-            var width1 = cabinet.CabinetElements.Find(x => x.GetEnumName() == EnumCabinetElement.Leftside).Width;
-
-            Assert.Equal(18, width);
-            Assert.Equal(36, width1);
-
-
-        }
-
-        [Theory]
-        [InlineData(EnumCabinetElement.Leftside,EnumElementParameter.Width,18,36 )]
-        public void Zmaian_parametrow_elementu_szafki(EnumCabinetElement enumCabinetElement,EnumElementParameter enumElementParameter, int value,int newValue)
-        {
-            var cabinet =new Cabinet();
-
-            cabinet.Should().NotBeNull();
-
-            var elem = cabinet.GetElements(enumCabinetElement);
-            var elementWidth = elem.GetElementParameter(enumElementParameter);
-
-            elementWidth.Should().Be(value);
-
-            elem.SetWidth(newValue);
-
-            elementWidth = elem.GetElementParameter(enumElementParameter);
-            elementWidth.Should().Be(newValue);
-        }
     }
+
 }
