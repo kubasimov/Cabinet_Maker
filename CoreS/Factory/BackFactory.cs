@@ -31,16 +31,16 @@ namespace CoreS.Factory
             return tempBack;
         }
 
-        public int ValueAxisZbyBackTypeAndSize(Cabinet cabinet)
+        public int ValueAxisZbyBackTypeAndSize(EnumBack enumBack,int backSize)
         {
             int value;
-            switch (cabinet.Back)
+            switch (enumBack)
             {
                 case EnumBack.Brak:
                     value = 0;
                     break;
                 case EnumBack.Nakladane:
-                    value = cabinet.BackSize;
+                    value = backSize;
                     break;
                 case EnumBack.Wpuszczane:
                     value = 0;

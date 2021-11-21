@@ -281,7 +281,7 @@ namespace WPF3.ViewModel
             Logger.Info("ExecutechangeCabinetWhenLostFocusCommand in MainViewModel");
             _cabinet.Height(int.Parse(_myCabinet.Height)).Width(int.Parse(_myCabinet.Width)).Depth(int.Parse(_myCabinet.Depth)).SizeElement(int.Parse(_myCabinet.SizeElement)).Name(_myCabinet.Name);
 
-            _cabinet.BackSize = int.Parse(_myCabinet.BackSize);
+            _cabinet._backSize = int.Parse(_myCabinet.BackSize);
             
             _cabinet.Redraw();
 

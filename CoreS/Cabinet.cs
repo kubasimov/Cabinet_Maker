@@ -14,10 +14,6 @@ namespace CoreS
 {
     public class Cabinet : CabinetModel
     {
-        private ElementModel _leftSide;
-        private ElementModel _rightSide;
-        private ElementModel _bottom;
-        private ElementModel _top;
         private MapperConfiguration _mapperConfiguration;
         private IMapper _mapper;
 
@@ -48,10 +44,10 @@ namespace CoreS
             _width = width;
             _depth = depth;
             _sizeElement = sizeElement;
-            BackSize = backSize;
-            Back = EnumBack.Brak;
+            _backSize = backSize;
+            _enumBack = EnumBack.Brak;
             _name = name;
-            CabinetType = enumCabinetType;
+            _cabinetType = enumCabinetType;
 
             Logger.Trace("Start GlobalCabinetElemen in cabinet constructor");
             GlobalCabinetElement();
@@ -63,7 +59,7 @@ namespace CoreS
 
         public EnumCabinetType Type()
         {
-            return CabinetType;
+            return _cabinetType;
         }
 
         public Cabinet Height(int h)
@@ -129,232 +125,28 @@ namespace CoreS
 
         private void GlobalCabinetElement()
         {
-            Logger.Trace("Start GlobalCabinetElements");
-            switch (CabinetType)
-            {
-                case EnumCabinetType.Standard:
-
-                    _leftSide = new ElementModel(
-                        description: "Bok Lewy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: 0,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Leftside,
-                        horizontal: false);
-
-                    _rightSide = new ElementModel(
-                        description: "Bok Prawy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _width - _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Rightside,
-                        horizontal: false);
-
-                    _bottom = new ElementModel(
-                        description: "Spód",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: true);
-
-                    _top = new ElementModel(
-                        description: "Góra",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _sizeElement,
-                        y: _height - _sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Top,
-                        horizontal: true);
-
-                    break;
-
-                case EnumCabinetType.odwrotna:
-                    break;
-
-                case EnumCabinetType.duzy_spod:
-                    break;
-
-                case EnumCabinetType.duza_gora:
-                    break;
-                case EnumCabinetType.gorna:
-
-                    _leftSide = new ElementModel(
-                        description: "Bok Lewy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: 0,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Leftside,
-                        horizontal: false);
-
-                    _rightSide = new ElementModel(
-                        description: "Bok Prawy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _width - _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Rightside,
-                        horizontal: false);
-
-                    _bottom = new ElementModel(
-                        description: "Spód",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth-20,
-                        x: _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this)+20,
-                        enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: true);
-
-                    _top = new ElementModel(
-                        description: "Góra",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth-20,
-                        x: _sizeElement,
-                        y: _height - _sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this)+20,
-                        enumCabinet: EnumCabinetElement.Top,
-                        horizontal: true);
-                    break;
-
-                case EnumCabinetType.gorna_do_spodu:
-                    _leftSide = new ElementModel(
-                        description: "Bok Lewy",
-                        height: _height-_sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: 0,
-                        y: 0+_sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Leftside,
-                        horizontal: false);
-
-                    _rightSide = new ElementModel(
-                        description: "Bok Prawy",
-                        height: _height-_sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _width - _sizeElement,
-                        y: 0+_sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Rightside,
-                        horizontal: false);
-
-                    _bottom = new ElementModel(
-                        description: "Spód",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth - 20,
-                        x: _sizeElement,
-                        y: 0+_sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this) + 20,
-                        enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: true);
-
-                    _top = new ElementModel(
-                        description: "Góra",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth - 20,
-                        x: _sizeElement,
-                        y: _height - _sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this) + 20,
-                        enumCabinet: EnumCabinetElement.Top,
-                        horizontal: true);
-                    break;
-
-                default:
-
-                    _leftSide = new ElementModel(
-                        description: "Bok Lewy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: 0,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Leftside,
-                        horizontal: false);
-                    _rightSide = new ElementModel(
-                        description: "Bok Prawy",
-                        height: _height,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _width - _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Rightside,
-                        horizontal: false);
-                    _bottom = new ElementModel(
-                        description: "Spód",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _sizeElement,
-                        y: 0,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Bottom,
-                        horizontal: true);
-                    _top = new ElementModel(
-                        description: "Góra",
-                        height: _width - 2 * _sizeElement,
-                        width: _sizeElement,
-                        depth: _depth,
-                        x: _sizeElement,
-                        y: _height - _sizeElement,
-                        z: SwitchBack.ValueAxisZbyBackTypeAndSize(this),
-                        enumCabinet: EnumCabinetElement.Top,
-                        horizontal: true);
-
-                    break;
-            }
-            Logger.Trace("Start ChangeCabinetElement in GlobalCabinetElements");
-
-            ChangeCabinetElement(EnumCabinetElement.Leftside, _leftSide);
-            ChangeCabinetElement(EnumCabinetElement.Rightside, _rightSide);
-            ChangeCabinetElement(EnumCabinetElement.Bottom, _bottom);
-            ChangeCabinetElement(EnumCabinetElement.Top, _top);
-
-            Logger.Trace("Stop ChangeCabinetElement in GlobalCabinetElements");
-            Logger.Trace("Start GlobalCabinetElements");
+            CabinetFactory cabinetFactory = new CabinetFactory();
+            CabinetElements = cabinetFactory.Create(_height, _width, _depth, _sizeElement, _backSize, _config, _cabinetType, _enumBack);
         }
         // TODO: Logger
         private void ChangeBack()
         {
             ElementModel elementBack;
 
-            if (Back == EnumBack.Nakladane)
+            if (_enumBack == EnumBack.Nakladane)
             {
                 elementBack = new ElementModel(
                         description: "Plecy",
                         height: _height,
                         width: _width,
-                        depth: BackSize,
+                        depth: _backSize,
                         x: 0,
                         y: 0,
                         z: 0,
                         enumCabinet: EnumCabinetElement.Back,
                         horizontal: false);
 
-                _depth = SwitchBack.SwitchDepthByBackType(_depth, Back, BackSize);
+                _depth = SwitchBack.SwitchDepthByBackType(_depth, _enumBack, _backSize);
 
                 ChangeCabinetElement(EnumCabinetElement.Back, elementBack);
             }
@@ -362,7 +154,7 @@ namespace CoreS
         // TODO: Logger
         public void AddBack(EnumBack back = EnumBack.Nakladane)
         {
-            Back = back;
+            _enumBack = back;
             ChangeBack();
         }
         // TODO: Logger
@@ -1017,13 +809,19 @@ namespace CoreS
         private void RedrawCabinetElements()
         {
             Logger.Info("RedrawCabinetElements in Cabinet");
+
+            var _leftSide = CabinetElements.Find(x => x.GetEnumName().Equals(EnumCabinetElement.Leftside));
+            var _rightSide = CabinetElements.Find(x=>x.GetEnumName().Equals(EnumCabinetElement.Rightside));
+            var _bottom = CabinetElements.Find(x => x.GetEnumName().Equals(EnumCabinetElement.Bottom));
+            var _top = CabinetElements.Find(y => y.GetEnumName().Equals(EnumCabinetElement.Top));
+
             _leftSide.SetDescription(_leftSide.ChangeDescription ? _leftSide.Description : "Bok Lewy", false);
             _leftSide.SetHeight(_leftSide.ChangeHeight ? _leftSide.Height : _height, false);
             _leftSide.SetWidth(_leftSide.ChangeWidth ? _leftSide.Width : _sizeElement, false);
             _leftSide.SetDepth(_leftSide.ChangeDepth ? _leftSide.Depth : _depth, false);
             _leftSide.SetX(_leftSide.ChangeX ? _leftSide.X : 0, false);
             _leftSide.SetY(_leftSide.ChangeY ? _leftSide.Y : 0, false);
-            _leftSide.SetZ(_leftSide.ChangeZ ? _leftSide.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(this), false);
+            _leftSide.SetZ(_leftSide.ChangeZ ? _leftSide.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(_enumBack, _backSize), false);
             _leftSide.SetEnumName(EnumCabinetElement.Leftside);
             _leftSide.SetHorizontal(false);
 
@@ -1033,7 +831,7 @@ namespace CoreS
             _rightSide.SetDepth(_rightSide.ChangeDepth ? _rightSide.Depth : _depth, false);
             _rightSide.SetX(_rightSide.ChangeX ? _rightSide.X : _width - _rightSide.Width, false);
             _rightSide.SetY(_rightSide.ChangeY ? _rightSide.Y : 0, false);
-            _rightSide.SetZ(_rightSide.ChangeZ ? _rightSide.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(this), false);
+            _rightSide.SetZ(_rightSide.ChangeZ ? _rightSide.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(_enumBack, _backSize), false);
             _rightSide.SetEnumName(EnumCabinetElement.Rightside);
             _rightSide.SetHorizontal(false);
 
@@ -1043,7 +841,7 @@ namespace CoreS
             _bottom.SetDepth(_bottom.ChangeDepth ? _bottom.Depth : _depth, false);
             _bottom.SetX(_bottom.ChangeX ? _bottom.X : _leftSide.Width, false);
             _bottom.SetY(_bottom.ChangeY ? _bottom.Y : 0, false);
-            _bottom.SetZ(_bottom.ChangeZ ? _bottom.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(this), false);
+            _bottom.SetZ(_bottom.ChangeZ ? _bottom.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(_enumBack, _backSize), false);
             _bottom.SetEnumName(EnumCabinetElement.Bottom);
             _bottom.SetHorizontal(true);
 
@@ -1053,7 +851,7 @@ namespace CoreS
             _top.SetDepth(_top.ChangeDepth ? _top.Depth : _depth, false);
             _top.SetX(_top.ChangeX ? _top.X : _leftSide.Width, false);
             _top.SetY(_top.ChangeY ? _top.Y : _height - _top.Width, false);
-            _top.SetZ(_top.ChangeZ ? _top.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(this), false);
+            _top.SetZ(_top.ChangeZ ? _top.Z : SwitchBack.ValueAxisZbyBackTypeAndSize(_enumBack, _backSize), false);
             _top.SetEnumName(EnumCabinetElement.Top);
             _top.SetHorizontal(true);
         }

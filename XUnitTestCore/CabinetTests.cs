@@ -170,7 +170,7 @@ namespace XUnitTestCore
 
             cabinet.AddBack();
 
-            cabinet.Back.Should().Be(EnumBack.Nakladane);
+            cabinet._enumBack.Should().Be(EnumBack.Nakladane);
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace XUnitTestCore
 
             cabinet.AddBack(EnumBack.Wpuszczane);
 
-            cabinet.Back.Should().Be(EnumBack.Wpuszczane);
+            cabinet._enumBack.Should().Be(EnumBack.Wpuszczane);
         }
 
 

@@ -7,7 +7,7 @@ namespace CoreS.Model
 {
     public class CabinetModel
     {
-        protected EnumCabinetType CabinetType;
+        protected EnumCabinetType _cabinetType;
 
         //TODO: tymczasowo zmienne publiczne do serializacji. Przygotować dodatkowy model do serializacji(zapisu cabinet)
         public string _name;
@@ -15,8 +15,8 @@ namespace CoreS.Model
         public int _width;
         public int _depth;
         public int _sizeElement;
-        public int BackSize;
-        public EnumBack Back;
+        public int _backSize;
+        public EnumBack _enumBack;
 
         public List<ElementModel> CabinetElements = new List<ElementModel>();
         public List<ElementModel> HorizontalBarrier = new List<ElementModel>();
